@@ -6,7 +6,10 @@
                 "name": "linux"
             },
             {
-                "name": "windows"
+                "name": "windows",
+                "aliases": {
+                    ".curlrc": "$APPDATA/_curlrc"
+                }
             }
         ]
     },
