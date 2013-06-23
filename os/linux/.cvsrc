@@ -1,0 +1,7 @@
+# .cvsrc
+
+cvs -q
+
+checkout -P
+diff -u
+update -d -P
