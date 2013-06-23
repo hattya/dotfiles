@@ -1,0 +1,16 @@
+[
+    {
+        "name": "os",
+        "layers": [
+            {
+                "name": "linux"
+            },
+            {
+                "name": "windows"
+            }
+        ]
+    },
+    {
+        "name": "master"
+    }
+]
