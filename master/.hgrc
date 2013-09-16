@@ -1,0 +1,31 @@
+[defaults]
+qnew = -D
+tip = -v
+
+[diff]
+git = True
+
+[ui]
+username = Akinori Hattori <hattya@gmail.com>
+
+[extensions]
+hgext.bookmarks =
+hgext.color =
+hgext.graphlog =
+hgext.mq =
+hgext.pager =
+hgext.progress =
+
+[bookmarks]
+track.current = True
+
+[pager]
+attend = annotate, blame, bookmarks, branches, cat, diff, export, grep, heads,
+    incoming, locate, log, manifest, outgoing, parents, paths, phase,
+    showconfig, status, tags, tip,
+    glog,
+    qapplied, qdiff, qseries, qunapplied
+pager = less -F
+
+%include .hgrc.d/os.rc
+%include .hgrc.d/host.rc
