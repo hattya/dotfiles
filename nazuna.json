@@ -3,7 +3,10 @@
         "name": "os",
         "layers": [
             {
-                "name": "linux"
+                "name": "linux",
+                "aliases": {
+                    ".flake8": ".config/flake8"
+                }
             },
             {
                 "name": "windows",
