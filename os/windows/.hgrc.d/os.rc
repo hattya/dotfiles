@@ -1,0 +1,14 @@
+[alias]
+push = !"%HG%" --config color.mode=win32 --config alias.push=push push $@
+
+[ui]
+editor = gvim
+ssh = plink -batch -C
+
+[hooks]
+changegroup.stat = hg diff --stat -r %HG_NODE%:
+
+[color]
+mode = ansi
+
+# vim:ft=cfg:
