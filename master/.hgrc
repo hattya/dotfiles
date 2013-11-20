@@ -19,6 +19,9 @@ hgext.progress =
 [bookmarks]
 track.current = True
 
+[mq]
+secret = True
+
 [pager]
 attend = annotate, blame, bookmarks, branches, cat, diff, export, grep, heads,
     incoming, locate, log, manifest, outgoing, parents, paths, phase,
