@@ -1,3 +1,6 @@
+[hooks]
+changegroup.stat = hg diff --stat -r $HG_NODE:
+
 [web]
 cacerts = /etc/ssl/certs/ca-certificates.crt
 
