@@ -15,6 +15,7 @@ hgext.graphlog =
 hgext.mq =
 hgext.pager =
 hgext.progress =
+hgext.purge =
 
 [bookmarks]
 track.current = True
