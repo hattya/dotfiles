@@ -1,0 +1,45 @@
+[alias]
+	co = checkout
+	ci = commit -v
+	st = status
+	ss = status -bs
+	di = diff -M
+	wdi = diff -M --color-word
+	br = branch
+	sw = checkout
+	re = rebase --committer-date-is-author-date
+	ri = rebase -i
+	rc = rebase --continue
+	rs = rebase --skip
+	ra = rebase --abort
+	ls = ls-files
+	g = grep
+	rollback = reset HEAD^ --
+	l = log --stat --pretty=fuller
+	ll = log -p --stat --pretty=fuller
+	v = show -M -p --pretty=fuller --stat
+	view = log --oneline --graph --source --tags --branches
+	xl = stash list
+	xs = stash show
+	xp = stash show -M -p --stat
+	xd = stash drop
+	xo = stash pop
+	xa = stash apply
+	xi = stash save
+	xbr = stash branch
+	xC = stash clear
+[color]
+	ui = auto
+[core]
+	quotepath = false
+[help]
+	autocorrect = -1
+[push]
+	default = simple
+[rebase]
+	autosquash = true
+[user]
+	name = Akinori Hattori
+	email = hattya@gmail.com
+[github]
+	user = hattya
