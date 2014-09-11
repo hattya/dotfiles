@@ -13,6 +13,32 @@ for dc in ~/.dir_colors /etc/DIR_COLORS; do
 done
 unset dc
 
+if whence -p tput >/dev/null; then
+  (( is_256color = $(tput colors) == 256 ))
+elif [[ ${TERM} == *256color ]]; then
+  (( is_256color = 1 ))
+fi
+
+function _zshrc_fg() {
+  local -a c256 c8
+  c256=(${(s.:.)1})
+  c8=(${(s.:.)2})
+  shift 2
+  if (( ${+is_256color} )); then
+    if (( ${#c256} == 1 )); then
+      echo -n "%F{${c256[1]}}${@}%f"
+    else
+      echo -n "%(?.%F{${c256[1]}}.%F{${c256[2]}})${@}%f"
+    fi
+  else
+    if (( ${#c8} == 1 )); then
+      echo -n "%{${fg[${c8[1]}]}%}${@}%{${reset_color}%}"
+    else
+      echo -n "%{%(?.${fg[${c8[1]}]}.${fg[${c8[2]}]})%}${@}%{${reset_color}%}"
+    fi
+  fi
+}
+
 # autoload
 autoload -Uz colors;   colors
 autoload -Uz compinit; compinit
@@ -38,7 +64,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
 zstyle ':completion:*' menu select=2
-zstyle ':completion:*:descriptions' format "- %{${fg[yellow]}%}%d%{${reset_color}%} -"
+zstyle ':completion:*:descriptions' format "$(_zshrc_fg 246 white '-') $(_zshrc_fg 220 yellow '%d') $(_zshrc_fg 246 white '-')"
 # processes
 zstyle ':completion:*:processes' command "ps -au '${USER}' -o pid,tty,cputime,args"
 zstyle ':completion:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
@@ -81,15 +107,15 @@ setopt transient_rprompt
 
 case ${UID} in
 0)
-  PROMPT="%{${fg_bold[red]}%}%n %{${fg_bold[yellow]}%}%#%{${reset_color}%} "
+  PROMPT="%{${fg[red]}%}%n%{${reset_color}%} %{%(?.${fg[yellow]}.${fg[magenta]})%}%#%{${reset_color}%} "
   ;;
 *)
   if [[ $(hostname -i) == 192.168.* ]]; then
-    m="cyan"
+    mc=(014 cyan)
   else
-    m="white"
+    mc=(015 white)
   fi
-  m="%{${fg_bold[${m}]}%}@%m"
+  m="@%m"
   if [[ ${+STY} == 1 ]]; then
     # screen window number
     m+="[${WINDOW}]"
@@ -100,11 +126,11 @@ case ${UID} in
     }
     m+="[\$(_zshrc_tmux_window)]"
   fi
-  PROMPT="%{${fg_bold[green]}%}%n${m} %{%(?.${fg_bold[green]}.${fg_bold[red]})%}%(?.:).:() %{${fg_bold[yellow]}%}%#%{${reset_color}%} "
-  unset m
+  PROMPT="$(_zshrc_fg 047 green '%n')$(_zshrc_fg ${mc[@]} "${m}") $(_zshrc_fg 228:198 yellow:red '%#') "
+  unset m mc
   ;;
 esac
-RPROMPT=" %{${fg_bold[yellow]}%}<%~>%{${reset_color}%}"
+RPROMPT=" $(_zshrc_fg 228 yellow '<%~>')"
 
 # zle
 unsetopt beep
