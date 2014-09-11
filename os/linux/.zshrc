@@ -19,7 +19,7 @@ elif [[ ${TERM} == *256color ]]; then
   (( is_256color = 1 ))
 fi
 
-function _zshrc_fg() {
+function _zshrc-fg() {
   local -a c256 c8
   c256=(${(s.:.)1})
   c8=(${(s.:.)2})
@@ -65,7 +65,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
 zstyle ':completion:*' menu select=2
-zstyle ':completion:*:descriptions' format "$(_zshrc_fg 246 white '-') $(_zshrc_fg 220 yellow '%d') $(_zshrc_fg 246 white '-')"
+zstyle ':completion:*:descriptions' format "$(_zshrc-fg 246 white '-') $(_zshrc-fg 220 yellow '%d') $(_zshrc-fg 246 white '-')"
 # processes
 zstyle ':completion:*:processes' command "ps -au '${USER}' -o pid,tty,cputime,args"
 zstyle ':completion:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
@@ -108,7 +108,7 @@ setopt transient_rprompt
 
 autoload -Uz vcs_info
 add-zsh-hook precmd vcs_info
-zstyle ':vcs_info:*' formats " $(_zshrc_fg 214 magenta '(%b)')"
+zstyle ':vcs_info:*' formats " $(_zshrc-fg 214 magenta '(%b)')"
 
 case ${UID} in
 0)
@@ -121,21 +121,21 @@ case ${UID} in
     mc=(015 white)
   fi
   m="@%m"
-  if [[ ${+STY} == 1 ]]; then
+  if (( ${+STY} )); then
     # screen window number
     m+="[${WINDOW}]"
-  elif [[ ${+TMUX} == 1 ]]; then
+  elif (( ${+TMUX} )); then
     # tmux window number
-    function _zshrc_tmux_window() {
+    function _zshrc-tmux-window() {
       tmux display-message -p "#I.#P"
     }
-    m+="[\$(_zshrc_tmux_window)]"
+    m+="[\$(_zshrc-tmux-window)]"
   fi
-  PROMPT="$(_zshrc_fg 047 green '%n')$(_zshrc_fg ${mc[@]} "${m}")\${vcs_info_msg_0_} $(_zshrc_fg 228:198 yellow:red '%#') "
+  PROMPT="$(_zshrc-fg 047 green '%n')$(_zshrc-fg ${mc[@]} "${m}")\${vcs_info_msg_0_} $(_zshrc-fg 228:198 yellow:red '%#') "
   unset m mc
   ;;
 esac
-RPROMPT=" $(_zshrc_fg 228 yellow '<%~>')"
+RPROMPT=" $(_zshrc-fg 228 yellow '<%~>')"
 
 # zle
 unsetopt beep
@@ -221,15 +221,15 @@ if whence -p go >/dev/null; then
 fi
 
 # change window title of terminal
-if [[ ${+DISPLAY} == 1 || ${+SSH_CLIENT} == 1 ]]; then
+if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
   case ${TERM} in
   rxvt*|*term*|putty*)
-    function _zshrc_update_title() {
+    function _zshrc-update-title() {
       print -n "\e]2;${1}\a"
     }
     ;;
   screen*)
-    function _zshrc_update_title() {
+    function _zshrc-update-title() {
       # screen location
       print -n "\e_${1}\e\\"
       # screen title (in ^A)
@@ -237,25 +237,25 @@ if [[ ${+DISPLAY} == 1 || ${+SSH_CLIENT} == 1 ]]; then
     }
     ;;
   *)
-    function _zshrc_update_title() {
+    function _zshrc-update-title() {
       :
     }
     ;;
   esac
 
-  function _zshrc_chpwd() {
-    _zshrc_update_title "$(print -Pn "%n@%m - %~")"
+  function _zshrc-chpwd() {
+    _zshrc-update-title "$(print -Pn "%n@%m - %~")"
   }
-  add-zsh-hook chpwd _zshrc_chpwd
+  add-zsh-hook chpwd _zshrc-chpwd
 
-  function _zshrc_preexec() {
+  function _zshrc-preexec() {
     local -a cmd
     cmd+=${(z)1}
     # builtin jobs
     local job
     case ${cmd[1]} in
     fg)
-      if [[ ${#cmd} == 1 ]]; then
+      if (( ${#cmd} == 1 )); then
         job="%+"
       else
         job="${cmd[2]}"
@@ -275,9 +275,9 @@ if [[ ${+DISPLAY} == 1 || ${+SSH_CLIENT} == 1 ]]; then
     fi
 
     [[ -z ${cmd} ]] && cmd+=${(z)1}
-    _zshrc_update_title "$(print -Pn "%n@%m") - ${cmd[1]:t}"
+    _zshrc-update-title "$(print -Pn "%n@%m") - ${cmd[1]:t}"
   }
-  add-zsh-hook preexec _zshrc_preexec
+  add-zsh-hook preexec _zshrc-preexec
 fi
 
 if [[ -f /usr/share/knu-z/knu-z.sh ]]; then
