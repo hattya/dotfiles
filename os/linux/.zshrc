@@ -40,6 +40,7 @@ function _zshrc_fg() {
 }
 
 # autoload
+autoload -Uz add-zsh-hook
 autoload -Uz colors;   colors
 autoload -Uz compinit; compinit
 
@@ -105,6 +106,10 @@ setopt notify
 setopt prompt_subst
 setopt transient_rprompt
 
+autoload -Uz vcs_info
+add-zsh-hook precmd vcs_info
+zstyle ':vcs_info:*' formats " $(_zshrc_fg 214 magenta '(%b)')"
+
 case ${UID} in
 0)
   PROMPT="%{${fg[red]}%}%n%{${reset_color}%} %{%(?.${fg[yellow]}.${fg[magenta]})%}%#%{${reset_color}%} "
@@ -126,7 +131,7 @@ case ${UID} in
     }
     m+="[\$(_zshrc_tmux_window)]"
   fi
-  PROMPT="$(_zshrc_fg 047 green '%n')$(_zshrc_fg ${mc[@]} "${m}") $(_zshrc_fg 228:198 yellow:red '%#') "
+  PROMPT="$(_zshrc_fg 047 green '%n')$(_zshrc_fg ${mc[@]} "${m}")\${vcs_info_msg_0_} $(_zshrc_fg 228:198 yellow:red '%#') "
   unset m mc
   ;;
 esac
@@ -216,7 +221,6 @@ if whence -p go >/dev/null; then
 fi
 
 # change window title of terminal
-autoload -Uz add-zsh-hook
 if [[ ${+DISPLAY} == 1 || ${+SSH_CLIENT} == 1 ]]; then
   case ${TERM} in
   rxvt*|*term*|putty*)
