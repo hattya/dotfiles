@@ -161,6 +161,8 @@ alias ls='ls -Fh --color=auto --time-style=long-iso'
 alias ll='ls -l'
 alias la='ls -lA'
 
+alias man='LC_MESSAGES="${LANG}" man'
+
 if whence -p emacs >/dev/null; then
   alias emacs='XMODIFIERS="@im=none" emacs'
 fi
