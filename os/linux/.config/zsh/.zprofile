@@ -1,4 +1,4 @@
-# .zprofile
+# .config/zsh/.zprofile
 
 umask 022
 

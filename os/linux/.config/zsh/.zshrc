@@ -1,4 +1,4 @@
-# .zshrc
+# .config/zsh/.zshrc
 
 typeset -U path manpath
 path+=(~/.local/bin(N/))
