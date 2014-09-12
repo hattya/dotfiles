@@ -1,4 +1,4 @@
-# .config/zsh/.zshenv
+# $ZDOTDIR/.zshenv
 
 export ZCACHEDIR=~/.cache/zsh
 

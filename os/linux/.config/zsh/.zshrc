@@ -1,9 +1,9 @@
-# .config/zsh/.zshrc
+# $ZDOTDIR/.zshrc
 
 eval "$(dircolors -b)"
 for dc in ~/.dir_colors /etc/DIR_COLORS; do
   if [[ -f ${dc} ]]; then
-    eval "$(dircolors -b ${dc})"
+    eval "$(dircolors -b "${dc}")"
     break
   fi
 done
@@ -22,15 +22,15 @@ function _zshrc-fg() {
   shift 2
   if (( ${+is_256color} )); then
     if (( ${#c256} == 1 )); then
-      echo -n "%F{${c256[1]}}${@}%f"
+      print -n "%F{${c256[1]}}${@}%f"
     else
-      echo -n "%(?.%F{${c256[1]}}.%F{${c256[2]}})${@}%f"
+      print -n "%(?.%F{${c256[1]}}.%F{${c256[2]}})${@}%f"
     fi
   else
     if (( ${#c8} == 1 )); then
-      echo -n "%{${fg[${c8[1]}]}%}${@}%{${reset_color}%}"
+      print -n "%{${fg[${c8[1]}]}%}${@}%{${reset_color}%}"
     else
-      echo -n "%{%(?.${fg[${c8[1]}]}.${fg[${c8[2]}]})%}${@}%{${reset_color}%}"
+      print -n "%{%(?.${fg[${c8[1]}]}.${fg[${c8[2]}]})%}${@}%{${reset_color}%}"
     fi
   fi
 }
@@ -154,12 +154,12 @@ alias -g U='| uniq'
 alias -g W='| wc'
 
 # aliases
+alias pu=pushd
+alias po=popd
+
 alias ls='ls -Fh --color=auto --time-style=long-iso'
 alias ll='ls -l'
 alias la='ls -lA'
-
-alias pu=pushd
-alias po=popd
 
 if whence -p emacs >/dev/null; then
   alias emacs='XMODIFIERS="@im=none" emacs'
