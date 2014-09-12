@@ -42,7 +42,7 @@ function _zshrc-fg() {
 # autoload
 autoload -Uz add-zsh-hook
 autoload -Uz colors;   colors
-autoload -Uz compinit; compinit
+autoload -Uz compinit; compinit -d "${ZCACHEDIR}"/zcompdump
 
 # chdir
 setopt auto_cd
@@ -60,11 +60,13 @@ setopt menu_complete
 setopt rec_exact
 
 zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' cache-path "${ZCACHEDIR}"/zcompcache
 zstyle ':completion:*' completer _oldlist _complete _match _history _approximate _prefix
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
 zstyle ':completion:*' menu select=2
+zstyle ':completion:*' use-cache true
 zstyle ':completion:*:descriptions' format "$(_zshrc-fg 246 white '-') $(_zshrc-fg 220 yellow '%d') $(_zshrc-fg 246 white '-')"
 # processes
 zstyle ':completion:*:processes' command "ps -au '${USER}' -o pid,tty,cputime,args"
@@ -87,7 +89,7 @@ setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt share_history
 
-HISTFILE=~/.zsh_history
+HISTFILE="${ZCACHEDIR}"/zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
