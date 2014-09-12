@@ -1,9 +1,5 @@
 # .config/zsh/.zshrc
 
-typeset -U path manpath
-path+=(~/.local/bin(N/))
-manpath+=(/usr/share/man/ja(N/))
-
 eval "$(dircolors -b)"
 for dc in ~/.dir_colors /etc/DIR_COLORS; do
   if [[ -f ${dc} ]]; then
@@ -193,34 +189,6 @@ function tmux() {
     command tmux "${@}"
   fi
 }
-
-# environment variables
-export LANG='ja_JP.UTF-8'
-export LC_MESSAGES='C'
-export EDITOR=$(which -p vim)
-export PAGER=$(which -p less)
-export LESS='-M -R -X -f -i'
-export LESSCOLOR='yes'
-if whence -p pygmentize &>/dev/null; then
-  export LESSCOLORIZER='pygmentize -O encoding=utf-8 -O style=monokai -f 256'
-fi
-export LESSHISTFILE='-'
-export LV='-c -l'
-export PYTHONSTARTUP=~/.config/python/startup.py
-export VTE_CJK_WIDTH=1
-# Gentoo Linux
-if [[ -f /etc/gentoo-release ]]; then
-  export ECHANGELOG_USER='Akinori Hattori <hattya@gentoo.org>'
-  export PORTAGE_GPG_KEY='EC917A6D'
-fi
-# Go
-if [[ -d ~/.local/Cellar/go/tip ]]; then
-  path+=(~/.local/Cellar/go/tip/bin(N/))
-fi
-if whence -p go >/dev/null; then
-  export GOPATH=~/.local/go
-  path+=({$(go env GOROOT),${GOPATH}}/bin(N/))
-fi
 
 # change window title of terminal
 if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
