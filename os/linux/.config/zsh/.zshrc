@@ -107,6 +107,7 @@ setopt transient_rprompt
 autoload -Uz vcs_info
 add-zsh-hook precmd vcs_info
 zstyle ':vcs_info:*' formats " $(_zshrc-fg 214 magenta '(%b)')"
+zstyle ':vcs_info:*' actionformats " $(_zshrc-fg 214 magenta '(%b:%a)')"
 
 case ${UID} in
 0)
