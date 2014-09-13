@@ -1,4 +1,3 @@
 {
-    "propose-builtins": true,
-    "autobuild": true
+    "propose-builtins": true
 }
