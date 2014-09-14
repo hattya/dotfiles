@@ -153,6 +153,7 @@ alias -g S='| sort'
 alias -g T='| tail'
 alias -g U='| uniq'
 alias -g W='| wc'
+alias -g X='| xargs'
 
 # aliases
 alias pu=pushd
