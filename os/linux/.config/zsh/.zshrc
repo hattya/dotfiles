@@ -198,12 +198,12 @@ function tmux() {
 if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
   case ${TERM} in
   rxvt*|*term*|putty*)
-    function _zshrc-update-title() {
+    function _zshrc-term-title() {
       print -n "\e]2;${1}\a"
     }
     ;;
   screen*)
-    function _zshrc-update-title() {
+    function _zshrc-term-title() {
       # screen location
       print -n "\e_${1}\e\\"
       # screen title (in ^A)
@@ -211,18 +211,18 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
     }
     ;;
   *)
-    function _zshrc-update-title() {
+    function _zshrc-term-title() {
       :
     }
     ;;
   esac
 
-  function _zshrc-chpwd() {
-    _zshrc-update-title "$(print -Pn "%n@%m - %~")"
+  function _zshrc-term-title-chpwd() {
+    _zshrc-term-title "$(print -Pn "%n@%m - %~")"
   }
-  add-zsh-hook chpwd _zshrc-chpwd
+  add-zsh-hook chpwd _zshrc-term-title-chpwd
 
-  function _zshrc-preexec() {
+  function _zshrc-term-title-preexec() {
     local -a cmd
     cmd=(${(z)1})
     # remove parenthesis
@@ -252,9 +252,9 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
       fi
     fi
 
-    _zshrc-update-title "$(print -Pn "%n@%m - ")${cmd[1]:t}"
+    _zshrc-term-title "$(print -Pn "%n@%m - ")${cmd[1]:t}"
   }
-  add-zsh-hook preexec _zshrc-preexec
+  add-zsh-hook preexec _zshrc-term-title-preexec
 fi
 
 # keychain
