@@ -254,6 +254,17 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
   add-zsh-hook preexec _zshrc-preexec
 fi
 
+# keychain
+if whence -p keychain >/dev/null; then
+  function _zshrc-keychain-precmd() {
+    local f
+    for f in ~/.keychain/"$(hostname)"-sh*(Nr); do
+      . "${f}"
+    done
+  }
+  add-zsh-hook precmd _zshrc-keychain-precmd
+fi
+
 if [[ -f /usr/share/knu-z/knu-z.sh ]]; then
   export _Z_DATA=~/.cache/z
   . /usr/share/knu-z/knu-z.sh

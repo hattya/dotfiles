@@ -11,11 +11,6 @@ if whence -p keychain >/dev/null; then
   elif [[ ${SHLVL} -eq 1 && ${TTY} == ${SSH_TTY} ]]; then
       # login via ssh
       eval $(keychain --eval --ignore-missing --inherit any-once ${keys[@]})
-  else
-      for f in ~/.keychain/"$(hostname)"-sh*(Nr); do
-          . "${f}"
-      done
-      unset f
   fi
 fi
 unset keys
