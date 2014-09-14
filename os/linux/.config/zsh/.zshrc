@@ -224,7 +224,11 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
 
   function _zshrc-preexec() {
     local -a cmd
-    cmd+=${(z)1}
+    cmd=(${(z)1})
+    # remove parenthesis
+    if [[ ${cmd[1]} == "(" ]]; then
+      cmd=(${cmd[2,-2]})
+    fi
     # builtin jobs
     local job
     case ${cmd[1]} in
@@ -236,20 +240,19 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
       fi
       ;;
     %*)
-      job=${cmd[1]}
+      job="${cmd[1]}"
       ;;
     esac
     if [[ -n ${job} ]]; then
-      cmd=($(builtin jobs -l ${job} 2>/dev/null))
+      cmd=($(builtin jobs -l "${job}" 2>/dev/null))
       if [[ ${cmd[5]} == "(signal)" ]]; then
-        cmd=(${cmd[6,${#cmd}]})
+        cmd=(${cmd[6,-1]})
       else
-        cmd=(${cmd[5,${#cmd}]})
+        cmd=(${cmd[5,-1]})
       fi
     fi
 
-    [[ -z ${cmd} ]] && cmd+=${(z)1}
-    _zshrc-update-title "$(print -Pn "%n@%m") - ${cmd[1]:t}"
+    _zshrc-update-title "$(print -Pn "%n@%m - ")${cmd[1]:t}"
   }
   add-zsh-hook preexec _zshrc-preexec
 fi
