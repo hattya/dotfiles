@@ -268,7 +268,7 @@ if whence -p keychain >/dev/null; then
   add-zsh-hook precmd _zshrc-keychain-precmd
 fi
 
-if [[ -f /usr/share/knu-z/knu-z.sh ]]; then
+if [[ -f ~/.local/Cellar/knu-z/z.sh ]]; then
   export _Z_DATA=~/.cache/z
-  . /usr/share/knu-z/knu-z.sh
+  . ~/.local/Cellar/knu-z/z.sh
 fi
