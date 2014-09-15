@@ -7,6 +7,14 @@
                 "aliases": {
                     ".flake8": ".config/flake8",
                     "gocode": ".config/gocode"
+                },
+                "subrepos": {
+                    ".local/Cellar": [
+                        {
+                            "src": "github.com/knu/z",
+                            "name": "knu-z"
+                        }
+                    ]
                 }
             },
             {
