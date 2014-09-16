@@ -32,6 +32,8 @@
 	ui = auto
 [core]
 	quotepath = false
+[difftool "sourcetree"]
+	cmd = p4merge \"$LOCAL\" \"$REMOTE\"
 [help]
 	autocorrect = -1
 [mergetool]
