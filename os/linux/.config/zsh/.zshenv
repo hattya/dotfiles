@@ -23,11 +23,15 @@ fi
 
 # less
 export LESS='-M -R -X -f -i'
-export LESSCOLOR='yes'
+export LESSHISTFILE='-'
 if whence -p pygmentize >/dev/null; then
   export LESSCOLORIZER='pygmentize -O encoding=utf-8 -O style=monokai -f 256'
 fi
-export LESSHISTFILE='-'
+if [[ -f /etc/gentoo-release ]]; then
+  export LESSCOLOR='yes'
+elif [[ -f /etc/debian_version ]]; then
+  export LESSOPEN='| lesspipe %s'
+fi
 
 # lv
 export LV='-c -l'
