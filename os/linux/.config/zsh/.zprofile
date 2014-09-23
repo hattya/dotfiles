@@ -2,6 +2,11 @@
 
 umask 022
 
+# Gentoo overwrites PATH in /etc/zsh/zprofile
+if [[ -f /etc/gentoo-release ]]; then
+  . "${ZDOTDIR}"/.zshenv
+fi
+
 # start keychain
 keys=(id_rsa EC917A6D)
 if whence -p keychain >/dev/null; then
