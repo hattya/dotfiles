@@ -38,6 +38,8 @@
 	cmd = p4merge \"$LOCAL\" \"$REMOTE\"
 [help]
 	autocorrect = -1
+[merge]
+	tool = p4merge
 [mergetool]
 	keepBackup = false
 [mergetool "sourcetree"]
