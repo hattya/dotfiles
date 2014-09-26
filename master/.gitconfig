@@ -33,7 +33,7 @@
 [core]
 	quotepath = false
 [diff]
-	guitool = sourcetree
+	tool = sourcetree
 [difftool "sourcetree"]
 	cmd = p4merge \"$LOCAL\" \"$REMOTE\"
 [help]
