@@ -259,13 +259,13 @@ fi
 
 # keychain
 if whence -p keychain >/dev/null; then
-  function _zshrc-keychain-precmd() {
+  function _zshrc-keychain-preexec() {
     local f
     for f in ~/.keychain/"$(hostname)"-sh*(Nr); do
       . "${f}"
     done
   }
-  add-zsh-hook precmd _zshrc-keychain-precmd
+  add-zsh-hook preexec _zshrc-keychain-preexec
 fi
 
 if [[ -f ~/.local/Cellar/knu-z/z.sh ]]; then
