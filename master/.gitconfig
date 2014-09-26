@@ -40,8 +40,6 @@
 	tool = p4merge
 [mergetool]
 	keepBackup = false
-[mergetool "sourcetree"]
-	cmd = p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
 [push]
 	default = simple
 [rebase]
