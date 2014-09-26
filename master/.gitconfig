@@ -34,8 +34,6 @@
 	quotepath = false
 [diff]
 	tool = p4merge
-[difftool "sourcetree"]
-	cmd = p4merge \"$LOCAL\" \"$REMOTE\"
 [help]
 	autocorrect = -1
 [merge]
