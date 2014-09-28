@@ -28,9 +28,9 @@ function _zshrc-fg() {
     fi
   else
     if (( ${#c8} == 1 )); then
-      print -n "%{${fg[${c8[1]}]}%}${@}%{${reset_color}%}"
+      print -n "%{${fg_bold[${c8[1]}]}%}${@}%{${reset_color}%}"
     else
-      print -n "%{%(?.${fg[${c8[1]}]}.${fg[${c8[2]}]})%}${@}%{${reset_color}%}"
+      print -n "%{%(?.${fg_bold[${c8[1]}]}.${fg_bold[${c8[2]}]})%}${@}%{${reset_color}%}"
     fi
   fi
 }
@@ -111,7 +111,7 @@ zstyle ':vcs_info:*' actionformats " $(_zshrc-fg 214 magenta '(%b:%a)')"
 
 case ${UID} in
 0)
-  PROMPT="%{${fg[red]}%}%n%{${reset_color}%} %{%(?.${fg[yellow]}.${fg[magenta]})%}%#%{${reset_color}%} "
+  PROMPT="%{${fg_bold[red]}%}%n%{${reset_color}%} %{%(?.${fg_bold[yellow]}.${fg_bold[magenta]})%}%#%{${reset_color}%} "
   ;;
 *)
   if [[ $(hostname -i) == 192.168.* ]]; then
