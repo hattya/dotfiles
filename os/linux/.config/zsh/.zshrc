@@ -10,9 +10,9 @@ done
 unset dc
 
 if whence -p tput >/dev/null; then
-  (( is_256color = $(tput colors) == 256 ))
+  (( has_256color = $(tput colors) == 256 ))
 elif [[ ${TERM} == *256color ]]; then
-  (( is_256color = 1 ))
+  (( has_256color = 1 ))
 fi
 
 function _zshrc-fg() {
@@ -20,7 +20,7 @@ function _zshrc-fg() {
   c256=(${(s.:.)1})
   c8=(${(s.:.)2})
   shift 2
-  if (( ${+is_256color} )); then
+  if (( has_256color )); then
     if (( ${#c256} == 1 )); then
       print -n "%F{${c256[1]}}${@}%f"
     else
