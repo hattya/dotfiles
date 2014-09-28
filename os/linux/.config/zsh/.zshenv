@@ -13,10 +13,10 @@ export LC_MESSAGES='C'
 export VTE_CJK_WIDTH=1
 
 # basic
-export EDITOR=$(whence -p vim)
-export PAGER=$(whence -p less)
+export EDITOR=${commands[vim]}
+export PAGER=${commands[less]}
 
-if whence -p repoman >/dev/null; then
+if (( ${+commands[repoman]} )); then
   export ECHANGELOG_USER='Akinori Hattori <hattya@gentoo.org>'
   export PORTAGE_GPG_KEY='EC917A6D'
 fi
@@ -24,7 +24,7 @@ fi
 # less
 export LESS='-M -R -X -f -i'
 export LESSHISTFILE='-'
-if whence -p pygmentize >/dev/null; then
+if (( ${+commands[pygmentize]} )); then
   export LESSCOLORIZER='pygmentize -O encoding=utf-8 -O style=monokai -f 256'
 fi
 if [[ -f /etc/gentoo-release ]]; then
@@ -43,7 +43,7 @@ export PYTHONSTARTUP=~/.config/python/startup.py
 if [[ -d ~/.local/Cellar/go/tip ]]; then
   path+=(~/.local/Cellar/go/tip/bin(N/))
 fi
-if whence -p go >/dev/null; then
+if (( ${+commands[go]} )); then
   export GOPATH=~/.local/go
   path+=({$(go env GOROOT),${GOPATH}}/bin(N/))
 fi

@@ -9,7 +9,7 @@ for dc in ~/.dir_colors /etc/DIR_COLORS; do
 done
 unset dc
 
-if whence -p tput >/dev/null; then
+if (( ${+commands[tput]} )); then
   (( has_256color = $(tput colors) == 256 ))
 elif [[ ${TERM} == *256color ]]; then
   (( has_256color = 1 ))
@@ -165,11 +165,11 @@ alias la='ls -lA'
 
 alias man='LC_MESSAGES="${LANG}" man'
 
-if whence -p emacs >/dev/null; then
+if (( ${+commands[emacs]} )); then
   alias emacs='XMODIFIERS="@im=none" emacs'
 fi
 
-if whence -p bpython >/dev/null; then
+if (( ${+commands[bpython]} )); then
   alias bp2=bpython-2.7
   alias bp3=bpython-$(python3 -c 'import sys; print(sys.version[:3])')
   alias bp=bp3
@@ -258,7 +258,7 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
 fi
 
 # keychain
-if whence -p keychain >/dev/null; then
+if (( ${+commands[keychain]} )); then
   function _zshrc-keychain-preexec() {
     local f
     for f in ~/.keychain/"$(hostname)"-sh*(Nr); do

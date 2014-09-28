@@ -9,7 +9,7 @@ fi
 
 # start keychain
 keys=(id_rsa EC917A6D)
-if whence -p keychain >/dev/null; then
+if (( ${+commands[keychain]} )); then
   if (( ! ${+SSH_TTY} )); then
       # login via tty
       eval $(keychain --eval --ignore-missing ${keys[@]})
