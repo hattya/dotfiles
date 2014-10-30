@@ -1,32 +1,32 @@
 [
-    {
-        "name": "os",
-        "layers": [
+  {
+    "name": "os",
+    "layers": [
+      {
+        "name": "linux",
+        "aliases": {
+          ".flake8": ".config/flake8",
+          "gocode": ".config/gocode"
+        },
+        "subrepos": {
+          ".local/Cellar": [
             {
-                "name": "linux",
-                "aliases": {
-                    ".flake8": ".config/flake8",
-                    "gocode": ".config/gocode"
-                },
-                "subrepos": {
-                    ".local/Cellar": [
-                        {
-                            "src": "github.com/knu/z",
-                            "name": "knu-z"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "windows",
-                "aliases": {
-                    ".curlrc": "$APPDATA/_curlrc",
-                    "gocode": "$APPDATA/gocode"
-                }
+              "src": "github.com/knu/z",
+              "name": "knu-z"
             }
-        ]
-    },
-    {
-        "name": "master"
-    }
+          ]
+        }
+      },
+      {
+        "name": "windows",
+        "aliases": {
+          ".curlrc": "$APPDATA/_curlrc",
+          "gocode": "$APPDATA/gocode"
+        }
+      }
+    ]
+  },
+  {
+    "name": "master"
+  }
 ]
