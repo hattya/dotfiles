@@ -3,8 +3,8 @@
 	ci = commit -v
 	st = status
 	ss = status -bs
-	di = diff -M
-	wdi = diff -M --color-word
+	di = diff
+	wdi = diff --color-words
 	br = branch
 	sw = checkout
 	re = rebase --committer-date-is-author-date
@@ -17,11 +17,11 @@
 	rollback = reset HEAD^ --
 	l = log --stat --pretty=fuller
 	ll = log -p --stat --pretty=fuller
-	v = show -M -p --pretty=fuller --stat
+	v = show -p --pretty=fuller --stat
 	view = log --oneline --graph --source --tags --branches
 	xl = stash list
 	xs = stash show
-	xp = stash show -M -p --stat
+	xp = stash show -p --stat
 	xd = stash drop
 	xo = stash pop
 	xa = stash apply
