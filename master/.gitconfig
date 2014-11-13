@@ -33,6 +33,7 @@
 [core]
 	quotepath = false
 [diff]
+	algorithm = histogram
 	tool = p4merge
 [help]
 	autocorrect = -1
