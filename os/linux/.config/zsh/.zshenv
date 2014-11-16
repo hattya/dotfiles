@@ -3,7 +3,7 @@
 export ZCACHEDIR=~/.cache/zsh
 
 typeset -U path manpath
-path+=(~/.local/bin(N/))
+path+=(~/.local{,/Cellar/*}/bin(N/))
 manpath+=(/usr/share/man/ja(N/))
 
 # locale
