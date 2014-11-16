@@ -1,0 +1,3 @@
+*.swp
+**/.config/mlterm/*.six
+**/.config/mlterm/challenge
