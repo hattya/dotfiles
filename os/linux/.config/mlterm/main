@@ -1,0 +1,24 @@
+fg_color = gray90
+bg_color = black
+cursor_bg_color = aquamarine1
+
+depth = 32
+alpha = 200
+termtype = xterm-256color
+
+blink = true
+blink_cursor = true
+
+type_engine = cairo
+use_anti_alias = true
+use_bold_font = false
+
+use_scrollbar = true
+scrollbar_mode = right
+scrollbar_view_name = sample
+
+mod_meta_mode = esc
+logsize = unlimited
+use_clipboard = true
+
+daemon_mode = blend
