@@ -40,9 +40,6 @@ export LV='-c -l'
 export PYTHONSTARTUP=~/.config/python/startup.py
 
 # Go
-if [[ -d ~/.local/Cellar/go/tip ]]; then
-  path+=(~/.local/Cellar/go/tip/bin(N/))
-fi
 if (( ${+commands[go]} )); then
   export GOPATH=~/.local/go
   path+=({$(go env GOROOT),${GOPATH}}/bin(N/))
