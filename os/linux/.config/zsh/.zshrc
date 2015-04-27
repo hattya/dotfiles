@@ -169,12 +169,6 @@ if (( ${+commands[emacs]} )); then
   alias emacs='XMODIFIERS="@im=none" emacs'
 fi
 
-if (( ${+commands[bpython]} )); then
-  alias bp2=bpython-2.7
-  alias bp3=bpython-$(python3 -c 'import sys; print(sys.version[:3])')
-  alias bp=bp3
-fi
-
 function tmux() {
   if [[ ${#} -ge 1 && ${1} == -z ]]; then
     shift
