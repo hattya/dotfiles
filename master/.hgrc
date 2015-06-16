@@ -11,7 +11,6 @@ username = Akinori Hattori <hattya@gmail.com>
 [extensions]
 hgext.bookmarks =
 hgext.color =
-hgext.graphlog =
 hgext.mq =
 hgext.pager =
 hgext.progress =
@@ -27,7 +26,6 @@ secret = True
 attend = annotate, bookmarks, branches, cat, config, diff, export, files, grep,
     heads, help, incoming, log, manifest, outgoing, paths, phase, status,
     summary, tags, tip,
-    glog,
     qapplied, qdiff, qseries, qunapplied
 pager = less -F
 
