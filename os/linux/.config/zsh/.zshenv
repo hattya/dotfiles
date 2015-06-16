@@ -44,3 +44,6 @@ if (( ${+commands[go]} )); then
   export GOPATH=~/.local/go
   path+=({$(go env GOROOT),${GOPATH}}/bin(N/))
 fi
+
+# themis.vim
+path+=(~/.vim/bundle/vim-themis/bin(N/))
