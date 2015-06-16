@@ -1,8 +1,3 @@
-[alias]
-clone = !"%HG%" --config color.mode=win32 --config alias.clone=clone clone $@
-pull  = !"%HG%" --config color.mode=win32 --config alias.pull=pull   pull  $@
-push  = !"%HG%" --config color.mode=win32 --config alias.push=push   push  $@
-
 [ui]
 editor = gvim
 ssh = plink -batch -C
@@ -11,6 +6,7 @@ ssh = plink -batch -C
 changegroup.stat = hg diff --stat -r %HG_NODE%:
 
 [color]
-mode = ansi
+mode = auto
+pagermode = ansi
 
 # vim:ft=cfg:
