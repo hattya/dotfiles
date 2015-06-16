@@ -24,9 +24,9 @@ track.current = True
 secret = True
 
 [pager]
-attend = annotate, blame, bookmarks, branches, cat, diff, export, grep, heads,
-    incoming, locate, log, manifest, outgoing, parents, paths, phase,
-    showconfig, status, tags, tip,
+attend = annotate, bookmarks, branches, cat, config, diff, export, files, grep,
+    heads, help, incoming, log, manifest, outgoing, paths, phase, status,
+    summary, tags, tip,
     glog,
     qapplied, qdiff, qseries, qunapplied
 pager = less -F
