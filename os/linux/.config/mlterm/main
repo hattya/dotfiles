@@ -13,7 +13,7 @@ type_engine = cairo
 use_anti_alias = true
 use_bold_font = false
 
-use_scrollbar = true
+use_mdi = true
 scrollbar_mode = right
 scrollbar_view_name = sample
 
