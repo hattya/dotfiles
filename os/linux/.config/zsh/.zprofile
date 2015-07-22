@@ -8,14 +8,12 @@ if [[ -f /etc/gentoo-release ]]; then
 fi
 
 # start keychain
-keys=(id_rsa EC917A6D)
+typeset -A keys
+keys=(id_rsa ssh EC917A6D gpg)
 if (( ${+commands[keychain]} )); then
-  if (( ! ${+SSH_TTY} )); then
-      # login via tty
-      eval $(keychain --eval --ignore-missing ${keys[@]})
-  elif [[ ${SHLVL} -eq 1 && ${TTY} == ${SSH_TTY} ]]; then
-      # login via ssh
-      eval $(keychain --eval --ignore-missing --inherit any-once ${keys[@]})
+  if (( ! ${+SSH_TTY} )) || [[ ${SHLVL} -eq 1 && ${TTY} == ${SSH_TTY} ]]; then
+    # login via TTY or SSH
+    eval $(keychain --agents ${(j:,:)${(@LuOa)keys}} --eval --ignore-missing --inherit any-once ${(@k)keys})
   fi
 fi
 unset keys
