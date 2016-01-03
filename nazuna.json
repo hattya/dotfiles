@@ -6,7 +6,8 @@
         "name": "linux",
         "aliases": {
           ".flake8": ".config/flake8",
-          "gocode": ".config/gocode"
+          "gocode": ".config/gocode",
+          "vimfiles": ".vim"
         },
         "subrepos": {
           ".local/Cellar": [
