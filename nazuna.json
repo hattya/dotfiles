@@ -28,6 +28,13 @@
     ]
   },
   {
-    "name": "master"
+    "name": "master",
+    "subrepos": {
+      "vimfiles/bundle": [
+        {
+          "src": "github.com/junegunn/vim-plug"
+        }
+      ]
+    }
   }
 ]
