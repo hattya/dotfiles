@@ -1,0 +1,35 @@
+" .gvimrc
+
+let s:is_win = has('win32') || has('win64') || has('win95') || has('win16')
+
+" options {{{1
+" vim options {{{2
+set mousehide
+
+" font options {{{2
+if s:is_win
+  set guifont=M+_1m_Regular:h11
+  if has('directx')
+    set renderoptions=type:directx,renmode:5,contrast:3
+  endif
+else
+  set guifont=M+\ 1m\ 12
+endif
+
+" window options {{{2
+set columns=100
+set lines=30
+set guioptions-=T
+
+" ime options {{{2
+if has('multi_byte_ime')
+  " change cursor color when IME is on
+  highlight CursorIM guibg=#ee5c42
+
+  set iminsert=0
+  set imsearch=0
+endif
+
+" mappings {{{1
+map  <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
