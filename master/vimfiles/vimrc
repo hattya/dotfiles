@@ -1,0 +1,694 @@
+" .vimrc
+
+" augroup: vimrc-startuptime {{{1
+if has('vim_starting') && has('reltime')
+  let s:startuptime = reltime()
+  augroup vimrc-startuptime
+    autocmd!
+    autocmd VimEnter * echomsg 'startuptime:' . reltimestr(reltime(s:startuptime))
+  augroup END
+endif
+
+" script locals {{{1
+let s:is_win = has('win32') || has('win64') || has('win95') || has('win16')
+let s:sep = !exists('+shellslash') || &shellslash ? '/' : '\'
+function! s:join(...) abort
+  return join(map(copy(a:000), "substitute(v:val, '[/\\\\]\\+$', '', '')"), s:sep)
+endfunction
+if s:is_win
+  let s:vimfiles = '~/vimfiles'
+  let s:cache_dir = s:join($LOCALAPPDATA, 'Vim')
+else
+  let s:vimfiles = '~/.vim'
+  let s:cache_dir = expand(s:join(!empty($XDG_CACHE_HOME) ? $XDG_CACHE_HOME : '~/.cache' , 'vim'))
+endif
+
+" encoding {{{1
+if has('multi_byte')
+  if s:is_win
+    if !has('gui_running')
+      set termencoding=char
+    endif
+    let $LANG = 'ja_JP.UTF-8'
+    set encoding=utf-8
+  elseif &encoding !=? 'utf-8'
+    set encoding=japan
+  endif
+  scriptencoding utf-8
+  if has('iconv')
+    " check for iconv supports euc-jisx0213
+    if iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+      let s:eucjp = 'euc-jisx0213,euc-jp'
+      let s:jisx = 'iso-2022-jp-3'
+    else
+      let s:eucjp = 'euc-jp'
+      let s:jisx = 'iso-2022-jp'
+    endif
+    " construct fileencodings
+    let &fileencodings = 'ucs-bom,' . s:jisx
+    if has('guess_encode')
+      let &fileencodings = 'guess,' . &fileencodings
+    endif
+    if &encoding ==? 'utf-8'
+      let &fileencodings .= ',' . s:eucjp . ',utf-8,cp932'
+    elseif &encoding ==? 'cp932'
+      let &fileencodings .= ',utf-8,' . s:eucjp
+    elseif &encoding =~? '^euc-j' " euc-jp variants
+      let &fileencodings .= ',utf-8,cp932'
+    endif
+    unlet s:eucjp
+    unlet s:jisx
+  endif
+endif
+
+" options {{{1
+" vim options {{{2
+if has('mouse')
+  set mouse=a
+endif
+set history=1000
+if has('viminfo')
+  let &viminfo = &viminfo . ',n' . s:join(s:cache_dir, 'viminfo')
+endif
+
+" search options {{{2
+if executable('jvgrep')
+  set grepprg=jvgrep
+elseif executable('ag')
+  set grepprg=ag\ --nogroup
+endif
+set helplang=ja,en
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+set wrapscan
+
+" edit options {{{2
+set autoindent
+set autoread
+set backspace=indent,eol,start
+set nobackup
+set completeopt=menuone,preview
+set noexpandtab
+if exists('+fixendofline')
+  set nofixendofline
+endif
+set formatoptions+=mM
+set hidden
+if has('langmap') && exists('+langnoremap')
+  set langnoremap
+endif
+set modeline
+set omnifunc=syntaxcomplete#Complete
+set shiftwidth=4
+set showmatch
+if 704 < v:version || v:version == 704 && has('patch088')
+  set spelllang+=cjk
+endif
+if has('persistent_undo')
+  set undofile
+  let &undodir = s:join(s:cache_dir, 'undo')
+endif
+set wildmenu
+
+" screen options {{{2
+if has('multi_byte') && !has('termresponse') || &t_u7 ==# ''
+  set ambiwidth=double
+endif
+if exists('+breakindent')
+  set breakindent
+  set breakindentopt=sbr
+  set linebreak
+  set showbreak=»\ 
+endif
+set cmdheight=2
+if exists('+colorcolumn')
+  set colorcolumn=+1
+endif
+set laststatus=2
+set list
+set listchars=eol:¬,tab:»\ ,trail:-,extends:»,precedes:«
+set nonumber
+set ruler
+set showcmd
+set statusline=%<%{expand('%:t')}\ %y%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%=%l,%c%V%5P
+set title
+set visualbell
+set wrap
+
+" terminal options {{{2
+" change terminal title on tmux or screen
+if exists('$TMUX') || exists('$WINDOW')
+  set t_ts=_
+  set t_fs=\
+endif
+" bracketed paste mode
+if !s:is_win
+  set t_SI+=[?2004h
+  set t_EI+=[?2004l
+  set pastetoggle=[201~
+  function! XTermPasteBegin(rv) abort
+    set paste
+    return a:rv
+  endfunction
+  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin('')
+endif
+
+" mappings {{{1
+let mapleader = ','
+nnoremap <silent> <Esc><Esc> :<C-U>nohlsearch<CR>
+inoremap <C-U> <C-G>u<C-U>
+
+" augroup: vimrc-copyright {{{1
+augroup vimrc-copyright
+  autocmd!
+  autocmd BufWritePre * call s:update_copyright_year()
+augroup END
+function! s:update_copyright_year() abort
+  if &modified
+    let pos = getpos('.')
+    let Y = strftime('%Y')
+    silent execute 'g/\v\ccopyright\s*%(\(c\)\s*)?%(' . Y . ')@!\d{4}%(-' . Y . ')@!/s/\v(\d{4})%(-\d{4})?/\1-' . Y . '/'
+    call histdel('/', -1)
+    call setpos('.', pos)
+  endif
+endfunction
+
+" augroup: vimrc-misc {{{1
+augroup vimrc-misc
+  autocmd!
+
+  " jump to last editing position
+  autocmd BufReadPost * if line("'\"") && line("'\"") <= line('$')
+  \                   |   execute 'normal! g`"'
+  \                   | endif
+
+  " auto open/close QuickFix/location list window
+  autocmd QuickFixCmdPost [^l]* cwindow | redraw!
+  autocmd QuickFixCmdPost l*    lwindow | redraw!
+
+  autocmd WinEnter * checktime
+
+  autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+  \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+  \                   |   setlocal foldmethod=manual foldexpr=0
+  \                   | endif
+  autocmd InsertLeave * if exists('b:foldinfo')
+  \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+  \                   |   unlet b:foldinfo
+  \                   | endif
+augroup END
+
+" load plugins {{{1
+runtime bundle/vim-plug/plug.vim
+
+let g:plug_url_format = 'https://github.com/%s'
+let g:plug_window = 'tabnew'
+
+function! PlugBuild(info) abort
+  if a:info.status !=# 'unchanged' || a:info.force
+    if a:info.name ==# 'vimproc.vim'
+      if s:is_win
+        let sfx = has('win64') ? 'win64' : 'win32'
+        let dll = s:join('lib', printf('vimproc_%s.dll', sfx))
+        call delete(dll)
+        if filereadable(dll)
+          call rename(dll, dll . '~')
+        endif
+        call vcvars#call('!nmake /nologo /f make_msvc.mak nodebug=1', '2010')
+      else
+        !make
+      endif
+    endif
+  endif
+endfunction
+
+call plug#begin(s:join(s:vimfiles, 'bundle'))
+Plug 'cohama/lexima.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'hattya/vcvars.vim'
+Plug 'hattya/vcs-info.vim'
+Plug 'haya14busa/vim-migemo'
+Plug 'junegunn/vim-easy-align', { 'on': ['EasyAlign', 'LiveEasyAlign', '<Plug>(EasyAlign)'] }
+Plug 'junegunn/vim-plug'
+Plug 'lambdalisue/vim-gita', { 'on': 'Gita' }
+Plug 'mattn/emmet-vim'
+Plug 'mattn/gist-vim', { 'on': 'Gist' }
+Plug 'mattn/webapi-vim'
+Plug 'mhinz/vim-signify'
+Plug 'saihoooooooo/glowshi-ft.vim'
+Plug 'Shougo/vimproc.vim' , { 'do': function('PlugBuild') }
+Plug 'thinca/vim-ambicmd'
+Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-ref'
+Plug 'thinca/vim-template'
+Plug 'thinca/vim-themis'
+Plug 'tpope/vim-surround'
+Plug 'tyru/capture.vim', { 'on': 'Capture' }
+Plug 'tyru/open-browser.vim'
+Plug 'vim-jp/autofmt'
+Plug 'vim-jp/vimdoc-ja'
+Plug 'vim-jp/vital.vim'
+Plug 'vim-scripts/autodate.vim'
+" neocomplete
+if !exists('$SSH_CLIENT') 
+  Plug 'Shougo/context_filetype.vim'
+  Plug 'Shougo/neocomplete.vim'
+  Plug 'Shougo/neco-syntax'
+  Plug 'Shougo/neco-vim'
+  Plug 'Shougo/neoinclude.vim'
+  Plug 'yomi322/neco-tweetvim'
+endif
+" status line
+Plug 'itchyny/lightline.vim'
+Plug 'mattn/hahhah-vim'
+" text objects
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-diff'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-syntax'
+Plug 'thinca/vim-textobj-between'
+" twitter
+Plug 'basyura/TweetVim'
+Plug 'basyura/twibill.vim'
+Plug 'mattn/favstar-vim', { 'on': 'FavStar' }
+" unite
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'tsukkee/unite-help'
+Plug 'tsukkee/unite-tag'
+Plug 'Shougo/unite-outline'
+" filetype: c/cpp
+Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp'] }
+" filetype: go
+Plug 'fatih/vim-go', { 'for': 'go' }
+" filetype: javascript
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'https://bitbucket.org/teramako/jscomplete-vim.git', { 'for': 'javascript' }
+" filetype: markdown
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+" filetype: perl
+Plug 'vim-perl/vim-perl', { 'for': 'perl' }
+Plug 'c9s/perlomni.vim', { 'for': 'perl' }
+" filetype: python
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'hattya/python-indent.vim', { 'for': 'python' }
+" filetype: rst
+Plug 'Rykka/riv.vim', { 'for': 'rst' }
+" filetype: tmux
+Plug 'keith/tmux.vim', { 'for': 'tmux' }
+" filetype: vim
+Plug 'thinca/vim-ft-vim_fold', { 'for': 'vim' }
+" color scheme
+Plug 'cocopon/iceberg.vim'
+Plug 'tomasr/molokai'
+Plug 'vim-scripts/pyte'
+
+for s:p in split(glob(s:join(g:plug_home, '*'), 1), '\n')
+  if !has_key(g:plugs, fnamemodify(s:p, ':t'))
+    execute "Plug '" . s:p . "'"
+  endif
+endfor
+unlet s:p
+call plug#end()
+
+delcommand PlugUpgrade
+
+" utils {{{1
+function! s:has_plugin(name) abort
+  if has_key(g:, 'plugs')
+    for s in ['%s', 'vim-%s', '%s.vim', '%s-vim']
+      let plug = get(g:plugs, printf(s, a:name), {})
+      if !empty(plug)
+        return isdirectory(plug.dir)
+      endif
+    endfor
+  else
+    return &runtimepath =~? '\v' . escape(s:sep, '\') . '<%(vim-)=' . a:name . '%([-.]vim)=>'
+  endif
+endfunction
+
+" color scheme {{{1
+if has('gui_running') || &t_Co == 256
+  if s:has_plugin('iceberg')
+    colorscheme iceberg
+  elseif s:has_plugin('molokai')
+    let g:molokai_original = 0
+    colorscheme molokai
+  endif
+endif
+
+" plugin: ambicmd {{{1
+if s:has_plugin('ambicmd')
+  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+  cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
+  cnoremap <expr> <C-F>   ambicmd#expand("\<Right>")
+
+  augroup vimrc-plugin-ambicmd
+    autocmd!
+    autocmd CmdwinEnter * call s:init_cmdwin()
+  augroup END
+  function! s:init_cmdwin() abort
+    inoremap <buffer> <expr> <Space> ambicmd#expand("\<Space>")
+    inoremap <buffer> <expr> <CR>    ambicmd#expand("\<CR>")
+    startinsert!
+  endfunction
+endif
+
+" plugin: autodate {{{1
+if s:has_plugin('autodate')
+  let g:autodate_format = '%Y-%m-%d'
+  let g:autodate_keyword_post = '$'
+endif
+
+" plugin: autofmt {{{1
+if s:has_plugin('autofmt')
+  set formatexpr=autofmt#japanese#formatexpr()
+endif
+
+" plugin: chagelog {{{1
+let g:changelog_username = 'Akinori Hattori <hattya@gmail.com>'
+
+" plugin: ctrlp {{{1
+if s:has_plugin('ctrlp')
+  let g:ctrlp_map = ''
+  let g:ctrlp_cache_dir = s:join(s:cache_dir, 'ctrlp')
+  let g:ctrlp_user_command = {
+  \  'types': {
+  \    'git': ['.git', 'cd %s && git ls-files -co --exclude-standard'],
+  \    'hg':  ['.hg',  'hg --cwd %s status -madcun'],
+  \  },
+  \}
+  let g:ctrlp_open_multiple_files = 'tjr'
+  let g:ctrlp_key_loop = 1
+
+  nnoremap CtrlP  <Nop>
+  nmap     <C-P>  CtrlP
+  nnoremap CtrlP  :<C-U>CtrlP<CR>
+  nnoremap CtrlPb :<C-U>CtrlPBuffer<CR>
+  nnoremap CtrlPm :<C-U>CtrlPMRU<CR>
+endif
+
+" plugin: eazy-align {{{1
+if s:has_plugin('easy-align')
+  vmap ga <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
+endif
+
+" plugin: emmet {{{1
+if s:has_plugin('emmet')
+  let g:user_emmet_leader_key = '<C-E>'
+  let g:user_emmet_settings = {
+  \  'indentation': repeat(' ', 2),
+  \}
+endif
+
+" plugin: gist {{{1
+if s:has_plugin('gist')
+  let g:gist_update_on_write = 2
+endif
+
+" plugin: go {{{1
+if s:has_plugin('go')
+  if executable('goimports')
+    let g:go_fmt_command = 'goimports'
+  endif
+	let g:go_highlight_operators = 1
+	let g:go_highlight_functions = 1
+	let g:go_highlight_methods = 1
+	let g:go_highlight_structs = 1
+	let g:go_highlight_build_constraints = 1
+endif
+
+" plugin: jedi {{{1
+if s:has_plugin('jedi')
+  let g:jedi#auto_vim_configuration = 0
+  let g:jedi#popup_on_dot = 0
+  let g:jedi#rename_command = '<Leader>R'
+  let g:jedi#show_call_signatures = 0
+  let g:jedi#force_py_version = has('python3') ? 3 : 2
+endif
+
+" plugin: lightline {{{1
+let g:lightline = {
+\  'colorscheme': 'Tomorrow',
+\  'mode_map': {
+\    'c': 'NORMAL',
+\  },
+\  'active': {
+\    'left': [
+\      ['mode', 'paste'],
+\      ['readonly', 'filename', 'modified'],
+\    ],
+\  },
+\  'component_function': {},
+\  'vimrc': {},
+\}
+
+if s:has_plugin('vcs-info')
+  call insert(g:lightline.active.left[1], 'vcs')
+  let g:lightline.component_function['vcs'] = 'g:lightline.vimrc.vcs'
+
+  function! lightline.vimrc.vcs() abort
+    if winwidth(0) < 100
+      return ''
+    endif
+
+    let b = [bufnr('%'), bufname('%')]
+    if !has_key(self, '_vcs') || self._vcs.b != b || 3 < str2float(reltimestr(reltime(self._vcs.last)))
+      let self._vcs = {
+      \  'text': '',
+      \  'b':    b,
+      \  'last': reltime(),
+      \}
+      let info = vcs_info#get()
+      if !empty(info)
+        let self._vcs.text = info.head
+        if !empty(info.action)
+          let self._vcs.text .= ':' . info.action
+        endif
+      endif
+    endif
+    return self._vcs.text
+  endfunction
+endif
+
+if s:has_plugin('hahhah')
+  call add(g:lightline.active.left[1], 'hahhah')
+  let g:lightline.component_function['hahhah'] = 'g:lightline.vimrc.hahhah'
+
+  function! lightline.vimrc.hahhah() abort
+    if winwidth(0) < 100
+      return ''
+    endif
+
+    if !has_key(self, '_hahhah') || self._hahhah.i == 4
+      let self._hahhah = {
+      \  'text': hahhah#get_text(),
+      \  'i':    0,
+      \}
+    endif
+    let self._hahhah.i += 1
+    return self._hahhah.text
+  endfunction
+endif
+
+" plugin: clang {{{1
+if s:has_plugin('clang')
+  let g:clang_auto = 0
+  let g:clang_c_completeopt = &completeopt
+  let g:clang_c_options = '-std=gnu11'
+  let g:clang_cpp_completeopt = &completeopt
+  let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+endif
+
+" plugin: matchit {{{1
+runtime macros/matchit.vim
+
+" plugin: neocomplete {{{1
+if s:has_plugin('neocomplete')
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_ignore_case = 0
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#enable_camel_case = 1
+  let g:neocomplete#enable_auto_select = 1
+  let g:neocomplete#enable_auto_delimiter = 1
+  let g:neocomplete#data_directory = s:join(s:cache_dir, 'neco')
+
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns._ = '\h\w*'
+
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  if s:has_plugin('clang')
+    let g:neocomplete#force_omni_input_patterns.c = '\%([^.[:space:]]\%(\.\|->\)\|\h\)\w*'
+    let g:neocomplete#force_omni_input_patterns.cpp = '\%([^.[:space:]]\%(\.\|->\|::\)\|\h\)\w*'
+  endif
+  if s:has_plugin('jedi')
+    let g:neocomplete#force_omni_input_patterns.python = '\%([^.[:space:]]\.\|^\s*@\|\h\)\w*'
+  endif
+
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+  endif
+  if s:has_plugin('go')
+    let g:neocomplete#sources#omni#input_patterns.go = '\%([^.[:space:]]\.\|\h\)\w*'
+  endif
+  if s:has_plugin('perlomni')
+    let g:neocomplete#sources#omni#input_patterns.perl = '\%([^.[:space:]]\%(->\|::\)\|\h\)\w*'
+  endif
+
+  inoremap <expr> <C-G> neocomplete#undo_completion()
+  inoremap <expr> <C-L> neocomplete#complete_common_string()
+  inoremap <expr> <CR>  pumvisible() ? neocomplete#close_popup() : "\<CR>"
+  inoremap <expr> <Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
+  inoremap <expr> <C-H> neocomplete#smart_close_popup() . "\<C-H>"
+  inoremap <expr> <BS>  neocomplete#smart_close_popup() . "\<BS>"
+  inoremap <expr> <C-Y> neocomplete#close_popup()
+  inoremap <expr> <C-E> neocomplete#cancel_popup()
+endif
+
+" plugin: neoinclude {{{1
+if s:has_plugin('neoinclude')
+  let g:neoinclude#ctags_command = ''
+endif
+
+" plugin: neomru {{{1
+if s:has_plugin('neomru')
+  let g:neomru#file_mru_path = s:join(s:cache_dir, 'neomru', 'file')
+  let g:neomru#directory_mru_path = s:join(s:cache_dir, 'neomru', 'directory')
+endif
+
+" plugin: netrw {{{1
+let g:netrw_home = s:join(s:cache_dir, 'netrw')
+
+" plugin: quickrun {{{1
+if s:has_plugin('quickrun')
+  let g:quickrun_config = {
+  \  '_': {
+  \    'runner/vimproc/updatetime': 40,
+  \  },
+  \  'python.test': {
+  \    'command': 'python',
+  \    'exec': '%c -B -m unittest discover -s %s:h -p %s:t',
+  \  },
+  \}
+  if s:has_plugin('vimproc')
+    let g:quickrun_config._.runner = 'vimproc'
+  endif
+  if s:is_win
+    let g:quickrun_config._['hook/shebang/enable'] = 0
+    let g:quickrun_config._['hook/output_encode/encoding'] = &termencoding
+  endif
+endif
+
+" plugin: ref {{{1
+if s:has_plugin('ref')
+  let g:ref_cache_dir = s:join(s:cache_dir, 'ref')
+endif
+
+" plugin: riv {{{1
+if s:has_plugin('riv')
+  let g:riv_file_link_style = 2
+  let g:riv_disable_folding = 1
+endif
+
+" plugin: template {{{1
+if s:has_plugin('template')
+  augroup vimrc-plugin-template
+    autocmd!
+    autocmd FileType * execute 'TemplateLoad /filetype/' . &l:filetype
+    autocmd User plugin-template-loaded call s:template_loaded()
+  augroup END
+  function! s:template_loaded() abort
+    let pos = getpos('.')
+    silent %s/<%=\(.\{-}\)%>/\=eval(submatch(1))/ge
+    call histdel('/', -1)
+    call cursor(1, 1)
+    if search('<+CURSOR+>')
+      normal! zv"_da>
+    else
+      call setpos('.', pos)
+    endif
+  endfunction
+endif
+
+" plugin: TweetVim {{{1
+if s:has_plugin('TweetVim')
+  let g:tweetvim_config_dir = s:join(s:cache_dir, 'tweetvim')
+  let g:tweetvim_expand_t_co = 1
+endif
+
+" plugin: unite {{{1
+if s:has_plugin('unite')
+  let g:unite_data_directory = s:join(s:cache_dir, 'unite')
+  call unite#custom#profile('default', 'context', {
+  \ 'prompt':       "'-')/ ",
+  \ 'start_insert': '1',
+  \ 'direction':    'botright',
+  \})
+
+  call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern':  '[~.:]\@1<!/',
+  \ 'subst':    '*/*',
+  \ 'priority': 20,
+  \})
+  call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern':  '/\*\@!',
+  \ 'subst':    '/*',
+  \ 'priority': 10,
+  \})
+  call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern':  '^@@',
+  \ 'subst':    '\=fnamemodify(expand("#"), ":p:h") . "/*"',
+  \ 'priority': 2,
+  \})
+  call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern':  '^@',
+  \ 'subst':    '\=getcwd() . "/*"',
+  \ 'priority': 1,
+  \})
+  call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern':  '^;v',
+  \ 'subst':    s:vimfiles . '/*',
+  \ 'priority': 0,
+  \})
+  call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern':  '\*\{2,}',
+  \ 'subst':    '*',
+  \ 'priority': -1,
+  \})
+  call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern':  '\\\s\@!',
+  \ 'subst':    '/',
+  \ 'priority': -30,
+  \})
+
+  call unite#filters#matcher_default#use(['matcher_fuzzy'])
+  call unite#custom#source('buffer,file,file_rec', 'sorters', 'sorter_rank')
+
+  nnoremap [unite]   <Nop>
+  nmap     <Leader>u [unite]
+  nnoremap [unite]   :<C-U>Unite<Space>
+  nnoremap [unite]a  :<C-U>Unite -profile-name=files file file/new buffer file_mru<CR>
+  nnoremap [unite]f  :<C-U>Unite -profile-name=files file file/new<CR>
+  nnoremap [unite]r  :<C-U>Unite -profile-name=files file_rec/async:!<CR>
+  nnoremap [unite]m  :<C-U>Unite -profile-name=files file_mru<CR>
+  nnoremap [unite]b  :<C-U>Unite -immediately buffer<CR>
+  nnoremap [unite]t  :<C-U>Unite -immediately tab:no-current<CR>
+  nnoremap [unite]w  :<C-U>Unite -immediately window:no-current<CR>
+  nnoremap [unite]T  :<C-U>Unite tag<CR>
+  nnoremap [unite]h  :<C-U>Unite help<CR>
+  nnoremap [unite]o  :<C-U>Unite outline<CR>
+  nnoremap [unite]s  :<C-U>Unite source<CR>
+  nnoremap [unite]g  :<C-U>Unite grep<CR>
+  nnoremap [unite]/  :<C-U>Unite line<CR>
+endif
+
+" plugin: zip {{{1
+let g:loaded_zipPlugin = 1
+let g:loaded_zip = 1
