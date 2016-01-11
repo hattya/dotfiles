@@ -10,7 +10,7 @@ setlocal tabstop=4
 
 let b:undo_ftplugin .= 'setl ts<'
 
-if maparg('<Plug>(go-def-tab)') !=# ''
+if g:vimrc.has_plugin('go')
   map <buffer> gd        <Plug>(go-def-tab)
   map <buffer> <Leader>t <Plug>(go-test)
   map <buffer> <Leader>c <Plug>(go-coverage)

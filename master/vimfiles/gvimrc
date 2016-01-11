@@ -1,13 +1,11 @@
 " .gvimrc
 
-let s:is_win = has('win32') || has('win64') || has('win95') || has('win16')
-
 " options {{{1
 " vim options {{{2
 set mousehide
 
 " font options {{{2
-if s:is_win
+if g:vimrc.is_win
   set guifont=M+_1m_Regular:h11
   if has('directx')
     set renderoptions=type:directx,renmode:5,contrast:3

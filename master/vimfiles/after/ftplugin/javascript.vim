@@ -10,11 +10,8 @@ setlocal expandtab
 setlocal fileformat=unix
 setlocal shiftwidth=2
 setlocal tabstop=2
-try
-  call jscomplete#CompleteJS(1, '')
-
+if g:vimrc.has_plugin('jscomplete')
   setlocal omnifunc=jscomplete#CompleteJS
-catch /:E117:.*/
-endtry
+endif
 
 let b:undo_ftplugin .= 'setl et< ff< ofu< sw< ts<'
