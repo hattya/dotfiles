@@ -2,8 +2,11 @@
 
 export ZCACHEDIR=~/.cache/zsh
 
-typeset -U path manpath
-path+=(~/.local{,/Cellar/*}/bin(N/))
+typeset -U path save_path userpath manpath
+userpath+=(~/.local{,/Cellar/*}/bin(N/))
+save_path=(${path})
+path=(${userpath} ${path})
+
 manpath+=(/usr/share/man/ja(N/))
 
 # locale
@@ -42,8 +45,11 @@ export PYTHONSTARTUP=~/.config/python/startup.py
 # Go
 if (( ${+commands[go]} )); then
   export GOPATH=~/.local/go
-  path+=({$(go env GOROOT),${GOPATH}}/bin(N/))
+  userpath+=({$(go env GOROOT),${GOPATH}}/bin(N/))
 fi
 
 # themis.vim
-path+=(~/.vim/bundle/vim-themis/bin(N/))
+userpath+=(~/.vim/bundle/vim-themis/bin(N/))
+
+path=(${userpath} ${save_path})
+unset save_path userpath
