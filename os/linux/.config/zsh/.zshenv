@@ -7,7 +7,7 @@ userpath+=(~/.local{,/Cellar/*}/bin(N/))
 save_path=(${path})
 path=(${userpath} ${path})
 
-manpath+=(/usr/share/man/ja(N/))
+manpath+=(/usr{/local,}/share/man/ja(N/))
 
 # locale
 export LANG='ja_JP.UTF-8'
