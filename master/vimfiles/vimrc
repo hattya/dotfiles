@@ -560,7 +560,7 @@ endif
 
 " plugin: neoinclude {{{1
 if g:vimrc.has_plugin('neoinclude')
-  let g:neoinclude#ctags_command = ''
+  let g:neoinclude#ctags_commands = {'_': ''}
 endif
 
 " plugin: neomru {{{1
