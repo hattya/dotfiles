@@ -213,10 +213,11 @@ kwargs = {}
 if setuptools:
     kwargs.update(install_requires=[],
                   tests_require=[],
-                  entry_points="""
-                      [console_scripts]
-                      <+PACKAGE+> = <+PACKAGE+>.__main__:main
-                  """)
+                  entry_points={
+                      'console_scripts': [
+                          '<+PACKAGE+> = <+PACKAGE+>.__main__:main',
+                      ]
+                  })
 else:
     cmdclass['build_scripts'] = build_scripts
     kwargs.update(scripts=[os.path.join('scripts', '<+PACKAGE+>')])
