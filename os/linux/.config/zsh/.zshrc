@@ -170,6 +170,7 @@ if (( ${+commands[emacs]} )); then
 fi
 
 function tmux() {
+  local -A options
   if [[ ${#} -ge 1 && ${1} == -z ]]; then
     shift
     if ! tmux has-session &>/dev/null; then
@@ -178,7 +179,8 @@ function tmux() {
                    new-window -d -n root 'su -' \; \
                    swap-window -s 1 \; \
                    new-window -d -t 5 top
-      if [[ $(command tmux show-options -g) == *pane-border-ascii* ]]; then
+      options=(${(fz)"$(tmux show-options -g)"})
+      if (( ${+options[pane-border-ascii]} )); then
         command tmux set-option -gq pane-border-ascii on 
       fi
     fi
