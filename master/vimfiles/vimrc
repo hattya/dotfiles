@@ -120,6 +120,8 @@ if has('langmap') && exists('+langnoremap')
   set langnoremap
 endif
 set modeline
+set nrformats-=octal
+set nrformats+=alpha
 set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4
 set showmatch
