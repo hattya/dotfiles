@@ -15,6 +15,14 @@ let g:vimrc = {
 \  'sep':    !exists('+shellslash') || &shellslash ? '/' : '\',
 \}
 
+function! vimrc.cache(path, ...) abort
+  let p = self.join(self.cache_dir, a:path)
+  if a:0 && a:1 && !filewritable(p)
+    call mkdir(p, 'p')
+  endif
+  return p
+endfunction
+
 function! vimrc.join(...) abort
   return join(map(copy(a:000), "substitute(v:val, '[/\\\\]\\+$', '', '')"), self.sep)
 endfunction
@@ -84,7 +92,7 @@ if has('mouse')
 endif
 set history=1000
 if has('viminfo')
-  let &viminfo = &viminfo . ',n' . g:vimrc.join(g:vimrc.cache_dir, 'viminfo')
+  let &viminfo = &viminfo . ',n' . g:vimrc.cache('viminfo')
 endif
 
 " search options {{{2
@@ -126,7 +134,7 @@ if 704 < v:version || v:version == 704 && has('patch088')
 endif
 if has('persistent_undo')
   set undofile
-  let &undodir = g:vimrc.join(g:vimrc.cache_dir, 'undo')
+  let &undodir = g:vimrc.cache('undo', 1)
 endif
 set wildmenu
 
@@ -378,7 +386,7 @@ let g:changelog_username = 'Akinori Hattori <hattya@gmail.com>'
 " plugin: ctrlp {{{1
 if g:vimrc.has_plugin('ctrlp.vim')
   let g:ctrlp_map = ''
-  let g:ctrlp_cache_dir = g:vimrc.join(g:vimrc.cache_dir, 'ctrlp')
+  let g:ctrlp_cache_dir = g:vimrc.cache('ctrlp', 1)
   let g:ctrlp_user_command = {
   \  'types': {
   \    'git': ['.git', 'cd %s && git ls-files -co --exclude-standard'],
@@ -519,7 +527,7 @@ if g:vimrc.has_plugin('neocomplete.vim')
   let g:neocomplete#enable_camel_case = 1
   let g:neocomplete#enable_auto_select = 1
   let g:neocomplete#enable_auto_delimiter = 1
-  let g:neocomplete#data_directory = g:vimrc.join(g:vimrc.cache_dir, 'neco')
+  let g:neocomplete#data_directory = g:vimrc.cache('neco', 1)
 
   if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
@@ -564,12 +572,12 @@ endif
 
 " plugin: neomru {{{1
 if g:vimrc.has_plugin('neomru.vim')
-  let g:neomru#file_mru_path = g:vimrc.join(g:vimrc.cache_dir, 'neomru', 'file')
-  let g:neomru#directory_mru_path = g:vimrc.join(g:vimrc.cache_dir, 'neomru', 'directory')
+  let g:neomru#file_mru_path = g:vimrc.cache(g:vimrc.join('neomru', 'file'))
+  let g:neomru#directory_mru_path = g:vimrc.cache(g:vimrc.join('neomru', 'directory'))
 endif
 
 " plugin: netrw {{{1
-let g:netrw_home = g:vimrc.join(g:vimrc.cache_dir, 'netrw')
+let g:netrw_home = g:vimrc.cache('netrw', 1)
 
 " plugin: quickrun {{{1
 if g:vimrc.has_plugin('vim-quickrun')
@@ -593,7 +601,7 @@ endif
 
 " plugin: ref {{{1
 if g:vimrc.has_plugin('vim-ref')
-  let g:ref_cache_dir = g:vimrc.join(g:vimrc.cache_dir, 'ref')
+  let g:ref_cache_dir = g:vimrc.cache('ref', 1)
 endif
 
 " plugin: riv {{{1
@@ -624,13 +632,13 @@ endif
 
 " plugin: TweetVim {{{1
 if g:vimrc.has_plugin('TweetVim')
-  let g:tweetvim_config_dir = g:vimrc.join(g:vimrc.cache_dir, 'tweetvim')
+  let g:tweetvim_config_dir = g:vimrc.cache('tweetvim', 1)
   let g:tweetvim_expand_t_co = 1
 endif
 
 " plugin: unite {{{1
 if g:vimrc.has_plugin('unite.vim')
-  let g:unite_data_directory = g:vimrc.join(g:vimrc.cache_dir, 'unite')
+  let g:unite_data_directory = g:vimrc.cache('unite', 1)
   call unite#custom#profile('default', 'context', {
   \ 'prompt':       "'-')/ ",
   \ 'start_insert': '1',
