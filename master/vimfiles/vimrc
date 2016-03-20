@@ -21,14 +21,10 @@ endfunction
 
 function! vimrc.has_plugin(name) abort
   if has_key(g:, 'plugs')
-    for fmt in ['%s', 'vim-%s', '%s.vim', '%s-vim']
-      let plug = get(g:plugs, printf(fmt, a:name), {})
-      if !empty(plug)
-        return isdirectory(plug.dir)
-      endif
-    endfor
+    let plug = get(g:plugs, a:name, {})
+    return !empty(plug) && isdirectory(plug.dir)
   endif
-  return &runtimepath =~? printf('\v%s<%(vim-)=%s%([-.]vim)=>', escape(g:vimrc.sep, '\'), a:name)
+  return &runtimepath =~? '\v' . escape(g:vimrc.sep, '\') . a:name
 endfunction
 
 function! vimrc.to_slash(path) abort
@@ -340,7 +336,7 @@ delcommand PlugUpgrade
 
 " color scheme {{{1
 if has('gui_running') || &t_Co == 256
-  if g:vimrc.has_plugin('iceberg')
+  if g:vimrc.has_plugin('iceberg.vim')
     colorscheme iceberg
   elseif g:vimrc.has_plugin('molokai')
     let g:molokai_original = 0
@@ -349,7 +345,7 @@ if has('gui_running') || &t_Co == 256
 endif
 
 " plugin: ambicmd {{{1
-if g:vimrc.has_plugin('ambicmd')
+if g:vimrc.has_plugin('vim-ambicmd')
   cnoremap <expr> <Space> ambicmd#expand("\<Space>")
   cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
   cnoremap <expr> <C-F>   ambicmd#expand("\<Right>")
@@ -366,7 +362,7 @@ if g:vimrc.has_plugin('ambicmd')
 endif
 
 " plugin: autodate {{{1
-if g:vimrc.has_plugin('autodate')
+if g:vimrc.has_plugin('autodate.vim')
   let g:autodate_format = '%Y-%m-%d'
   let g:autodate_keyword_post = '$'
 endif
@@ -380,7 +376,7 @@ endif
 let g:changelog_username = 'Akinori Hattori <hattya@gmail.com>'
 
 " plugin: ctrlp {{{1
-if g:vimrc.has_plugin('ctrlp')
+if g:vimrc.has_plugin('ctrlp.vim')
   let g:ctrlp_map = ''
   let g:ctrlp_cache_dir = g:vimrc.join(g:vimrc.cache_dir, 'ctrlp')
   let g:ctrlp_user_command = {
@@ -400,13 +396,13 @@ if g:vimrc.has_plugin('ctrlp')
 endif
 
 " plugin: eazy-align {{{1
-if g:vimrc.has_plugin('easy-align')
+if g:vimrc.has_plugin('vim-easy-align')
   vmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
 endif
 
 " plugin: emmet {{{1
-if g:vimrc.has_plugin('emmet')
+if g:vimrc.has_plugin('emmet-vim')
   let g:user_emmet_leader_key = '<C-E>'
   let g:user_emmet_settings = {
   \  'indentation': repeat(' ', 2),
@@ -414,12 +410,12 @@ if g:vimrc.has_plugin('emmet')
 endif
 
 " plugin: gist {{{1
-if g:vimrc.has_plugin('gist')
+if g:vimrc.has_plugin('gist-vim')
   let g:gist_update_on_write = 2
 endif
 
 " plugin: go {{{1
-if g:vimrc.has_plugin('go')
+if g:vimrc.has_plugin('vim-go')
   if executable('goimports')
     let g:go_fmt_command = 'goimports'
   endif
@@ -431,7 +427,7 @@ if g:vimrc.has_plugin('go')
 endif
 
 " plugin: jedi {{{1
-if g:vimrc.has_plugin('jedi')
+if g:vimrc.has_plugin('jedi-vim')
   let g:jedi#auto_vim_configuration = 0
   let g:jedi#popup_on_dot = 0
   let g:jedi#rename_command = '<Leader>R'
@@ -455,7 +451,7 @@ let g:lightline = {
 \  'vimrc': {},
 \}
 
-if g:vimrc.has_plugin('vcs-info')
+if g:vimrc.has_plugin('vcs-info.vim')
   call insert(g:lightline.active.left[1], 'vcs')
   let g:lightline.component_function['vcs'] = 'g:lightline.vimrc.vcs'
 
@@ -483,7 +479,7 @@ if g:vimrc.has_plugin('vcs-info')
   endfunction
 endif
 
-if g:vimrc.has_plugin('hahhah')
+if g:vimrc.has_plugin('hahhah-vim')
   call add(g:lightline.active.left[1], 'hahhah')
   let g:lightline.component_function['hahhah'] = 'g:lightline.vimrc.hahhah'
 
@@ -504,7 +500,7 @@ if g:vimrc.has_plugin('hahhah')
 endif
 
 " plugin: clang {{{1
-if g:vimrc.has_plugin('clang')
+if g:vimrc.has_plugin('vim-clang')
   let g:clang_auto = 0
   let g:clang_c_completeopt = &completeopt
   let g:clang_c_options = '-std=gnu11'
@@ -516,7 +512,7 @@ endif
 runtime macros/matchit.vim
 
 " plugin: neocomplete {{{1
-if g:vimrc.has_plugin('neocomplete')
+if g:vimrc.has_plugin('neocomplete.vim')
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_ignore_case = 0
   let g:neocomplete#enable_smart_case = 1
@@ -533,21 +529,21 @@ if g:vimrc.has_plugin('neocomplete')
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
-  if g:vimrc.has_plugin('clang')
+  if g:vimrc.has_plugin('vim-clang')
     let g:neocomplete#force_omni_input_patterns.c = '\%([^.[:space:]]\%(\.\|->\)\|\h\)\w*'
     let g:neocomplete#force_omni_input_patterns.cpp = '\%([^.[:space:]]\%(\.\|->\|::\)\|\h\)\w*'
   endif
-  if g:vimrc.has_plugin('jedi')
+  if g:vimrc.has_plugin('jedi-vim')
     let g:neocomplete#force_omni_input_patterns.python = '\%([^.[:space:]]\.\|^\s*@\|\h\)\w*'
   endif
 
   if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
   endif
-  if g:vimrc.has_plugin('go')
+  if g:vimrc.has_plugin('vim-go')
     let g:neocomplete#sources#omni#input_patterns.go = '\%([^.[:space:]]\.\|\h\)\w*'
   endif
-  if g:vimrc.has_plugin('perlomni')
+  if g:vimrc.has_plugin('perlomni.vim')
     let g:neocomplete#sources#omni#input_patterns.perl = '\%([^.[:space:]]\%(->\|::\)\|\h\)\w*'
   endif
 
@@ -562,12 +558,12 @@ if g:vimrc.has_plugin('neocomplete')
 endif
 
 " plugin: neoinclude {{{1
-if g:vimrc.has_plugin('neoinclude')
+if g:vimrc.has_plugin('neoinclude.vim')
   let g:neoinclude#ctags_commands = {'_': ''}
 endif
 
 " plugin: neomru {{{1
-if g:vimrc.has_plugin('neomru')
+if g:vimrc.has_plugin('neomru.vim')
   let g:neomru#file_mru_path = g:vimrc.join(g:vimrc.cache_dir, 'neomru', 'file')
   let g:neomru#directory_mru_path = g:vimrc.join(g:vimrc.cache_dir, 'neomru', 'directory')
 endif
@@ -576,7 +572,7 @@ endif
 let g:netrw_home = g:vimrc.join(g:vimrc.cache_dir, 'netrw')
 
 " plugin: quickrun {{{1
-if g:vimrc.has_plugin('quickrun')
+if g:vimrc.has_plugin('vim-quickrun')
   let g:quickrun_config = {
   \  '_': {
   \    'runner/vimproc/updatetime': 40,
@@ -586,7 +582,7 @@ if g:vimrc.has_plugin('quickrun')
   \    'exec': '%c -B -m unittest discover -s %s:h -p %s:t',
   \  },
   \}
-  if g:vimrc.has_plugin('vimproc')
+  if g:vimrc.has_plugin('vimproc.vim')
     let g:quickrun_config._.runner = 'vimproc'
   endif
   if g:vimrc.is_win
@@ -596,18 +592,18 @@ if g:vimrc.has_plugin('quickrun')
 endif
 
 " plugin: ref {{{1
-if g:vimrc.has_plugin('ref')
+if g:vimrc.has_plugin('vim-ref')
   let g:ref_cache_dir = g:vimrc.join(g:vimrc.cache_dir, 'ref')
 endif
 
 " plugin: riv {{{1
-if g:vimrc.has_plugin('riv')
+if g:vimrc.has_plugin('riv.vim')
   let g:riv_file_link_style = 2
   let g:riv_disable_folding = 1
 endif
 
 " plugin: template {{{1
-if g:vimrc.has_plugin('template')
+if g:vimrc.has_plugin('vim-template')
   augroup vimrc-plugin-template
     autocmd!
     autocmd FileType * execute 'TemplateLoad /filetype/' . &l:filetype
@@ -633,7 +629,7 @@ if g:vimrc.has_plugin('TweetVim')
 endif
 
 " plugin: unite {{{1
-if g:vimrc.has_plugin('unite')
+if g:vimrc.has_plugin('unite.vim')
   let g:unite_data_directory = g:vimrc.join(g:vimrc.cache_dir, 'unite')
   call unite#custom#profile('default', 'context', {
   \ 'prompt':       "'-')/ ",

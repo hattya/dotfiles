@@ -10,7 +10,7 @@ setlocal expandtab
 setlocal fileformat=unix
 setlocal shiftwidth=2
 setlocal tabstop=2
-if g:vimrc.has_plugin('jscomplete')
+if g:vimrc.has_plugin('jscomplete-vim')
   setlocal omnifunc=jscomplete#CompleteJS
 endif
 
