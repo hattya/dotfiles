@@ -180,7 +180,9 @@ function tmux() {
                    swap-window -s 1 \; \
                    new-window -d -t 5 top
       options=(${(fz)"$(tmux show-options -g)"})
-      if (( ${+options[pane-border-ascii]} )); then
+      if (( ${+options[acs]} )); then
+        command tmux set-option -gq acs vt100
+      elif (( ${+options[pane-border-ascii]} )); then
         command tmux set-option -gq pane-border-ascii on 
       fi
     fi
