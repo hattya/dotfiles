@@ -1,0 +1,4 @@
+! .Xmodmap
+
+keycode 123 = backslash underscore
+keycode 133 = yen       bar
