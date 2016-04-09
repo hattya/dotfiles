@@ -325,7 +325,7 @@ Plug 'Rykka/riv.vim', { 'for': 'rst' }
 " filetype: tmux
 Plug 'keith/tmux.vim', { 'for': 'tmux' }
 " filetype: vim
-Plug 'vim-jp/gen_syn_vim', { 'for': 'vim', 'branch': 'gh-pages' }
+Plug 'vim-jp/syntax-vim-ex', { 'for': 'vim' }
 Plug 'thinca/vim-ft-vim_fold', { 'for': 'vim' }
 " color scheme
 Plug 'cocopon/iceberg.vim'
