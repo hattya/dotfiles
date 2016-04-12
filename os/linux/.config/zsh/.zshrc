@@ -15,7 +15,7 @@ elif [[ ${TERM} == *256color ]]; then
   (( has_256color = 1 ))
 fi
 
-function _zshrc-fg() {
+zshrc-fg() {
   local -a c256 c8
   c256=(${(s.:.)1})
   c8=(${(s.:.)2})
@@ -63,7 +63,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' use-cache true
-zstyle ':completion:*:descriptions' format "$(_zshrc-fg 246 white '-') $(_zshrc-fg 220 yellow '%d') $(_zshrc-fg 246 white '-')"
+zstyle ':completion:*:descriptions' format "$(zshrc-fg 246 white '-') $(zshrc-fg 220 yellow '%d') $(zshrc-fg 246 white '-')"
 # processes
 zstyle ':completion:*:processes' command "ps -au '${USER}' -o pid,tty,cputime,args"
 zstyle ':completion:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
@@ -106,8 +106,8 @@ setopt transient_rprompt
 
 autoload -Uz vcs_info
 add-zsh-hook precmd vcs_info
-zstyle ':vcs_info:*' formats " $(_zshrc-fg 214 magenta '(%b)')"
-zstyle ':vcs_info:*' actionformats " $(_zshrc-fg 214 magenta '(%b:%a)')"
+zstyle ':vcs_info:*' formats " $(zshrc-fg 214 magenta '(%b)')"
+zstyle ':vcs_info:*' actionformats " $(zshrc-fg 214 magenta '(%b:%a)')"
 
 case ${UID} in
 0)
@@ -125,16 +125,16 @@ case ${UID} in
     m+="[${WINDOW}]"
   elif (( ${+TMUX} )); then
     # tmux window number
-    function _zshrc-tmux-window() {
+    zshrc-tmux-window() {
       tmux display-message -p "#I.#P"
     }
-    m+="[\$(_zshrc-tmux-window)]"
+    m+="[\$(zshrc-tmux-window)]"
   fi
-  PROMPT="$(_zshrc-fg 047 green '%n')$(_zshrc-fg ${mc[@]} "${m}")\${vcs_info_msg_0_} $(_zshrc-fg 228:198 yellow:red '%#') "
+  PROMPT="$(zshrc-fg 047 green '%n')$(zshrc-fg ${mc[@]} "${m}")\${vcs_info_msg_0_} $(zshrc-fg 228:198 yellow:red '%#') "
   unset m mc
   ;;
 esac
-RPROMPT=" $(_zshrc-fg 228 yellow '<%~>')"
+RPROMPT=" $(zshrc-fg 228 yellow '<%~>')"
 
 # zle
 unsetopt beep
@@ -169,7 +169,7 @@ if (( ${+commands[emacs]} )); then
   alias emacs='XMODIFIERS="@im=none" emacs'
 fi
 
-function tmux() {
+tmux() {
   local -A options
   if [[ ${#} -ge 1 && ${1} == -z ]]; then
     shift
@@ -196,12 +196,12 @@ function tmux() {
 if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
   case ${TERM} in
   rxvt*|*term*|putty*)
-    function _zshrc-term-title() {
+    zshrc-term-title() {
       print -n "\e]2;${1}\a"
     }
     ;;
   screen*)
-    function _zshrc-term-title() {
+    zshrc-term-title() {
       # screen location
       print -n "\e_${1}\e\\"
       # screen title (in ^A)
@@ -209,18 +209,18 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
     }
     ;;
   *)
-    function _zshrc-term-title() {
+    zshrc-term-title() {
       :
     }
     ;;
   esac
 
-  function _zshrc-term-title-chpwd() {
-    _zshrc-term-title "$(print -Pn "%n@%m - %~")"
+  zshrc-term-title-chpwd() {
+    zshrc-term-title "$(print -Pn "%n@%m - %~")"
   }
-  add-zsh-hook chpwd _zshrc-term-title-chpwd
+  add-zsh-hook chpwd zshrc-term-title-chpwd
 
-  function _zshrc-term-title-preexec() {
+  zshrc-term-title-preexec() {
     local -a cmd
     cmd=(${(z)1})
     # remove parenthesis
@@ -250,20 +250,20 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
       fi
     fi
 
-    _zshrc-term-title "$(print -Pn "%n@%m - ")${cmd[1]:t}"
+    zshrc-term-title "$(print -Pn "%n@%m - ")${cmd[1]:t}"
   }
-  add-zsh-hook preexec _zshrc-term-title-preexec
+  add-zsh-hook preexec zshrc-term-title-preexec
 fi
 
 # keychain
 if (( ${+commands[keychain]} )); then
-  function _zshrc-keychain-preexec() {
+  zshrc-keychain-preexec() {
     local f
     for f in ~/.keychain/"$(hostname)"-sh*(Nr); do
       . "${f}"
     done
   }
-  add-zsh-hook preexec _zshrc-keychain-preexec
+  add-zsh-hook preexec zshrc-keychain-preexec
 fi
 
 if [[ -f ~/.local/Cellar/knu-z/z.sh ]]; then
