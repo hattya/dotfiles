@@ -1,0 +1,7 @@
+{
+  "Prompt": ">>",
+  "InitialFilter": "SmartCase",
+  "Keymap": {
+    "C-j": "peco.ToggleSingleKeyJump"
+  }
+}
