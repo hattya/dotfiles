@@ -23,7 +23,8 @@
         "name": "windows",
         "aliases": {
           ".curlrc": "$APPDATA/_curlrc",
-          "gocode": "$APPDATA/gocode"
+          "gocode": "$APPDATA/gocode",
+          "peco": ".peco"
         }
       }
     ]
