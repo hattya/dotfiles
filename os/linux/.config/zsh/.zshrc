@@ -144,6 +144,22 @@ bindkey -e
 autoload -Uz select-word-style
 select-word-style bash
 
+if (( ${+commands[peco]} )); then
+  zshrc-peco-history-search() {
+    local tac
+    if (( ${+commands[tac]} )); then
+      tac="tac"
+    else
+      tac="tail -r"
+    fi
+
+    BUFFER="$(fc -ln 1 | ${tac} | awk '!a[$0]++' | peco --query "${LBUFFER}")"
+    CURSOR=${#BUFFER}
+  }
+  zle -N zshrc-peco-history-search
+  bindkey '^R' zshrc-peco-history-search
+fi
+
 # global aliases
 alias -g C='| cut'
 alias -g G='| grep'
