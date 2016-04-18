@@ -141,6 +141,24 @@ unsetopt beep
 
 # key bindings
 bindkey -e
+if [[ ${TERM} != emacs ]]; then
+  typeset -A map
+  map=(
+    khome beginning-of-line
+    kich1 overwrite-mode
+    kdch1 delete-char
+    kend  end-of-line
+    kpp   beginning-of-buffer-or-history
+    knp   end-of-buffer-or-history
+  )
+  for k in ${(k)map}; do
+    if [[ -n ${terminfo[${k}]} ]]; then
+      bindkey -M emacs "${terminfo[${k}]}" "${map[${k}]}"
+    fi
+  done
+  unset map
+fi
+
 autoload -Uz select-word-style
 select-word-style bash
 
