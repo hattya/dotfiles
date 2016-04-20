@@ -91,6 +91,7 @@ if has('mouse')
   set mouse=a
 endif
 set history=1000
+set ttimeoutlen=0
 if has('viminfo')
   let &viminfo = &viminfo . ',n' . g:vimrc.cache('viminfo')
 endif
