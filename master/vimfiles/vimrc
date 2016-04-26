@@ -44,7 +44,7 @@ if g:vimrc.is_win
   let g:vimrc.cache_dir = g:vimrc.join($LOCALAPPDATA, 'Vim')
 else
   let g:vimrc.vimfiles = expand(g:vimrc.join('~', '.vim'))
-  let g:vimrc.cache_dir = g:vimrc.join(!empty($XDG_CACHE_HOME) ? $XDG_CACHE_HOME : expand(g:vimrc.join('~', '.cache')), 'vim')
+  let g:vimrc.cache_dir = g:vimrc.join($XDG_CACHE_HOME !=# '' ? $XDG_CACHE_HOME : expand(g:vimrc.join('~', '.cache')), 'vim')
 endif
 
 " encoding {{{1
@@ -481,7 +481,7 @@ if g:vimrc.has_plugin('vcs-info.vim')
       let info = vcs_info#get()
       if !empty(info)
         let self._vcs.text = info.head
-        if !empty(info.action)
+        if info.action !=# ''
           let self._vcs.text .= ':' . info.action
         endif
       endif
