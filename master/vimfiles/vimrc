@@ -325,6 +325,8 @@ Plug 'hattya/python-indent.vim', { 'for': 'python' }
 Plug 'Rykka/riv.vim', { 'for': 'rst' }
 " filetype: tmux
 Plug 'keith/tmux.vim', { 'for': 'tmux' }
+" filetype: toml
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 " filetype: vim
 Plug 'vim-jp/syntax-vim-ex', { 'for': 'vim' }
 Plug 'thinca/vim-ft-vim_fold', { 'for': 'vim' }
