@@ -254,6 +254,7 @@ endfunction
 call plug#begin(g:vimrc.join(g:vimrc.vimfiles, 'bundle'))
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'hattya/license.vim'
 Plug 'hattya/vcvars.vim'
 Plug 'hattya/vcs-info.vim'
 Plug 'haya14busa/vim-migemo'
@@ -444,6 +445,12 @@ if g:vimrc.has_plugin('jedi-vim')
   let g:jedi#rename_command = '<Leader>R'
   let g:jedi#show_call_signatures = 0
   let g:jedi#force_py_version = has('python3') ? 3 : 2
+endif
+
+" plugin: license {{{1
+if g:vimrc.has_plugin('license.vim')
+  let g:license_shiftwidth = 3
+  let g:license_textwidth = 68
 endif
 
 " plugin: lightline {{{1
