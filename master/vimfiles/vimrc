@@ -195,10 +195,13 @@ augroup END
 function! s:update_copyright_year() abort
   if &modified
     let pos = getpos('.')
-    let Y = strftime('%Y')
-    silent execute 'g/\v\ccopyright\s*%(\(c\)\s*)?%(' . Y . ')@!\d{4}%(-' . Y . ')@!/s/\v(\d{4})%(-\d{4})?/\1-' . Y . '/'
-    call histdel('/', -1)
-    call setpos('.', pos)
+    try
+      let Y = strftime('%Y')
+      silent execute 'g/\v\ccopyright\s*%(\(c\)\s*)?%(' . Y . ')@!\d{4}%(-' . Y . ')@!/s/\v(\d{4})%(-\d{4})?/\1-' . Y . '/'
+      call histdel('/', -1)
+    finally
+      call setpos('.', pos)
+    endtry
   endif
 endfunction
 
@@ -255,8 +258,8 @@ call plug#begin(g:vimrc.join(g:vimrc.vimfiles, 'bundle'))
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'hattya/license.vim'
-Plug 'hattya/vcvars.vim'
 Plug 'hattya/vcs-info.vim'
+Plug 'hattya/vcvars.vim'
 Plug 'haya14busa/vim-migemo'
 Plug 'junegunn/vim-easy-align', { 'on': ['EasyAlign', 'LiveEasyAlign', '<Plug>(EasyAlign)'] }
 Plug 'junegunn/vim-plug'
