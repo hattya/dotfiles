@@ -32,7 +32,7 @@ BEGIN
       VALUE "FileDescription",  <+DEFINE+>_DESCRIPTION "\0"
       VALUE "FileVersion",      <+DEFINE+>_VERSION_STRING "\0"
       VALUE "InternalName",     <+DEFINE+>_NAME "\0"
-      VALUE "LegalCopyright",   "© <%= strftime('%Y') %> Akinori Hattori\0"
+      VALUE "LegalCopyright",   "© <%= strftime('%Y') %> <%= g:user.name %>\0"
       VALUE "OriginalFileName", <+DEFINE+>_NAME ".exe\0"
       VALUE "ProductName",      <+DEFINE+>_PRODUCT_NAME "\0"
       VALUE "ProductVersion",   <+DEFINE+>_VERSION_STRING "\0"

@@ -47,6 +47,15 @@ else
   let g:vimrc.cache_dir = g:vimrc.join($XDG_CACHE_HOME !=# '' ? $XDG_CACHE_HOME : expand(g:vimrc.join('~', '.cache')), 'vim')
 endif
 
+let g:user = {
+\  'name':  'Akinori Hattori',
+\  'email': 'hattya@gmail.com',
+\}
+
+function! user.format() abort
+  return printf('%s <%s>', self.name, self.email)
+endfunction
+
 " encoding {{{1
 if has('multi_byte')
   if g:vimrc.is_win
@@ -388,7 +397,7 @@ if g:vimrc.has_plugin('autofmt')
 endif
 
 " plugin: chagelog {{{1
-let g:changelog_username = 'Akinori Hattori <hattya@gmail.com>'
+let g:changelog_username = g:user.format()
 
 " plugin: ctrlp {{{1
 if g:vimrc.has_plugin('ctrlp.vim')
