@@ -1,0 +1,7 @@
+scriptencoding utf-8
+
+Describe ...
+  It <+CURSOR+>
+    Assert True(0)
+  End
+End
