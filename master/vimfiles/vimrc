@@ -104,6 +104,7 @@ set ttimeoutlen=0
 if has('viminfo')
   let &viminfo = &viminfo . ',n' . g:vimrc.cache('viminfo')
 endif
+set wildignorecase
 
 " search options {{{2
 if executable('jvgrep')
