@@ -400,6 +400,15 @@ endif
 " plugin: chagelog {{{1
 let g:changelog_username = g:user.format()
 
+" plugin: clang {{{1
+if g:vimrc.has_plugin('vim-clang')
+  let g:clang_auto = 0
+  let g:clang_c_completeopt = &completeopt
+  let g:clang_c_options = '-std=gnu11'
+  let g:clang_cpp_completeopt = &completeopt
+  let g:clang_cpp_options = '-std=c++11'
+endif
+
 " plugin: ctrlp {{{1
 if g:vimrc.has_plugin('ctrlp.vim')
   let g:ctrlp_map = ''
@@ -528,15 +537,6 @@ if g:vimrc.has_plugin('hahhah-vim')
     let self._hahhah.i += 1
     return self._hahhah.text
   endfunction
-endif
-
-" plugin: clang {{{1
-if g:vimrc.has_plugin('vim-clang')
-  let g:clang_auto = 0
-  let g:clang_c_completeopt = &completeopt
-  let g:clang_c_options = '-std=gnu11'
-  let g:clang_cpp_completeopt = &completeopt
-  let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 endif
 
 " plugin: matchit {{{1
