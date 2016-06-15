@@ -4,7 +4,7 @@
 	st = status
 	ss = status -bs
 	di = diff
-	wdi = diff --color-words
+	dic = diff --cached
 	br = branch
 	sw = checkout
 	re = rebase --committer-date-is-author-date
@@ -14,7 +14,6 @@
 	ra = rebase --abort
 	ls = ls-files
 	g = grep
-	rollback = reset HEAD^ --
 	l = log --stat --pretty=fuller
 	ll = log -p --stat --pretty=fuller
 	v = show -p --pretty=fuller --stat
