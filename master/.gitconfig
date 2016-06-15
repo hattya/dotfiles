@@ -44,6 +44,7 @@
 	keepBackup = false
 [pager]
 	diff = diff-highlight | less
+	log = diff-highlight | less
 [push]
 	default = simple
 [rebase]
