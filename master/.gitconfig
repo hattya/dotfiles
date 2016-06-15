@@ -33,6 +33,7 @@
 	quotepath = false
 [diff]
 	algorithm = histogram
+	compactionHeuristic = true
 	renames = copy
 	tool = p4merge
 [help]
