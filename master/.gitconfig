@@ -42,6 +42,8 @@
 	tool = p4merge
 [mergetool]
 	keepBackup = false
+[pager]
+	diff = diff-highlight | less
 [push]
 	default = simple
 [rebase]
