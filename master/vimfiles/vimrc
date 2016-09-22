@@ -454,11 +454,12 @@ if g:vimrc.has_plugin('vim-go')
   if executable('goimports')
     let g:go_fmt_command = 'goimports'
   endif
-	let g:go_highlight_operators = 1
-	let g:go_highlight_functions = 1
-	let g:go_highlight_methods = 1
-	let g:go_highlight_structs = 1
-	let g:go_highlight_build_constraints = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_build_constraints = 1
+  let g:go#use_vimproc = 0
 endif
 
 " plugin: jedi {{{1
