@@ -1,3 +1,3 @@
 [flake8]
-ignore = E125,E129
+ignore = E125,E127,E129
 show-source = True
