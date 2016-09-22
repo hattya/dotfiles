@@ -168,6 +168,7 @@ set list
 set listchars=eol:¬,tab:»\ ,trail:-,extends:»,precedes:«
 set nonumber
 set ruler
+set scrolloff&
 set showcmd
 set statusline=%<%{expand('%:t')}\ %y%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%=%l,%c%V%5P
 set title
