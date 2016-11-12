@@ -293,15 +293,6 @@ Plug 'vim-jp/autofmt'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
 Plug 'vim-scripts/autodate.vim'
-" neocomplete
-if !exists('$SSH_CLIENT') 
-  Plug 'Shougo/context_filetype.vim'
-  Plug 'Shougo/neocomplete.vim'
-  Plug 'Shougo/neco-syntax'
-  Plug 'Shougo/neco-vim'
-  Plug 'Shougo/neoinclude.vim'
-  Plug 'yomi322/neco-tweetvim'
-endif
 " status line
 Plug 'itchyny/lightline.vim'
 Plug 'mattn/hahhah-vim'
@@ -544,57 +535,6 @@ endif
 
 " plugin: matchit {{{1
 runtime macros/matchit.vim
-
-" plugin: neocomplete {{{1
-if g:vimrc.has_plugin('neocomplete.vim')
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_ignore_case = 0
-  let g:neocomplete#enable_smart_case = 1
-  let g:neocomplete#enable_camel_case = 1
-  let g:neocomplete#enable_auto_select = 1
-  let g:neocomplete#enable_auto_delimiter = 1
-  let g:neocomplete#data_directory = g:vimrc.cache('neco', 1)
-
-  if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-  endif
-  let g:neocomplete#keyword_patterns._ = '\h\w*'
-
-  if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-  endif
-  if g:vimrc.has_plugin('vim-clang')
-    let g:neocomplete#force_omni_input_patterns.c = '\%([^.[:space:]]\%(\.\|->\)\|\h\)\w*'
-    let g:neocomplete#force_omni_input_patterns.cpp = '\%([^.[:space:]]\%(\.\|->\|::\)\|\h\)\w*'
-  endif
-  if g:vimrc.has_plugin('jedi-vim')
-    let g:neocomplete#force_omni_input_patterns.python = '\%([^.[:space:]]\.\|^\s*@\|\h\)\w*'
-  endif
-
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  if g:vimrc.has_plugin('vim-go')
-    let g:neocomplete#sources#omni#input_patterns.go = '\%([^.[:space:]]\.\|\h\)\w*'
-  endif
-  if g:vimrc.has_plugin('perlomni.vim')
-    let g:neocomplete#sources#omni#input_patterns.perl = '\%([^.[:space:]]\%(->\|::\)\|\h\)\w*'
-  endif
-
-  inoremap <expr> <C-G> neocomplete#undo_completion()
-  inoremap <expr> <C-L> neocomplete#complete_common_string()
-  inoremap <expr> <CR>  pumvisible() ? neocomplete#close_popup() : "\<CR>"
-  inoremap <expr> <Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
-  inoremap <expr> <C-H> neocomplete#smart_close_popup() . "\<C-H>"
-  inoremap <expr> <BS>  neocomplete#smart_close_popup() . "\<BS>"
-  inoremap <expr> <C-Y> neocomplete#close_popup()
-  inoremap <expr> <C-E> neocomplete#cancel_popup()
-endif
-
-" plugin: neoinclude {{{1
-if g:vimrc.has_plugin('neoinclude.vim')
-  let g:neoinclude#ctags_commands = {'_': ''}
-endif
 
 " plugin: neomru {{{1
 if g:vimrc.has_plugin('neomru.vim')
