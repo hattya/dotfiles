@@ -443,6 +443,7 @@ endif
 
 " plugin: go {{{1
 if g:vimrc.has_plugin('vim-go')
+  let g:go_def_mode = 'godef'
   if executable('goimports')
     let g:go_fmt_command = 'goimports'
   endif
