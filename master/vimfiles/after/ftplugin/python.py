@@ -36,7 +36,7 @@ def _vimrc_pth(activate):
         i = 1 if 'jedi.api' in sys.modules else 0
         with io.open(pth, encoding='utf-8-sig') as fp:
             for l in fp:
-                l = l.strip().format(**values)
+                l = os.path.expandvars(l.strip().format(**values))
                 p = os.path.normpath(os.path.join(root, l))
                 if not os.path.isdir(p):
                     continue
