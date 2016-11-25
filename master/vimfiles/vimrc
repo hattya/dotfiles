@@ -129,7 +129,8 @@ set noexpandtab
 if exists('+fixendofline')
   set nofixendofline
 endif
-set formatoptions+=mM
+set formatoptions-=M
+set formatoptions+=mBj
 set hidden
 if has('langmap') && exists('+langnoremap')
   set langnoremap
