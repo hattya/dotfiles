@@ -388,6 +388,7 @@ endif
 " plugin: autofmt {{{1
 if g:vimrc.has_plugin('autofmt')
   set formatexpr=autofmt#japanese#formatexpr()
+  let g:autofmt_allow_over_tw = 1
 endif
 
 " plugin: chagelog {{{1
