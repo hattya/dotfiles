@@ -489,52 +489,60 @@ let g:lightline = {
 \  'vimrc': {},
 \}
 
-if g:vimrc.has_plugin('vcs-info.vim')
-  call insert(g:lightline.active.left[1], 'vcs')
-  let g:lightline.component_function['vcs'] = 'g:lightline.vimrc.vcs'
+if g:vimrc.has_plugin('iceberg.vim')
+  let g:lightline.colorscheme = 'iceberg'
+endif
 
-  function! lightline.vimrc.vcs() abort
+if g:vimrc.has_plugin('vcs-info.vim')
+  function! LightlineVCS() abort
     if winwidth(0) < 100
       return ''
     endif
 
-    let b = [bufnr('%'), bufname('%')]
-    if !has_key(self, '_vcs') || self._vcs.b != b || 3 < str2float(reltimestr(reltime(self._vcs.last)))
-      let self._vcs = {
+    let vcs = g:lightline.vimrc.vcs
+    let buf = [bufnr('%'), bufname('%')]
+    if empty(vcs) || vcs.buf != buf || 3 < str2float(reltimestr(reltime(vcs.last)))
+      call extend(vcs, {
       \  'text': '',
-      \  'b':    b,
+      \  'buf':  buf,
       \  'last': reltime(),
-      \}
+      \})
       let info = vcs_info#get()
       if !empty(info)
-        let self._vcs.text = info.head
+        let vcs.text = info.head
         if info.action !=# ''
-          let self._vcs.text .= ':' . info.action
+          let vcs.text .= ':' . info.action
         endif
       endif
     endif
-    return self._vcs.text
+    return vcs.text
   endfunction
+
+  let g:lightline.vimrc.vcs = {}
+  let g:lightline.component_function['vcs'] = 'LightlineVCS'
+  call insert(g:lightline.active.left[1], 'vcs')
 endif
 
 if g:vimrc.has_plugin('hahhah-vim')
-  call add(g:lightline.active.left[1], 'hahhah')
-  let g:lightline.component_function['hahhah'] = 'g:lightline.vimrc.hahhah'
-
-  function! lightline.vimrc.hahhah() abort
+  function! LightlineHahHah() abort
     if winwidth(0) < 100
       return ''
     endif
 
-    if !has_key(self, '_hahhah') || self._hahhah.i == 4
-      let self._hahhah = {
+    let hahhah = g:lightline.vimrc.hahhah
+    if empty(hahhah) || hahhah.i == 4
+      call extend(hahhah, {
       \  'text': hahhah#get_text(),
       \  'i':    0,
-      \}
+      \})
     endif
-    let self._hahhah.i += 1
-    return self._hahhah.text
+    let hahhah.i += 1
+    return hahhah.text
   endfunction
+
+  let g:lightline.vimrc.hahhah = {}
+  let g:lightline.component_function['hahhah'] = 'LightlineHahHah'
+  call add(g:lightline.active.left[1], 'hahhah')
 endif
 
 " plugin: matchit {{{1
