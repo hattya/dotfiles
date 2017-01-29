@@ -16,6 +16,8 @@ hgext.pager =
 hgext.progress =
 hgext.purge =
 
+diff_highlight =
+
 [bookmarks]
 track.current = True
 
