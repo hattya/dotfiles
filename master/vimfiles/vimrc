@@ -315,7 +315,6 @@ Plug 'basyura/twibill.vim'
 Plug 'mattn/favstar-vim', { 'on': 'FavStar' }
 " unite
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim'
 Plug 'tsukkee/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'Shougo/unite-outline'
@@ -553,12 +552,6 @@ endif
 
 " plugin: matchit {{{1
 runtime macros/matchit.vim
-
-" plugin: neomru {{{1
-if g:vimrc.has_plugin('neomru.vim')
-  let g:neomru#file_mru_path = g:vimrc.cache(g:vimrc.join('neomru', 'file'))
-  let g:neomru#directory_mru_path = g:vimrc.cache(g:vimrc.join('neomru', 'directory'))
-endif
 
 " plugin: netrw {{{1
 let g:netrw_home = g:vimrc.cache('netrw', 1)
