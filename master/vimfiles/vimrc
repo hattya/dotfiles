@@ -282,7 +282,6 @@ Plug 'hattya/vcvars.vim'
 Plug 'haya14busa/vim-migemo'
 Plug 'junegunn/vim-easy-align', { 'on': ['EasyAlign', 'LiveEasyAlign', '<Plug>(EasyAlign)'] }
 Plug 'junegunn/vim-plug'
-Plug 'lambdalisue/vim-gita', { 'on': 'Gita' }
 Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim'
