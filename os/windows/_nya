@@ -1,0 +1,92 @@
+# _nya
+
+# options
+option savehist $APPDATA\NYAOS_ORG\nya.history
+
+# suffixes
+suffix wsf  cscript //NoLogo
+suffix lua  nyaos
+
+# aliases
+alias ls    ls -h
+alias ll    ls -lh
+alias la    ls -Alh
+alias pushd pushd -H
+alias pcd   _pushd
+alias po    popd
+
+_pushd{
+    pushd $* >NUL
+}
+
+# folders
+folder data E:\Users\hattya
+
+# environ
+set WORKON_HOME=$APPDATA\virtualenv
+
+lua_e "
+  package.path = ([[~\.nya.d\?.lua;~\.nya.d\?\init.lua]]):gsub('~', os.getenv('USERPROFILE'))
+
+  share = {}
+  share.nya = require('nya')
+  share.environ = require('environ')
+
+  -- C/C++
+  local compiler = require('compiler')
+  share.nya.command('compiler', compiler.command)
+
+  -- Python
+  local venv = require('venv')
+  share.nya.command('venv', venv.command)
+
+  -- dynamic prompt
+  local color   = require('color')
+  local red     = color.color(color.fg.red,     color.attr.bold)
+  local green   = color.color(color.fg.green,   color.attr.bold)
+  local yellow  = color.color(color.fg.yellow,  color.attr.bold)
+  local magenta = color.color(color.fg.magenta, color.attr.bold)
+  local cyan    = color.color(color.fg.cyan,    color.attr.bold)
+
+  function nyaos.prompt(p)
+    if p:sub(-1) == '>' then
+      return
+    end
+
+    local pwd = yellow('$L$P$G$_')
+    local env = {}
+    for _, data in ipairs(share.environ.stack) do
+      local c
+      if data.id:lower() == 'python' then
+        c = magenta
+      else
+        c = cyan
+      end
+      table.insert(env, c('(' .. data.name .. ')'))
+    end
+    if 0 < #env then
+      env = table.concat(env, ' ') .. ' '
+    else
+      env = ''
+    end
+
+    local caret_c
+    if share.nya.errorlevel() ~= 0 then
+      caret_c = red
+    else
+      caret_c = yellow
+    end
+    local name = os.getenv('USERNAME')
+    local caret
+    if name ~= 'hattya' then
+      name  = red(name)
+      caret = caret_c('#')
+    else
+      name  = green(name)
+      caret = caret_c('%')
+    end
+    return true, pwd .. env .. name .. cyan('@' .. os.getenv('COMPUTERNAME')) .. '$S' .. caret .. '$S'
+  end
+"
+
+venv workon py36
