@@ -1,0 +1,77 @@
+-- .nyagos
+--
+-- vim:ft=lua:
+
+package.path = ([[~\.nya.d\?.lua;~\.nya.d\?\init.lua]]):gsub('~', nyagos.getenv('USERPROFILE'))
+
+share.nya = require('nya')
+share.environ = require('environ')
+
+-- C/C++
+local compiler = require('compiler')
+share.nya.command('compiler', compiler.command)
+
+-- Python
+local venv = require('venv')
+share.nya.command('venv', venv.command)
+
+nyagos.env.workon_home = nyagos.env.APPDATA .. [[\virtualenv]]
+nyagos.exec([[venv workon py36]])
+
+-- prompt
+share.color = require('color')
+share.prompt = nyagos.prompt
+
+nyagos.env.prompt = '$L$P$G$_' .. nyagos.getenv('USERNAME') .. '@' .. nyagos.getenv('COMPUTERNAME') .. '$S%$S'
+nyagos.prompt = function(this)
+  local color   = share.color
+  local red     = color.color(color.fg.red,     color.attr.bold)
+  local green   = color.color(color.fg.green,   color.attr.bold)
+  local yellow  = color.color(color.fg.yellow,  color.attr.bold)
+  local magenta = color.color(color.fg.magenta, color.attr.bold)
+  local cyan    = color.color(color.fg.cyan,    color.attr.bold)
+
+  local pwd = yellow('$L$P$G$_')
+  local env = {}
+  for _, data in ipairs(share.environ.stack) do
+    local c
+    if data.id:lower() == 'python' then
+      c = magenta
+    else
+      c = cyan
+    end
+    table.insert(env, c('(' .. data.name .. ')'))
+  end
+  if 0 < #env then
+    env = table.concat(env, ' ') .. ' '
+  else
+    env = ''
+  end
+
+  local caret_c
+  if share.nya.errorlevel() ~= 0 then
+    caret_c = red
+  else
+    caret_c = yellow
+  end
+  local name = nyagos.getenv('USERNAME')
+  local caret
+  if name ~= 'hattya' then
+    name  = red(name)
+    caret = caret_c('#')
+  else
+    name  = green(name)
+    caret = caret_c('%')
+  end
+  return share.prompt(pwd .. env .. name .. cyan('@' .. nyagos.getenv('COMPUTERNAME')) .. '$S' .. caret .. '$S')
+end
+
+-- peco
+use 'peco'
+
+nyagos.bindkey('C_R', function(this)
+  this:replacefrom(1, '')
+  local rv = nyagos.eval('__dump_history | peco --query "' .. this.text .. '"')
+  this:call('CLEAR_SCREEN')
+  return rv
+end)
