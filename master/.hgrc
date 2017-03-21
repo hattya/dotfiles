@@ -25,11 +25,12 @@ track.current = True
 secret = True
 
 [pager]
-attend = annotate, bookmarks, branches, cat, config, diff, export, files, grep,
+attend =
+    annotate, bookmarks, branches, cat, config, diff, export, files, grep,
     heads, help, incoming, log, manifest, outgoing, paths, phase, status,
     summary, tags, tip,
     qapplied, qdiff, qseries, qunapplied
 pager = less -F
 
-%include .hgrc.d/os.rc
-%include .hgrc.d/host.rc
+%include ~/.hgrc.d/os.rc
+%include ~/.hgrc.d/host.rc
