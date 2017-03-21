@@ -32,5 +32,8 @@ attend =
     qapplied, qdiff, qseries, qunapplied
 pager = less -F
 
+[hooks]
+update.utime = python:~/.hgrc.d/utime.py:hook
+
 %include ~/.hgrc.d/os.rc
 %include ~/.hgrc.d/host.rc
