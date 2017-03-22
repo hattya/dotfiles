@@ -1,4 +1,5 @@
 [alias]
+	alias = "!f() { git config --get-regexp \"alias\\.${1:-*}\" | sed 's/^alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\t= \\2/'; }; f"
 	co = checkout
 	ci = commit -v
 	st = status
@@ -17,7 +18,7 @@
 	l = log --stat --pretty=fuller
 	ll = log -p --stat --pretty=fuller
 	v = show -p --pretty=fuller --stat
-	view = log --oneline --graph --source --tags --branches
+	view = log --decorate --source --tags --branches --oneline --graph
 	xl = stash list
 	xs = stash show
 	xp = stash show -p --stat
