@@ -178,21 +178,40 @@ set visualbell
 set wrap
 
 " terminal options {{{2
-" change terminal title on tmux or screen
-if exists('$TMUX') || exists('$WINDOW')
+" change terminal title {{{3
+if &term =~# '^screen' 
   set t_ts=_
   set t_fs=\
 endif
-" bracketed paste mode
-if !g:vimrc.is_win
+" bracketed paste mode {{{3
+if has('patch-8.0.0238')
+  if &term =~# '^screen'
+    set t_BE=[?2004h
+    set t_BD=[?2004l
+    set t_PS=[200~
+    set t_PE=[201~
+  endif
+else
+  if has('patch-8.0.0210')
+    set t_BE=
+  endif
   set t_SI+=[?2004h
   set t_EI+=[?2004l
   set pastetoggle=[201~
+
+  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin('')
+
   function! XTermPasteBegin(rv) abort
     set paste
     return a:rv
   endfunction
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin('')
+endif
+" improve vsplit {{{3
+if &term =~# '^\%(xterm|screen\)'
+  let &t_ti .= "\e[?6h\e[?69h"
+  let &t_te .= "\e7\e[?69l\e[?6l\e8"
+  let &t_CV = "\e[%i%p1%d;%p2%ds"
+  let &t_CS = "y"
 endif
 
 " mappings {{{1
