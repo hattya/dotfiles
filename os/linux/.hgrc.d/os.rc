@@ -1,6 +1,9 @@
 [hooks]
 changegroup.stat = hg diff --stat -r $HG_NODE:
 
+[trusted]
+groups = portage
+
 [web]
 cacerts = /etc/ssl/certs/ca-certificates.crt
 
