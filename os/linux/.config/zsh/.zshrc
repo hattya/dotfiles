@@ -256,11 +256,23 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
 
   zshrc-term-title-preexec() {
     local -a cmd
+    local found=1 i=1 j=-1
     cmd=(${(z)1})
-    # remove parenthesis
-    if [[ ${cmd[1]} == "(" ]]; then
-      cmd=(${cmd[2,-2]})
-    fi
+    while (( found )); do
+      found=0
+      # remove parenthesis
+      if [[ ${cmd[i]} == "(" ]]; then
+        (( i++ ))
+        (( j-- ))
+        found=1
+      fi
+      # skip the environment
+      if [[ ${cmd[i]} =~ = && ! ${cmd[i]} =~ ^[./] ]]; then
+        (( i++ ))
+        found=1
+      fi
+    done
+    cmd=(${cmd[${i},${j}]})
     # builtin jobs
     local job
     case ${cmd[1]} in
@@ -276,15 +288,15 @@ if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
       ;;
     esac
     if [[ -n ${job} ]]; then
+      i=5
       cmd=($(builtin jobs -l "${job}" 2>/dev/null))
-      if [[ ${cmd[5]} == "(signal)" ]]; then
-        cmd=(${cmd[6,-1]})
-      else
-        cmd=(${cmd[5,-1]})
+      if [[ ${cmd[${i}]} == "(signal)" ]]; then
+        (( i++ ))
       fi
+      cmd=(${cmd[${i},-1]})
     fi
 
-    zshrc-term-title "$(print -Pn "%n@%m - ")${cmd[1]:t}"
+    zshrc-term-title "$(print -Pn "%n@%m - ")${cmd[1]}"
   }
   add-zsh-hook preexec zshrc-term-title-preexec
 fi
