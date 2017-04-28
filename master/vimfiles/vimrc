@@ -251,7 +251,7 @@ augroup vimrc-misc
   autocmd QuickFixCmdPost l*    lwindow | redraw!
 
   " auto close preview window
-  autocmd InsertLeave * if !pumvisible()
+  autocmd InsertLeave * if getcmdwintype() ==# '' && !pumvisible()
   \                   |   pclose
   \                   | endif
 
