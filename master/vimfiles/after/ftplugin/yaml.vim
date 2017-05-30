@@ -7,7 +7,7 @@ else
 endif
 
 setlocal expandtab
-setlocal tabstop=2
 setlocal shiftwidth=2
+setlocal tabstop=2
 
-let b:undo_ftplugin .= 'setl et< ts< sw<'
+let b:undo_ftplugin .= 'setl et< sw< ts<'

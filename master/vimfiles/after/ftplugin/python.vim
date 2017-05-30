@@ -8,12 +8,10 @@ endif
 
 setlocal expandtab
 setlocal fileformat=unix
-setlocal formatoptions-=t
 setlocal shiftwidth=4
 setlocal tabstop=4
-setlocal textwidth=79
 
-let b:undo_ftplugin .= 'setl et< ff< fo< sw< ts< tw<'
+let b:undo_ftplugin .= 'setl et< ff< sw< ts<'
 
 let g:python_highlight_all = 1
 
