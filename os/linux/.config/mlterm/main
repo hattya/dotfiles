@@ -1,6 +1,8 @@
 fontsize = 12
 use_point_size = true
 
+inner_border = 7
+
 fg_color = gray90
 bg_color = black
 cursor_bg_color = aquamarine1
