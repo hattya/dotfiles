@@ -21,6 +21,9 @@ diff_highlight =
 [bookmarks]
 track.current = True
 
+[diff-highlight]
+encodings = iso-2022-jp-3, euc-jisx0213, euc-jp, utf-8, cp932
+
 [mq]
 secret = True
 
