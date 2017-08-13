@@ -24,6 +24,15 @@ if (( ${+commands[repoman]} )); then
   export PORTAGE_GPG_KEY='EC917A6D'
 fi
 
+# GnuPG
+export GPG_TTY=$(tty)
+
+# Go
+if (( ${+commands[go]} )); then
+  export GOPATH=~/.local/go
+  userpath+=({$(go env GOROOT),${GOPATH}}/bin(N/))
+fi
+
 # less
 export LESS='-M -R -X -f -i'
 export LESSHISTFILE='-'
@@ -41,12 +50,6 @@ export LV='-c -l'
 
 # Python
 export PYTHONSTARTUP=~/.config/python/startup.py
-
-# Go
-if (( ${+commands[go]} )); then
-  export GOPATH=~/.local/go
-  userpath+=({$(go env GOROOT),${GOPATH}}/bin(N/))
-fi
 
 # themis.vim
 userpath+=(~/.vim/bundle/vim-themis/bin(N/))
