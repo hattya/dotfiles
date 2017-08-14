@@ -1,5 +1,6 @@
 fontsize = 12
 use_point_size = true
+box_drawing_font = decsp
 
 inner_border = 7
 
