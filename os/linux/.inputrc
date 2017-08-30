@@ -1,0 +1,27 @@
+# ~/.inputrc
+
+$include /etc/inputrc
+
+set convert-meta off
+set meta-flag on
+set output-meta on
+
+set bell-style visible
+
+set enable-bracketed-paste on
+
+set colored-stats on
+
+$if Bash
+  set completion-ignore-case on
+  set completion-map-case on
+  set show-all-if-ambiguous on
+
+  set bind-tty-special-chars off
+
+  "\e[3~": delete-char
+  "\e[5~": history-search-backward
+  "\e[6~": history-search-forward
+  "\C-h":  backward-delete-char
+  "\C-w":  unix-filename-rubout
+$endif
