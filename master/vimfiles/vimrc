@@ -341,6 +341,7 @@ Plug 'Shougo/unite-outline'
 Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp'] }
 " filetype: go
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'rhysd/vim-goyacc', { 'for': 'go' }
 " filetype: javascript
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'https://bitbucket.org/teramako/jscomplete-vim.git', { 'for': 'javascript' }
