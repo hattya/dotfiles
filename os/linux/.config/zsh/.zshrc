@@ -179,6 +179,7 @@ if (( ${+commands[peco]} )); then
 fi
 
 # global aliases
+alias -g A='| awk'
 alias -g C='| cut'
 alias -g G='| grep'
 alias -g H='| head'
