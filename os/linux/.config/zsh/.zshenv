@@ -29,8 +29,8 @@ export GPG_TTY=$(tty)
 
 # Go
 if (( ${+commands[go]} )); then
-  export GOPATH=~/.local/go
-  userpath+=({$(go env GOROOT),${GOPATH}}/bin(N/))
+  export GOPATH=~/.local
+  userpath+=($(go env GOROOT)/bin(N/))
 fi
 
 # less
