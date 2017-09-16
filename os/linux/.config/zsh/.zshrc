@@ -194,6 +194,8 @@ if (( ${+commands[emacs]} )); then
   alias emacs='XMODIFIERS="@im=none" emacs'
 fi
 
+alias grep='grep --color=auto'
+
 alias ls='ls -Fh --color=auto --time-style=long-iso'
 alias ll='ls -l'
 alias la='ls -lA'
