@@ -190,8 +190,9 @@ alias -g W='| wc'
 alias -g X='| xargs'
 
 # aliases
-alias pu=pushd
-alias po=popd
+if (( ${+commands[emacs]} )); then
+  alias emacs='XMODIFIERS="@im=none" emacs'
+fi
 
 alias ls='ls -Fh --color=auto --time-style=long-iso'
 alias ll='ls -l'
@@ -199,9 +200,8 @@ alias la='ls -lA'
 
 alias man='LC_MESSAGES="${LANG}" man'
 
-if (( ${+commands[emacs]} )); then
-  alias emacs='XMODIFIERS="@im=none" emacs'
-fi
+alias pu=pushd
+alias po=popd
 
 tmux() {
   if [[ ${#} -ge 1 && ${1} == -z ]]; then
