@@ -48,6 +48,11 @@ fi
 # lv
 export LV='-c -l'
 
+# Node.js
+if (( ${+commands[n]} )); then
+  export N_PREFIX=~/.local/Cellar/node
+fi
+
 # Python
 export PYTHONSTARTUP=~/.config/python/startup.py
 
