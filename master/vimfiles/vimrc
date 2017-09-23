@@ -173,6 +173,13 @@ set ruler
 set scrolloff&
 set showcmd
 set statusline=%<%{expand('%:t')}\ %y%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%=%l,%c%V%5P
+if has('termguicolors')
+  set termguicolors
+  if &term =~# '^screen'
+    let &t_8f = "\e[38;2;%lu;%lu;%lum"
+    let &t_8b = "\e[48;2;%lu;%lu;%lum"
+  endif
+endif
 set title
 set visualbell
 set wrap
