@@ -178,40 +178,49 @@ set visualbell
 set wrap
 
 " terminal options {{{2
-" change terminal title {{{3
-if &term =~# '^screen' 
-  set t_ts=_
-  set t_fs=\
-endif
-" bracketed paste mode {{{3
-if has('patch-8.0.0238')
-  if &term =~# '^screen'
-    set t_BE=[?2004h
-    set t_BD=[?2004l
-    set t_PS=[200~
-    set t_PE=[201~
+if has('vim_starting')
+  " change terminal title {{{3
+  if &term =~# '^screen' 
+    let &t_ts = "\e_"
+    let &t_fs = "\e\\"
   endif
-else
-  if has('patch-8.0.0210')
-    set t_BE=
+  " bracketed paste mode {{{3
+  if has('patch-8.0.0238')
+    if &term =~# '^screen'
+      let &t_BE = "\e[?2004h"
+      let &t_BD = "\e[?2004l"
+      let &t_PS = "\e[200~"
+      let &t_PE = "\e[201~"
+    endif
+  else
+    if has('patch-8.0.0210')
+      set t_BE=
+    endif
+    if &term =~# '^\%(xterm\|screen\)'
+      let &t_ti .= "\e[?2004h"
+      let &t_te .= "\e[?2004l"
+      let &pastetoggle = "\e[201~"
+
+      noremap  <expr> <Esc>[200~ XTermPasteBegin('0i')
+      inoremap <expr> <Esc>[200~ XTermPasteBegin('')
+      vnoremap <expr> <Esc>[200~ XTermPasteBegin('c')
+      cnoremap        <Esc>[200~ <Nop>
+      cnoremap        <Esc>[201~ <Nop>
+
+      function! XTermPasteBegin(rv) abort
+        set paste
+        return a:rv
+      endfunction
+    endif
   endif
-  set t_SI+=[?2004h
-  set t_EI+=[?2004l
-  set pastetoggle=[201~
-
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin('')
-
-  function! XTermPasteBegin(rv) abort
-    set paste
-    return a:rv
-  endfunction
-endif
-" improve vsplit {{{3
-if &term =~# '^\%(xterm|screen\)'
-  let &t_ti .= "\e[?6h\e[?69h"
-  let &t_te .= "\e7\e[?69l\e[?6l\e8"
-  let &t_CV = "\e[%i%p1%d;%p2%ds"
-  let &t_CS = "y"
+  " improve vsplit {{{3
+  if &term =~# '^xterm'
+    let &t_CS = "y"
+    let &t_CV = "\e[%i%p1%d;%p2%ds"
+    let &t_ti .= "\e[?6h\e[?69h"
+    let &t_te .= "\e7\e[?69l\e[?6l\e8"
+  endif
+  " }}}3
 endif
 
 " mappings {{{1
