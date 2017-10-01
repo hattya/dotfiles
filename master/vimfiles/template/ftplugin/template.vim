@@ -1,5 +1,5 @@
 " Vim filetype plugin file
-" Language:    <%= substitute(expand('%:t:r'), '\v^(.)', '\u\1', '') %>
+" Language:    <%= expand('%:p:r:gs?\\?/?:s?.*/ftplugin/\([^/]\+\).*?\u\1?') %>
 " Author:      <%= g:user.format() %>
 " Last Change: 
 " License:     
