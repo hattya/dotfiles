@@ -7,7 +7,7 @@
 import unittest
 
 
-class <%= substitute(expand('%:t:r:s?test??'), '\v_+(\l)', '\u\1', 'g') %>TestCase(unittest.TestCase):
+class <%= expand('%:t:r:s?test??:gs?_\+\(\l\)?\u\1?') %>TestCase(unittest.TestCase):
 
     def test_(self):
         <+CURSOR+>
