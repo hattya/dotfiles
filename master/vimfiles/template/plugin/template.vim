@@ -1,5 +1,5 @@
 :silent %s/<+NAME+>/\=expand('%:t:r')/ge
-" File:        <%= substitute(expand('%:p:gs?\\?/?'), '\v^.*%(\.vim|vimfiles)/+', '', '') %>
+" File:        <%= expand('%:p:gs?\\?/?:s?.*/\%(\.vim\|vimfiles\)/??') %>
 " Author:      <%= g:user.format() %>
 " Last Change: 
 " License:     
