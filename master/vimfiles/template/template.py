@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 #
-# <%= expand('%:r:gs?\\?/?:gs?/?.?') %>
+# <%= expand('%:r:gs?[/\\]?.?') %>
 #
 #   Copyright (c) <%= strftime('%Y') %> <%= g:user.format() %>
 #
