@@ -1,4 +1,4 @@
-:silent %s/<+LANGUAGE+>/\=substitute(expand('%:t:r'), '\v^(.)', '\u\1', '')/ge
+:silent %s,<+LANGUAGE+>,\=expand('%:p:r:gs?\\?/?:s?.*/indent/\([^/]\+\).*?\u\1?'),ge
 " Vim indent file
 " Language:    <+LANGUAGE+>
 " Author:      <%= g:user.format() %>
