@@ -1,4 +1,4 @@
-:silent %s#<+INCLUDE_GUARD+>#\=toupper(expand('%:r:gs?\\?/?:gs?/?_?')) . '_H'#ge
+:silent %s#<+INCLUDE_GUARD+>#\=toupper(expand('%:r:gs?[/\\]?_?')) . '_H'#ge
 /*
  * <%= expand('%:gs?\\?/?') %>
  *
