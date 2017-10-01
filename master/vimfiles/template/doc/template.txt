@@ -1,6 +1,6 @@
-:silent %s#<+PROJECT+>#\=substitute(expand('%:p:gs?\\?/?'), '\v.*/([^/]+)/+doc/.*', '\1', '')#ge
-:silent %s#<+PACKAGE+>#\=expand('%:p:r:gs?\\?/?:s?.*/doc/\+??:gs?/?.?')#ge
-*<%= substitute(expand('%:p:gs?\\?/?'), '.*/doc/\+', '', '') %>*	<+CURSOR+>
+:silent %s#<+PROJECT+>#\=expand('%:p::gs?\\?/?:s?.*/\([^/]\+\)/doc/.*?\1?')#ge
+:silent %s#<+PACKAGE+>#\=expand('%:p:r:gs?\\?/?:s?.*/doc/??:gs?/?.?')#ge
+*<%= expand('%:p:gs?\\?/?:s?.*/doc/??') %>*	<+CURSOR+>
 
 Author:      Akinori Hattori <hattya@gmail.com>
 Repository:  https://example.com/<+PROJECT+>
