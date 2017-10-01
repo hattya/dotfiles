@@ -2,12 +2,12 @@
 :  silent /^package\s/s/$/_test/e
 :endif
 //
-// <%= expand('%:p:h:t') %> :: <%= expand('%:t') %>
+// <%= expand('%:p:h:gs?\\?/?')[len(fnamemodify(getcwd(), ':h'))+1 :] %> :: <%= expand('%:t') %>
 //
 //   Copyright (c) <%= strftime('%Y') %> <%= g:user.format() %>
 //
 
-package <%= expand('%:p:h:t:s?^go[-.]??') %>
+package <%= expand('%:p:h:t:s?^.\{-}\ze\w*$??') %>
 
 import (
 	"testing"
