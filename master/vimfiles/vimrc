@@ -607,7 +607,9 @@ if g:vimrc.has_plugin('vim-quickrun')
   \    'exec': '%c -B -m unittest discover -s %s:h -p %s:t',
   \  },
   \}
-  if g:vimrc.has_plugin('vimproc.vim')
+  if has('job')
+    let g:quickrun_config._.runner = 'job'
+  elseif g:vimrc.has_plugin('vimproc.vim')
     let g:quickrun_config._.runner = 'vimproc'
   endif
   if g:vimrc.is_win
