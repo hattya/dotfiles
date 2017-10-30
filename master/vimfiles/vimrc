@@ -460,7 +460,6 @@ if g:vimrc.has_plugin('ctrlp.vim')
   \}
   let g:ctrlp_open_multiple_files = 'tjr'
   let g:ctrlp_key_loop = 1
-  let g:ctrlp_user_command_async = 1
 
   nnoremap CtrlP  <Nop>
   nmap     <C-P>  CtrlP
