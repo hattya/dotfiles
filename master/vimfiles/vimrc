@@ -533,7 +533,7 @@ let g:lightline = {
 \  'vimrc': {},
 \}
 
-if g:vimrc.has_plugin('iceberg.vim')
+if get(g:, 'colors_name', '') ==# 'iceberg'
   let g:lightline.colorscheme = 'iceberg'
 endif
 
