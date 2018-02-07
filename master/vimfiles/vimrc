@@ -376,7 +376,7 @@ Plug 'c9s/perlomni.vim', { 'for': 'perl' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'hattya/python-indent.vim', { 'for': 'python' }
 " filetype: rst
-Plug 'Rykka/riv.vim', { 'for': 'rst' }
+Plug 'gu-fan/riv.vim', { 'for': 'rst' }
 " filetype: tmux
 Plug 'ericpruitt/tmux.vim', { 'for': 'tmux', 'rtp': 'vim' }
 " filetype: toml
