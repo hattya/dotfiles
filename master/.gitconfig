@@ -1,22 +1,26 @@
 [alias]
 	alias = "!f() { git config --get-regexp \"alias\\.${1:-*}\" | sed 's/^alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\t= \\2/'; }; f"
-	co = checkout
+	br = branch
 	ci = commit -v
-	st = status
-	ss = status -bs
+	co = checkout
+	sw = checkout
+	cp = cherry-pick
+	cpc = cherry-pick --continue
+	cpq = cherry-pick --quit
+	cpa = cherry-pick --abort
 	di = diff
 	dic = diff --cached
-	br = branch
-	sw = checkout
+	g = grep
+	l = log --pretty=fuller --stat
+	ll = log -p --pretty=fuller --stat
+	ls = ls-files
+	ss = status -bs
+	st = status
 	re = rebase --committer-date-is-author-date
 	ri = rebase -i
 	rc = rebase --continue
 	rs = rebase --skip
 	ra = rebase --abort
-	ls = ls-files
-	g = grep
-	l = log --stat --pretty=fuller
-	ll = log -p --stat --pretty=fuller
 	v = show -p --pretty=fuller --stat
 	view = log --decorate --source --tags --branches --oneline --graph
 	xl = stash list
