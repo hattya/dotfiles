@@ -17,6 +17,7 @@ endif
 " window options {{{2
 set columns=100
 set lines=30
+set guioptions+=!
 set guioptions-=T
 
 " ime options {{{2
