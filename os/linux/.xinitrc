@@ -9,7 +9,7 @@ unset LC_MESSAGES
 
 # keychain
 export SSH_ASKPASS=ssh-askpass-fullscreen
-eval $(keychain --eval --ignore-missing id_rsa)
+eval $(keychain --eval --ignore-missing id_ed25519)
 
 exec startxfce4 --with-ck-launch
 
