@@ -122,7 +122,7 @@ function _M.command(args)
   end
 
   table.remove(args, 1)
-  local ok, rv = pcall(cmd, share.venv.venv, table.unpack(args))
+  local ok, rv = pcall(cmd, share.venv.venv, (table.unpack or unpack)(args))
   if not ok then
     nya.print(rv)
     return 1

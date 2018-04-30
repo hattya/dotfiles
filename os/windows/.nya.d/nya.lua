@@ -7,13 +7,19 @@ _M.builtins = {}
 if nyagos ~= nil then
   _M.builtins.source = 'source'
 
-  _M.alias   = nyagos.setalias
-  _M.command = nyagos.setalias
   _M.eval    = nyagos.eval
   _M.exec    = nyagos.exec
   _M.getenv  = nyagos.getenv
   _M.setenv  = nyagos.setenv
   _M.suffix  = suffix
+
+  function _M.alias(name, cmd)
+    nyagos.alias[name] = cmd
+  end
+
+  function _M.command(name, func)
+    nyagos.alias[name] = func
+  end
 
   function _M.dir(path)
     local rv = {}
