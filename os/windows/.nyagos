@@ -75,3 +75,6 @@ nyagos.bindkey('C_R', function(this)
   this:call('CLEAR_SCREEN')
   return rv
 end)
+
+-- alias
+nyagos.alias['curl'] = nyagos.getenv('Cellar') .. [[\cURL\bin\curl.exe]]
