@@ -11,7 +11,7 @@ endif
 
 " globals {{{1
 let g:vimrc = {
-\  'is_win': has('win32') || has('win64') || has('win95') || has('win16'),
+\  'is_win': has('win32'),
 \  'sep':    !exists('+shellslash') || &shellslash ? '/' : '\',
 \}
 
