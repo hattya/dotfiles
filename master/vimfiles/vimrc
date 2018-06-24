@@ -510,7 +510,6 @@ if g:vimrc.has_plugin('jedi-vim')
   let g:jedi#popup_on_dot = 0
   let g:jedi#rename_command = '<Leader>R'
   let g:jedi#show_call_signatures = 0
-  let g:jedi#force_py_version = has('python3') ? 3 : 2
 endif
 
 " plugin: license {{{1
