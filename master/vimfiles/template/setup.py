@@ -132,7 +132,7 @@ else:
                 if l.startswith('version = '):
                     version = l.split('=', 1)[1].strip("\n '")
                     break
-    except:
+    except (OSError, IOError):
         pass
 
 
@@ -199,7 +199,7 @@ class test(Command):
 try:
     with open('README.rst') as fp:
         long_description = fp.read()
-except:
+except (OSError, IOError):
     long_description = ''
 
 packages = ['<+PACKAGE+>']
