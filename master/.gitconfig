@@ -50,7 +50,7 @@
 	keepBackup = false
 [pager]
 	diff = diff-highlight | $(git var GIT_PAGER)
-	log = diff-highlight | less
+	log = diff-highlight | $(git var GIT_PAGER)
 	show = diff-highlight | less
 [push]
 	default = simple
