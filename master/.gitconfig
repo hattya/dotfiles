@@ -49,7 +49,7 @@
 [mergetool]
 	keepBackup = false
 [pager]
-	diff = diff-highlight | less
+	diff = diff-highlight | $(git var GIT_PAGER)
 	log = diff-highlight | less
 	show = diff-highlight | less
 [push]
