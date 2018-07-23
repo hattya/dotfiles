@@ -35,6 +35,7 @@
 [color]
 	ui = auto
 [core]
+	pager = less -F
 	quotepath = false
 [diff]
 	algorithm = histogram
