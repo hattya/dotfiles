@@ -51,7 +51,7 @@
 [pager]
 	diff = diff-highlight | $(git var GIT_PAGER)
 	log = diff-highlight | $(git var GIT_PAGER)
-	show = diff-highlight | less
+	show = diff-highlight | $(git var GIT_PAGER)
 [push]
 	default = simple
 [rebase]
