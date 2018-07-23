@@ -1,5 +1,5 @@
 [alias]
-	alias = "!f() { git config --get-regexp \"alias\\.${1:-*}\" | sed 's/^alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\t= \\2/'; }; f"
+	alias = "!f() { git config --get-regexp \"alias\\.${1:-*}\" | sed 's/^alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\t= \\2/'; }; f | $(git var GIT_PAGER)"
 	br = branch
 	ci = commit -v
 	co = checkout
