@@ -139,12 +139,10 @@ else:
 class build_scripts(_build_scripts):
 
     def run(self):
-        for i, s in enumerate(self.scripts):
-            p, m = os.path.split(s)
-            s = '-'.join(s.strip('_') for s in m.split('.'))
-            self.scripts[i] = os.path.join(p, s)
+        for s in self.scripts:
+            m = self.scripts[s]
             if sys.platform == 'win32':
-                self.scripts[i] += '.cmd'
+                s += '.cmd'
                 data = '@"{}" -m {} %*'
             else:
                 data = '#! /bin/sh\nexec "{}" -m {} "$@"'
@@ -215,12 +213,12 @@ if setuptools:
                   tests_require=[],
                   entry_points={
                       'console_scripts': [
-                          '<+PACKAGE+> = <+PACKAGE+>.__main__:main',
+                          '<+PACKAGE+> = <+PACKAGE+>.cli:run',
                       ]
                   })
 else:
     cmdclass['build_scripts'] = build_scripts
-    kwargs.update(scripts=[os.path.join('scripts', '<+PACKAGE+>')])
+    kwargs.update(scripts={'<+PACKAGE+>': '<+PACKAGE+>'})
 <+CURSOR+>
 setup(name='<+PACKAGE+>',
       version=version,
