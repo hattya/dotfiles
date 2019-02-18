@@ -327,6 +327,7 @@ Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-signify'
+Plug 'PProvost/vim-ps1'
 Plug 'saihoooooooo/glowshi-ft.vim'
 Plug 'Shougo/vimproc.vim' , { 'do': function('PlugBuild') }
 Plug 'thinca/vim-ambicmd'
