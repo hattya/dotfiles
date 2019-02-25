@@ -241,6 +241,11 @@ let mapleader = ','
 nnoremap <silent> <Esc><Esc> :<C-U>nohlsearch<CR>
 inoremap <C-U> <C-G>u<C-U>
 
+" environ {{{1
+if g:vimrc.is_win
+  let $PATHEXT = join(filter(split($PATHEXT, ';'), 'v:val !~? ''\.\%(lua\|p[ly]\|rb\)'''), ';')
+endif
+
 " augroup: vimrc-copyright {{{1
 augroup vimrc-copyright
   autocmd!
