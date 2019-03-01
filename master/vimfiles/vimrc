@@ -98,6 +98,9 @@ endif
 " vim options {{{2
 if has('mouse')
   set mouse=a
+  if &term =~# '^screen'
+    set ttymouse=sgr
+  endif
 endif
 set history=1000
 set timeoutlen=500
