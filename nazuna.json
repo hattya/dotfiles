@@ -15,6 +15,9 @@
             {
               "src": "github.com/knu/z",
               "name": "knu-z"
+            },
+            {
+              "src": "github.com/zsh-users/zsh-syntax-highlighting"
             }
           ]
         }
