@@ -318,3 +318,7 @@ if [[ -f ~/.local/Cellar/knu-z/z.sh ]]; then
   export _Z_DATA=~/.cache/z
   . ~/.local/Cellar/knu-z/z.sh
 fi
+
+if [[ -f ~/.local/Cellar/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  . ~/.local/Cellar/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
