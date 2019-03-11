@@ -1,3 +1,4 @@
 [flake8]
 ignore = E125, E127, E129, E226, E741, W503
 show-source = True
+builtins = basestring, long, unicode, xrange
