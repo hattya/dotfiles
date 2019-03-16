@@ -375,7 +375,6 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rhysd/vim-goyacc', { 'for': 'goyacc' }
 " filetype: javascript
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'https://bitbucket.org/teramako/jscomplete-vim.git', { 'for': 'javascript' }
 " filetype: markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 " filetype: perl
