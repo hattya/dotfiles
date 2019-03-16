@@ -370,8 +370,6 @@ Plug 'Shougo/unite.vim'
 Plug 'tsukkee/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'Shougo/unite-outline'
-" filetype: c/cpp
-Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp'] }
 " filetype: go
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rhysd/vim-goyacc', { 'for': 'goyacc' }
@@ -451,15 +449,6 @@ endif
 
 " plugin: chagelog {{{1
 let g:changelog_username = g:user.format()
-
-" plugin: clang {{{1
-if g:vimrc.has_plugin('vim-clang')
-  let g:clang_auto = 0
-  let g:clang_c_completeopt = &completeopt
-  let g:clang_c_options = '-std=gnu11'
-  let g:clang_cpp_completeopt = &completeopt
-  let g:clang_cpp_options = '-std=c++11'
-endif
 
 " plugin: ctrlp {{{1
 if g:vimrc.has_plugin('ctrlp.vim')
