@@ -336,6 +336,8 @@ Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-signify'
 Plug 'PProvost/vim-ps1'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug 'saihoooooooo/glowshi-ft.vim'
 Plug 'Shougo/vimproc.vim' , { 'do': function('PlugBuild') }
 Plug 'thinca/vim-ambicmd'
@@ -598,6 +600,62 @@ if g:vimrc.has_plugin('hahhah-vim')
   let g:lightline.vimrc.hahhah = {}
   let g:lightline.component_function['hahhah'] = 'LightlineHahHah'
   call add(g:lightline.active.left[1], 'hahhah')
+endif
+
+" plugin: lsp {{{1
+if g:vimrc.has_plugin('vim-lsp')
+  function! vimrc.lsp() abort
+    if empty(lsp#get_whitelisted_servers())
+      return ''
+    endif
+
+    setlocal omnifunc=lsp#complete
+
+    map <buffer> <C-]> <Plug>(lsp-definition)
+    map <buffer> K     <Plug>(lsp-hover)
+
+    return 'setl ofu< | mapc <buffer>'
+  endfunction
+
+  augroup vimrc-plugin-lsp
+    if executable('clangd')
+      autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'clangd',
+      \ 'cmd':  {-> ['clangd']},
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+      \ 'root_uri': {-> s:root_uri('.git', '.hg')},
+      \})
+    endif
+    if executable('gopls')
+      autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'gopls',
+      \ 'cmd':  {-> ['gopls']},
+      \ 'whitelist': ['go'],
+      \ 'root_uri': {-> s:root_uri('.git', '.hg')},
+      \})
+    endif
+    if executable('typescript-language-server')
+      autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'typescript-language-server',
+      \ 'cmd':  {-> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'root_uri': {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
+      \})
+    endif
+  augroup END
+  function! s:root_uri(...) abort
+    let root = expand('%:p:h')
+    let prev = ''
+    while root !=# prev
+      for name in a:000
+        if !empty(glob(g:vimrc.join(root, name), 1, 1))
+          return lsp#utils#path_to_uri(root)
+        endif
+      endfor
+      let prev = root
+      let root = fnamemodify(root, ':h')
+    endwhile
+    return lsp#utils#get_default_root_uri()
+  endfunction
 endif
 
 " plugin: matchit {{{1

@@ -18,3 +18,10 @@ if g:vimrc.has_plugin('vim-go')
 
   let b:undo_ftplugin .= ' | mapc <buffer>'
 endif
+
+if g:vimrc.has_plugin('vim-lsp')
+  let s:undo_lsp = g:vimrc.lsp()
+  if s:undo_lsp !=# ''
+    let b:undo_ftplugin .= ' | ' . s:undo_lsp
+  endif
+endif

@@ -8,10 +8,14 @@ endif
 
 setlocal expandtab
 setlocal fileformat=unix
-if g:vimrc.has_plugin('jscomplete-vim')
-  setlocal omnifunc=jscomplete#CompleteJS
-endif
 setlocal shiftwidth=2
 setlocal tabstop=2
 
-let b:undo_ftplugin .= 'setl et< ff< ofu< sw< ts<'
+let b:undo_ftplugin .= 'setl et< ff< sw< ts<'
+
+if g:vimrc.has_plugin('vim-lsp')
+  let s:undo_lsp = g:vimrc.lsp()
+  if s:undo_lsp !=# ''
+    let b:undo_ftplugin .= ' | ' . s:undo_lsp
+  endif
+endif
