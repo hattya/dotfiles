@@ -9,4 +9,4 @@ endif
 nnoremap <silent> <buffer> s          :<C-U>TweetVimSay<CR>
 nnoremap <silent> <buffer> <Leader>re :<C-U>TweetVimMentions<CR>
 
-let b:undo_ftplugin .= 'mapclear <buffer>'
+let b:undo_ftplugin .= 'mapc <buffer>'

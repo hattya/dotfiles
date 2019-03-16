@@ -1,9 +1,10 @@
 " after/ftplugin/json.vim
 
-if exists('b:did_ftplugin')
-  finish
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin .= ' | '
+else
+  let b:undo_ftplugin = ''
 endif
-let b:did_ftplugin = 1
 
 setlocal expandtab
 setlocal fileformat=unix

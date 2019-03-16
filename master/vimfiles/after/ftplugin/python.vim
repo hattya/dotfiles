@@ -11,12 +11,15 @@ setlocal fileformat=unix
 setlocal shiftwidth=4
 setlocal tabstop=4
 
-let b:undo_ftplugin .= 'setl et< ff< sw< ts<'
-
 let g:python_highlight_all = 1
 
+let b:undo_ftplugin .= 'setl et< ff< sw< ts<'
+let b:undo_ftplugin .= ' | unl g:python_highlight_all'
+
 let s:script = expand('<sfile>:p:r') . '.py'
-if has('python3')
+if has('pythonx')
+  execute 'pyxfile ' . s:script
+elseif has('python3')
   execute 'py3file ' . s:script
 elseif has('python')
   execute 'pyfile ' . s:script
@@ -35,9 +38,9 @@ augroup vimrc-ft-python
   autocmd BufLeave <buffer> call s:pth(0)
 augroup END
 
-function! s:pth(activate)
-  execute printf('%s _vimrc_pth(int(vim.eval("a:activate")))', has('python3') ? 'python3' : 'python')
+function! s:pth(activate) abort
+  execute printf('python%s _vimrc_pth(int(vim.eval("a:activate")))', has('pythonx') ? 'x' : has('python3') ? '3' : '')
 endfunction
 
-let b:undo_ftplugin .= ' | execute "autocmd! vimrc-ft-python * <buffer>"'
-let b:undo_ftplugin .= ' | call <SNR>' . s:sid . '_pth(0)'
+let b:undo_ftplugin .= ' | exe "au! vimrc-ft-python * <buffer>"'
+let b:undo_ftplugin .= ' | cal <SNR>' . s:sid . '_pth(0)'

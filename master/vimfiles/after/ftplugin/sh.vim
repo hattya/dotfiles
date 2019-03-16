@@ -10,6 +10,7 @@ setlocal expandtab
 setlocal shiftwidth=2
 setlocal tabstop=2
 
-let b:undo_ftplugin .= 'setl et< sw< ts<'
-
 let g:is_bash = 1
+
+let b:undo_ftplugin .= 'setl et< sw< ts<'
+let b:undo_ftplugin .= ' | unl g:is_bash'

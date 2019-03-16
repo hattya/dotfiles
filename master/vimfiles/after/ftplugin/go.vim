@@ -16,5 +16,5 @@ if g:vimrc.has_plugin('vim-go')
   map <buffer> <Leader>c <Plug>(go-coverage)
   map <buffer> <Leader>i <Plug>(go-info)
 
-  let b:undo_ftplugin .= ' | mapclear <buffer>'
+  let b:undo_ftplugin .= ' | mapc <buffer>'
 endif

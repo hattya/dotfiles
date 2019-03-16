@@ -14,6 +14,7 @@ endif
 setlocal shiftwidth=2
 setlocal tabstop=2
 
-let b:undo_ftplugin .= 'setl et< ff< fdm< sw< ts<'
-
 let g:vim_indent_cont = 0
+
+let b:undo_ftplugin .= 'setl et< ff< fdm< sw< ts<'
+let b:undo_ftplugin .= ' | unl g:vim_indent_cont'
