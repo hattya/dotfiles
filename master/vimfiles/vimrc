@@ -635,7 +635,7 @@ if g:vimrc.has_plugin('vim-lsp')
     let prev = ''
     while root !=# prev
       for name in a:000
-        if !empty(glob(g:vimrc.join(root, name), 1, 1))
+        if getftype(g:vimrc.join(root, name)) !=# ''
           return lsp#utils#path_to_uri(root)
         endif
       endfor
