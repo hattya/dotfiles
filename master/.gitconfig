@@ -42,6 +42,8 @@
 	compactionHeuristic = true
 	renames = copy
 	tool = p4merge
+[fetch]
+	prune = true
 [help]
 	autocorrect = -1
 [merge]
