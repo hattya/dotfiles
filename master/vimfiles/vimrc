@@ -113,8 +113,10 @@ set wildignorecase
 " search options {{{2
 if executable('jvgrep')
   set grepprg=jvgrep
+elseif executable('rg')
+  set grepprg=rg\ --vimgrep
 elseif executable('ag')
-  set grepprg=ag\ --nogroup
+  set grepprg=ag\ --vimgrep
 endif
 set helplang=ja,en
 set hlsearch
