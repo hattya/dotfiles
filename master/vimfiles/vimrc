@@ -145,7 +145,7 @@ set nrformats+=alpha
 set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4
 set showmatch
-if 704 < v:version || v:version == 704 && has('patch088')
+if v:version > 704 || v:version == 704 && has('patch088')
   set spelllang+=cjk
 endif
 if has('persistent_undo')
@@ -545,7 +545,7 @@ if g:vimrc.has_plugin('vcs-info.vim')
 
     let vcs = g:lightline.vimrc.vcs
     let buf = [bufnr('%'), bufname('%')]
-    if empty(vcs) || vcs.buf != buf || 3 < str2float(reltimestr(reltime(vcs.last)))
+    if empty(vcs) || vcs.buf != buf || str2float(reltimestr(reltime(vcs.last))) > 3
       call extend(vcs, {
       \  'text': '',
       \  'buf':  buf,
@@ -608,25 +608,25 @@ if g:vimrc.has_plugin('vim-lsp')
   augroup vimrc-plugin-lsp
     if executable('clangd')
       autocmd User lsp_setup call lsp#register_server({
-      \ 'name': 'clangd',
-      \ 'cmd':  {-> ['clangd']},
-      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-      \ 'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'name': 'clangd',
+      \  'cmd':  {-> ['clangd']},
+      \  'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+      \  'root_uri': {-> s:root_uri('.git', '.hg')},
       \})
     endif
     if executable('gopls')
       autocmd User lsp_setup call lsp#register_server({
-      \ 'name': 'gopls',
-      \ 'cmd':  {-> ['gopls']},
-      \ 'whitelist': ['go'],
-      \ 'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'name': 'gopls',
+      \  'cmd':  {-> ['gopls']},
+      \  'whitelist': ['go'],
+      \  'root_uri': {-> s:root_uri('.git', '.hg')},
       \})
     endif
     if executable('typescript-language-server')
       autocmd User lsp_setup call lsp#register_server({
-      \ 'name': 'typescript-language-server',
-      \ 'cmd':  {-> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri': {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
+      \  'name': 'typescript-language-server',
+      \  'cmd':  {-> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \  'root_uri': {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
       \})
     endif
   augroup END
@@ -715,45 +715,45 @@ endif
 if g:vimrc.has_plugin('unite.vim')
   let g:unite_data_directory = g:vimrc.cache('unite', 1)
   call unite#custom#profile('default', 'context', {
-  \ 'prompt':       "'-')/ ",
-  \ 'start_insert': '1',
-  \ 'direction':    'botright',
+  \  'prompt':       "'-')/ ",
+  \  'start_insert': '1',
+  \  'direction':    'botright',
   \})
 
   call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern':  '[~.:]\@1<!/',
-  \ 'subst':    '*/*',
-  \ 'priority': 20,
+  \  'pattern':  '[~.:]\@1<!/',
+  \  'subst':    '*/*',
+  \  'priority': 20,
   \})
   call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern':  '/\*\@!',
-  \ 'subst':    '/*',
-  \ 'priority': 10,
+  \  'pattern':  '/\*\@!',
+  \  'subst':    '/*',
+  \  'priority': 10,
   \})
   call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern':  '^@@',
-  \ 'subst':    '\=fnamemodify(expand("#"), ":p:h") . "/*"',
-  \ 'priority': 2,
+  \  'pattern':  '^@@',
+  \  'subst':    '\=fnamemodify(expand("#"), ":p:h") . "/*"',
+  \  'priority': 2,
   \})
   call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern':  '^@',
-  \ 'subst':    '\=getcwd() . "/*"',
-  \ 'priority': 1,
+  \  'pattern':  '^@',
+  \  'subst':    '\=getcwd() . "/*"',
+  \  'priority': 1,
   \})
   call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern':  '^;v',
-  \ 'subst':    g:vimrc.to_slash(g:vimrc.join(g:vimrc.vimfiles, '*')),
-  \ 'priority': 0,
+  \  'pattern':  '^;v',
+  \  'subst':    g:vimrc.to_slash(g:vimrc.join(g:vimrc.vimfiles, '*')),
+  \  'priority': 0,
   \})
   call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern':  '\*\{2,}',
-  \ 'subst':    '*',
-  \ 'priority': -1,
+  \  'pattern':  '\*\{2,}',
+  \  'subst':    '*',
+  \  'priority': -1,
   \})
   call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern':  '\\\s\@!',
-  \ 'subst':    '/',
-  \ 'priority': -30,
+  \  'pattern':  '\\\s\@!',
+  \  'subst':    '/',
+  \  'priority': -30,
   \})
 
   call unite#filters#matcher_default#use(['matcher_fuzzy'])
