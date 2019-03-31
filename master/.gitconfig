@@ -44,6 +44,8 @@
 	tool = p4merge
 [fetch]
 	prune = true
+[grep]
+	lineNumber = true
 [help]
 	autocorrect = -1
 [merge]
