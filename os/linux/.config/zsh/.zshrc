@@ -203,6 +203,10 @@ alias la='ls -lA'
 
 alias man='LC_MESSAGES="${LANG}" man'
 
+if (( ${+commands[chg]} )); then
+  alias hg=chg
+fi
+
 alias pu=pushd
 alias po=popd
 
