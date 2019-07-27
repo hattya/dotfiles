@@ -11,6 +11,6 @@ unset LC_MESSAGES
 export SSH_ASKPASS=ssh-askpass-fullscreen
 eval $(keychain --eval --ignore-missing id_ed25519)
 
-exec startxfce4 --with-ck-launch
+exec startxfce4
 
 # vim:et:ft=sh
