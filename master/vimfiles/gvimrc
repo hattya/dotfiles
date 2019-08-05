@@ -6,12 +6,12 @@ set mousehide
 
 " font options {{{2
 if g:vimrc.is_win
-  set guifont=M+_1m:h11
+  set guifont=M+_1m:h9
   if has('directx')
     set renderoptions=type:directx,renmode:5
   endif
 else
-  set guifont=M+\ 1m\ 12
+  set guifont=M+\ 1m\ 11
 endif
 
 " window options {{{2
