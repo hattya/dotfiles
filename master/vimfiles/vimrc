@@ -333,6 +333,7 @@ Plug 'hattya/vcvars.vim'
 Plug 'haya14busa/vim-migemo'
 Plug 'junegunn/vim-easy-align', { 'on': ['EasyAlign', 'LiveEasyAlign', '<Plug>(EasyAlign)'] }
 Plug 'junegunn/vim-plug'
+Plug 'machakann/vim-swap'
 Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim'
@@ -685,6 +686,14 @@ endif
 if g:vimrc.has_plugin('riv.vim')
   let g:riv_file_link_style = 2
   let g:riv_disable_folding = 1
+endif
+
+" plugin: swap {{{1
+if g:vimrc.has_plugin('vim-swap')
+  omap i, <Plug>(swap-textobject-i)
+  xmap i, <Plug>(swap-textobject-i)
+  omap a, <Plug>(swap-textobject-a)
+  xmap a, <Plug>(swap-textobject-a)
 endif
 
 " plugin: template {{{1
