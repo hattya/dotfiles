@@ -333,6 +333,7 @@ Plug 'hattya/vcvars.vim'
 Plug 'haya14busa/vim-migemo'
 Plug 'junegunn/vim-easy-align', { 'on': ['EasyAlign', 'LiveEasyAlign', '<Plug>(EasyAlign)'] }
 Plug 'junegunn/vim-plug'
+Plug 'machakann/vim-sandwich'
 Plug 'machakann/vim-swap'
 Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
