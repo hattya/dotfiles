@@ -397,6 +397,7 @@ Plug 'vim-jp/syntax-vim-ex', { 'for': 'vim' }
 Plug 'thinca/vim-ft-vim_fold', { 'for': 'vim' }
 " color scheme
 Plug 'cocopon/iceberg.vim'
+Plug 'Rigellute/rigel'
 Plug 'tomasr/molokai'
 
 for s:p in split(glob(g:vimrc.join(g:plug_home, '*'), 1), '\n')
