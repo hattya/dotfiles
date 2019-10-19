@@ -131,6 +131,9 @@ set autoread
 set backspace=indent,eol,start
 set nobackup
 set completeopt=menuone,preview
+if exists('+completeslash')
+  set completeslash=slash
+endif
 set noexpandtab
 if exists('+fixendofline')
   set nofixendofline
