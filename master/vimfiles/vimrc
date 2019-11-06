@@ -497,6 +497,7 @@ endif
 " plugin: go {{{1
 if g:vimrc.has_plugin('vim-go')
   let g:go_code_completion_enabled = 0
+  let g:go_def_mapping_enabled = 0
   if executable('goimports')
     let g:go_fmt_command = 'goimports'
   endif
@@ -506,7 +507,6 @@ if g:vimrc.has_plugin('vim-go')
   let g:go_highlight_structs = 1
   let g:go_highlight_build_constraints = 1
   let g:go_template_autocreate = 0
-  let g:go#use_vimproc = 0
 endif
 
 " plugin: jedi {{{1
