@@ -89,4 +89,4 @@ lua_e "
   end
 "
 
-venv workon py37
+venv workon py38
