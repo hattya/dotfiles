@@ -19,6 +19,9 @@ set columns=100
 set lines=30
 set guioptions+=!
 set guioptions-=T
+if has('patch-8.0.1278')
+  set guioptions+=k
+endif
 
 " ime options {{{2
 if has('multi_byte_ime')
