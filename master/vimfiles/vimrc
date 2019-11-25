@@ -618,7 +618,7 @@ if g:vimrc.has_plugin('vim-lsp')
     if executable('clangd')
       autocmd User lsp_setup call lsp#register_server({
       \  'name': 'clangd',
-      \  'cmd':  {-> ['clangd']},
+      \  'cmd':  {-> ['clangd', '-pch-storage=memory']},
       \  'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
       \  'root_uri': {-> s:root_uri('.git', '.hg')},
       \})
