@@ -402,6 +402,7 @@ Plug 'thinca/vim-ft-vim_fold', { 'for': 'vim' }
 Plug 'cocopon/iceberg.vim'
 Plug 'Rigellute/rigel'
 Plug 'tomasr/molokai'
+Plug 'wadackel/vim-dogrun'
 
 for s:p in split(glob(g:vimrc.join(g:plug_home, '*'), 1), '\n')
   if !has_key(g:plugs, fnamemodify(s:p, ':t'))
