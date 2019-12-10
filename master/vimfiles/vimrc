@@ -526,7 +526,6 @@ endif
 
 " plugin: lightline {{{1
 let g:lightline = {
-\  'colorscheme': 'Tomorrow',
 \  'mode_map': {
 \    'c': 'NORMAL',
 \  },
@@ -543,8 +542,21 @@ let g:lightline = {
 \  'vimrc': {},
 \}
 
-if get(g:, 'colors_name', '') ==# 'iceberg'
-  let g:lightline.colorscheme = 'iceberg'
+if g:vimrc.has_plugin('lightline.vim')
+  augroup vimrc-plugin-lightline
+    autocmd!
+    autocmd ColorScheme * call s:update_lightline()
+  augroup END
+  function! s:update_lightline() abort
+    let g:lightline.colorscheme = globpath(&runtimepath, 'autoload/lightline/colorscheme/' . g:colors_name . '.vim', 1) !=# '' ? g:colors_name : 'default'
+    if v:vim_did_enter
+      call lightline#init()
+      call lightline#colorscheme()
+      call lightline#update()
+    endif
+  endfunction
+
+  call s:update_lightline()
 endif
 
 if g:vimrc.has_plugin('vcs-info.vim')
