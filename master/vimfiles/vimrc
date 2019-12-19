@@ -615,6 +615,9 @@ endif
 
 " plugin: lsp {{{1
 if g:vimrc.has_plugin('vim-lsp')
+  let g:lsp_diagnostics_echo_cursor = 1
+  let g:lsp_highlight_references_enabled = 1
+
   function! vimrc.lsp() abort
     if empty(lsp#get_whitelisted_servers())
       return ''
@@ -622,8 +625,11 @@ if g:vimrc.has_plugin('vim-lsp')
 
     setlocal omnifunc=lsp#complete
 
-    map <buffer> <C-]> <Plug>(lsp-definition)
-    map <buffer> K     <Plug>(lsp-hover)
+    nmap <buffer> <C-]>          <Plug>(lsp-definition)
+    nmap <buffer> K              <Plug>(lsp-hover)
+    nmap <buffer> <LocalLeader>n <Plug>(lsp-next-error)
+    nmap <buffer> <LocalLeader>p <Plug>(lsp-previous-error)
+    nmap <buffer> <LocalLeader>R <Plug>(lsp-rename)
 
     return 'setl ofu< | mapc <buffer>'
   endfunction
