@@ -502,6 +502,7 @@ if g:vimrc.has_plugin('vim-go')
   if executable('goimports')
     let g:go_fmt_command = 'goimports'
   endif
+  let g:go_gopls_enabled = 0
   let g:go_highlight_operators = 1
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
