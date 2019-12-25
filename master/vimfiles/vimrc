@@ -12,7 +12,7 @@ endif
 " globals {{{1
 let g:vimrc = {
 \  'is_win': has('win32'),
-\  'sep':    !exists('+shellslash') || &shellslash ? '/' : '\',
+\  'sep':    has('win32') ? '\' : '/',
 \}
 
 function! vimrc.cache(path, ...) abort
@@ -141,9 +141,6 @@ endif
 set formatoptions-=M
 set formatoptions+=mBj
 set hidden
-if has('langmap') && exists('+langnoremap')
-  set langnoremap
-endif
 set modeline
 set nrformats-=octal
 set nrformats+=alpha
@@ -247,7 +244,7 @@ endif
 " mappings {{{1
 let mapleader = ','
 nnoremap <silent> <Esc><Esc> :<C-U>nohlsearch<CR>
-inoremap <C-U> <C-G>u<C-U>
+inoremap          <C-U>      <C-G>u<C-U>
 
 " environ {{{1
 if g:vimrc.is_win
@@ -469,11 +466,11 @@ if g:vimrc.has_plugin('ctrlp.vim')
   let g:ctrlp_open_multiple_files = 'tjr'
   let g:ctrlp_key_loop = 1
 
-  nnoremap CtrlP  <Nop>
-  nmap     <C-P>  CtrlP
-  nnoremap CtrlP  :<C-U>CtrlP<CR>
-  nnoremap CtrlPb :<C-U>CtrlPBuffer<CR>
-  nnoremap CtrlPm :<C-U>CtrlPMRU<CR>
+  nnoremap          [CtrlP]  <Nop>
+  nmap              <C-P>    [CtrlP]
+  nnoremap <silent> [CtrlP]  :<C-U>CtrlP<CR>
+  nnoremap <silent> [CtrlP]b :<C-U>CtrlPBuffer<CR>
+  nnoremap <silent> [CtrlP]m :<C-U>CtrlPMRU<CR>
 endif
 
 " plugin: eazy-align {{{1
@@ -676,7 +673,11 @@ if g:vimrc.has_plugin('vim-lsp')
 endif
 
 " plugin: matchit {{{1
-runtime macros/matchit.vim
+if has('patch-7.4.1649')
+  packadd matchit
+else
+  runtime macros/matchit.vim
+endif
 
 " plugin: netrw {{{1
 let g:netrw_home = g:vimrc.cache('netrw', 1)
@@ -796,22 +797,22 @@ if g:vimrc.has_plugin('unite.vim')
   call unite#filters#matcher_default#use(['matcher_fuzzy'])
   call unite#custom#source('buffer,file,file_rec', 'sorters', 'sorter_rank')
 
-  nnoremap [unite]   <Nop>
-  nmap     <Leader>u [unite]
-  nnoremap [unite]   :<C-U>Unite<Space>
-  nnoremap [unite]a  :<C-U>Unite -profile-name=files file file/new buffer file_mru<CR>
-  nnoremap [unite]f  :<C-U>Unite -profile-name=files file file/new<CR>
-  nnoremap [unite]r  :<C-U>Unite -profile-name=files file_rec/async:!<CR>
-  nnoremap [unite]m  :<C-U>Unite -profile-name=files file_mru<CR>
-  nnoremap [unite]b  :<C-U>Unite -immediately buffer<CR>
-  nnoremap [unite]t  :<C-U>Unite -immediately tab:no-current<CR>
-  nnoremap [unite]w  :<C-U>Unite -immediately window:no-current<CR>
-  nnoremap [unite]T  :<C-U>Unite tag<CR>
-  nnoremap [unite]h  :<C-U>Unite help<CR>
-  nnoremap [unite]o  :<C-U>Unite outline<CR>
-  nnoremap [unite]s  :<C-U>Unite source<CR>
-  nnoremap [unite]g  :<C-U>Unite grep<CR>
-  nnoremap [unite]/  :<C-U>Unite line<CR>
+  nnoremap          [unite]   <Nop>
+  nmap              <Leader>u [unite]
+  nnoremap          [unite]   :<C-U>Unite<Space>
+  nnoremap <silent> [unite]a  :<C-U>Unite -profile-name=files file file/new buffer file_mru<CR>
+  nnoremap <silent> [unite]f  :<C-U>Unite -profile-name=files file file/new<CR>
+  nnoremap <silent> [unite]r  :<C-U>Unite -profile-name=files file_rec/async:!<CR>
+  nnoremap <silent> [unite]m  :<C-U>Unite -profile-name=files file_mru<CR>
+  nnoremap <silent> [unite]b  :<C-U>Unite -immediately buffer<CR>
+  nnoremap <silent> [unite]t  :<C-U>Unite -immediately tab:no-current<CR>
+  nnoremap <silent> [unite]w  :<C-U>Unite -immediately window:no-current<CR>
+  nnoremap <silent> [unite]T  :<C-U>Unite tag<CR>
+  nnoremap <silent> [unite]h  :<C-U>Unite help<CR>
+  nnoremap <silent> [unite]o  :<C-U>Unite outline<CR>
+  nnoremap <silent> [unite]s  :<C-U>Unite source<CR>
+  nnoremap <silent> [unite]g  :<C-U>Unite grep<CR>
+  nnoremap <silent> [unite]/  :<C-U>Unite line<CR>
 endif
 
 " plugin: zip {{{1
