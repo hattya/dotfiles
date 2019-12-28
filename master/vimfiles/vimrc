@@ -243,6 +243,7 @@ endif
 
 " mappings {{{1
 let mapleader = ','
+let g:maplocalleader = ','
 nnoremap <silent> <Esc><Esc> :<C-U>nohlsearch<CR>
 inoremap          <C-U>      <C-G>u<C-U>
 
