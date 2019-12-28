@@ -599,23 +599,8 @@ if g:vimrc.has_plugin('vim-lsp')
   let g:lsp_diagnostics_echo_cursor = 1
   let g:lsp_highlight_references_enabled = 1
 
-  function! vimrc.lsp() abort
-    if empty(lsp#get_whitelisted_servers())
-      return ''
-    endif
-
-    setlocal omnifunc=lsp#complete
-
-    nmap <buffer> <C-]>          <Plug>(lsp-definition)
-    nmap <buffer> K              <Plug>(lsp-hover)
-    nmap <buffer> <LocalLeader>n <Plug>(lsp-next-error)
-    nmap <buffer> <LocalLeader>p <Plug>(lsp-previous-error)
-    nmap <buffer> <LocalLeader>R <Plug>(lsp-rename)
-
-    return 'setl ofu< | mapc <buffer>'
-  endfunction
-
   augroup vimrc-plugin-lsp
+    autocmd!
     if executable('clangd')
       autocmd User lsp_setup call lsp#register_server({
       \  'name': 'clangd',
@@ -639,6 +624,9 @@ if g:vimrc.has_plugin('vim-lsp')
       \  'root_uri': {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
       \})
     endif
+
+    autocmd User lsp_setup          autocmd FileType * doautocmd lsp BufRead
+    autocmd User lsp_buffer_enabled call s:lsp_buffer_enabled()
   augroup END
   function! s:root_uri(...) abort
     let root = expand('%:p:h')
@@ -653,6 +641,23 @@ if g:vimrc.has_plugin('vim-lsp')
       let root = fnamemodify(root, ':h')
     endwhile
     return lsp#utils#get_default_root_uri()
+  endfunction
+  function! s:lsp_buffer_enabled() abort
+    if exists('b:undo_ftplugin')
+      let b:undo_ftplugin .= ' | '
+    else
+      let b:undo_ftplugin = ''
+    endif
+
+    setlocal omnifunc=lsp#complete
+
+    nmap <buffer> K              <Plug>(lsp-hover)
+    nmap <buffer> <LocalLeader>d <Plug>(lsp-definition)
+    nmap <buffer> <LocalLeader>n <Plug>(lsp-next-error)
+    nmap <buffer> <LocalLeader>p <Plug>(lsp-previous-error)
+    nmap <buffer> <LocalLeader>R <Plug>(lsp-rename)
+
+    let b:undo_ftplugin .= 'setl ofu< | mapc <buffer>'
   endfunction
 endif
 

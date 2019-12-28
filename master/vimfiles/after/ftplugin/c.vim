@@ -18,10 +18,3 @@ let b:undo_ftplugin .= 'setl et< sw< ts<'
 for s:k in filter(keys(g:), "v:val =~ '^c_'")
   let b:undo_ftplugin .= ' | unl g:' . s:k
 endfor
-
-if g:vimrc.has_plugin('vim-lsp')
-  let s:undo_lsp = g:vimrc.lsp()
-  if s:undo_lsp !=# ''
-    let b:undo_ftplugin .= ' | ' . s:undo_lsp
-  endif
-endif
