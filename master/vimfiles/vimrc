@@ -374,7 +374,6 @@ Plug 'tsukkee/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'Shougo/unite-outline'
 " filetype: go
-Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rhysd/vim-goyacc', { 'for': 'goyacc' }
 " filetype: javascript
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -490,22 +489,6 @@ endif
 " plugin: gist {{{1
 if g:vimrc.has_plugin('gist-vim')
   let g:gist_update_on_write = 2
-endif
-
-" plugin: go {{{1
-if g:vimrc.has_plugin('vim-go')
-  let g:go_code_completion_enabled = 0
-  let g:go_def_mapping_enabled = 0
-  if executable('goimports')
-    let g:go_fmt_command = 'goimports'
-  endif
-  let g:go_gopls_enabled = 0
-  let g:go_highlight_operators = 1
-  let g:go_highlight_functions = 1
-  let g:go_highlight_methods = 1
-  let g:go_highlight_structs = 1
-  let g:go_highlight_build_constraints = 1
-  let g:go_template_autocreate = 0
 endif
 
 " plugin: jedi {{{1
