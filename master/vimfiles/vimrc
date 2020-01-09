@@ -150,6 +150,7 @@ set showmatch
 if v:version > 704 || v:version == 704 && has('patch088')
   set spelllang+=cjk
 endif
+set nostartofline
 if has('persistent_undo')
   set undofile
   let &undodir = g:vimrc.cache('undo', 1)
