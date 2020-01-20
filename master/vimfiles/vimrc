@@ -617,10 +617,27 @@ if g:vimrc.has_plugin('vim-lsp')
       \  'root_uri': {-> s:root_uri('.git', '.hg')},
       \})
     endif
+    if executable('json-languageserver')
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name': 'json-languageserver',
+      \  'cmd': {-> [&shell, &shellcmdflag, 'json-languageserver --stdio']},
+      \  'whitelist': ['json'],
+      \  'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'workspace_config': {
+      \    'json': {
+      \      'format': {
+      \        'enable': v:true,
+      \      },
+      \      'schemas': s:schemas(),
+      \    },
+      \  },
+      \})
+    endif
     if executable('typescript-language-server')
       autocmd User lsp_setup call lsp#register_server({
       \  'name': 'typescript-language-server',
       \  'cmd':  {-> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \  'whitelist': ['javascript', 'typescript'],
       \  'root_uri': {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
       \})
     endif
@@ -642,6 +659,17 @@ if g:vimrc.has_plugin('vim-lsp')
       let root = fnamemodify(root, ':h')
     endwhile
     return lsp#utils#get_default_root_uri()
+  endfunction
+
+  function! s:schemas() abort
+    let catalog = g:vimrc.join(g:vimrc.cache('lsp', 1), 'catalog.json')
+    if localtime() - getftime(catalog) >= 60 * 60 * 24 * 3
+      let res = webapi#http#get('http://schemastore.org/api/json/catalog.json')
+      if res.status == 200
+        call writefile(split(res.content, "\n"), catalog)
+      endif
+    endif
+    return json_decode(join(readfile(catalog), "\n"))['schemas']
   endfunction
 
   function! s:lsp_buffer_enabled() abort
