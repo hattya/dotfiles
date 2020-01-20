@@ -147,9 +147,7 @@ set nrformats+=alpha
 set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4
 set showmatch
-if v:version > 704 || v:version == 704 && has('patch088')
-  set spelllang+=cjk
-endif
+set spelllang+=cjk
 set nostartofline
 if has('persistent_undo')
   set undofile
@@ -666,11 +664,7 @@ if g:vimrc.has_plugin('vim-lsp')
 endif
 
 " plugin: matchit {{{1
-if has('patch-7.4.1649')
-  packadd matchit
-else
-  runtime macros/matchit.vim
-endif
+packadd matchit
 
 " plugin: netrw {{{1
 let g:netrw_home = g:vimrc.cache('netrw', 1)
