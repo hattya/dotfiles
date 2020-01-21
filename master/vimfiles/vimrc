@@ -307,13 +307,19 @@ function! PlugBuild(info) abort
   if a:info.status !=# 'unchanged' || a:info.force
     if a:info.name ==# 'vimproc.vim'
       if g:vimrc.is_win
-        let sfx = has('win64') ? 'win64' : 'win32'
+        if has('win64')
+          let cpu = 'AMD64'
+          let sfx = 'win64'
+        else
+          let cpu = 'i386'
+          let sfx = 'win32'
+        endif
         let dll = g:vimrc.join('lib', printf('vimproc_%s.dll', sfx))
         call delete(dll)
         if filereadable(dll)
           call rename(dll, dll . '~')
         endif
-        call vcvars#call('!nmake /nologo /f make_msvc.mak nodebug=1', '2010')
+        call vcvars#call('!nmake /nologo /f make_msvc.mak CPU=' . cpu, '2010')
       else
         !make
       endif
