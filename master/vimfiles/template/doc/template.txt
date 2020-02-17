@@ -1,4 +1,4 @@
-:silent %s#<+PROJECT+>#\=expand('%:p::gs?\\?/?:s?.*/\([^/]\+\)/doc/.*?\1?')#ge
+:silent %s#<+PROJECT+>#\=expand('%:p:gs?\\?/?:s?.*/\([^/]\+\)/doc/.*?\1?')#ge
 :silent %s#<+PACKAGE+>#\=expand('%:p:r:gs?\\?/?:s?.*/doc/??:gs?/?.?')#ge
 *<%= expand('%:p:gs?\\?/?:s?.*/doc/??') %>*	<+CURSOR+>
 
