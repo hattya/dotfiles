@@ -633,6 +633,9 @@ if g:vimrc.has_plugin('vim-lsp')
       \  'cmd': {-> [&shell, &shellcmdflag, 'json-languageserver --stdio']},
       \  'whitelist': ['json'],
       \  'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'config': {
+      \    'refresh_pattern': '\v("\k*|\[|\k+)$',
+      \  },
       \  'workspace_config': {
       \    'json': {
       \      'format': {
