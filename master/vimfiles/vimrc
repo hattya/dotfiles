@@ -654,6 +654,18 @@ if g:vimrc.has_plugin('vim-lsp')
       \  'root_uri': {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
       \})
     endif
+    if executable('vim-language-server')
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name': 'vim-language-server',
+      \  'cmd':  {-> [&shell, &shellcmdflag, 'vim-language-server --stdio']},
+      \  'whitelist': ['vim'],
+      \  'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'initialization_options': {
+      \    'vimruntime': $RUNTIME,
+      \    'runtimepath': &runtimepath,
+      \  },
+      \})
+    endif
 
     autocmd User lsp_setup          autocmd FileType * doautocmd lsp BufRead
     autocmd User lsp_buffer_enabled call s:lsp_buffer_enabled()
