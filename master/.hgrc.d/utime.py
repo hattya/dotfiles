@@ -8,10 +8,10 @@ def hook(ui, repo, hooktype, **kwargs):
     def utime(name, ts, date):
         p = repo.wjoin(name)
         if os.path.exists(p):
-            ui.debug('utime: {} - {}\n'.format(date, name))
+            ui.debug(b'utime: %s - %s\n' % (date, name))
             os.utime(p, ts)
 
-    ctx = repo['.']
+    ctx = repo[b'.']
     m = ctx.manifest()
     s = ctx.status()
     for f in s[0]:
@@ -22,7 +22,7 @@ def hook(ui, repo, hooktype, **kwargs):
         ctx = repo[r]
         date = ctx.date()
         ts = (date[0],) * 2
-        date = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(date[0] - date[1]))
+        date = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(date[0] - date[1])).encode()
         for f in ctx.files():
             if f in m:
                 utime(f, ts, date)
