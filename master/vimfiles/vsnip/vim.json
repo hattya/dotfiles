@@ -1,0 +1,23 @@
+{
+  "Benchmark": {
+    "prefix": ["bench"],
+    "body": [
+      "let s:v = $1",
+      "let s:i = 0",
+      "let s:s = reltime()",
+      "while s:i < 1000",
+      "\t$0",
+      "\tlet s:i += 1",
+      "endwhile",
+      "echo reltimestr(reltime(s:s))"
+    ],
+    "description": "A benchmark."
+  },
+  "vital.vim import": {
+    "prefix": ["imp"],
+    "body": [
+      "let $3 = vital#${1:vital}#import('$2')"
+    ],
+    "description": "A vital.vim import."
+  }
+}
