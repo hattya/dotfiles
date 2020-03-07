@@ -614,26 +614,44 @@ if g:vimrc.has_plugin('vim-lsp')
     autocmd!
     if executable('clangd')
       autocmd User lsp_setup call lsp#register_server({
-      \  'name': 'clangd',
-      \  'cmd':  {-> ['clangd', '-pch-storage=memory']},
+      \  'name':      'clangd',
+      \  'cmd':       {-> ['clangd', '-pch-storage=memory']},
       \  'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-      \  'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
       \})
     endif
     if executable('gopls')
       autocmd User lsp_setup call lsp#register_server({
-      \  'name': 'gopls',
-      \  'cmd':  {-> ['gopls']},
+      \  'name':      'gopls',
+      \  'cmd':       {-> ['gopls']},
       \  'whitelist': ['go'],
-      \  'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
       \})
     endif
-    if executable('json-languageserver')
+    if executable('vscode-html-languageserver')
       autocmd User lsp_setup call lsp#register_server({
-      \  'name': 'json-languageserver',
-      \  'cmd': {-> [&shell, &shellcmdflag, 'json-languageserver --stdio']},
+      \  'name':      'vscode-html-languageserver',
+      \  'cmd':       {-> [&shell, &shellcmdflag, 'vscode-html-languageserver --stdio']},
+      \  'whitelist': ['html'],
+      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
+      \  'initialization_options': {
+      \    'provideFormatter': v:true,
+      \    'embeddedLanguages': {
+      \      'css':        v:true,
+      \      'javascript': v:true,
+      \    },
+      \  },
+      \})
+    endif
+    if executable('vscode-json-languageserver')
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name':      'vscode-json-languageserver',
+      \  'cmd':       {-> [&shell, &shellcmdflag, 'vscode-json-languageserver --stdio']},
       \  'whitelist': ['json'],
-      \  'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
+      \  'initialization_options': {
+      \    'provideFormatter': v:true,
+      \  },
       \  'config': {
       \    'refresh_pattern': '\v("\k*|\[|\k+)$',
       \  },
@@ -649,20 +667,20 @@ if g:vimrc.has_plugin('vim-lsp')
     endif
     if executable('typescript-language-server')
       autocmd User lsp_setup call lsp#register_server({
-      \  'name': 'typescript-language-server',
-      \  'cmd':  {-> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \  'name':      'typescript-language-server',
+      \  'cmd':       {-> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
       \  'whitelist': ['javascript', 'typescript'],
-      \  'root_uri': {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
+      \  'root_uri':  {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
       \})
     endif
     if executable('vim-language-server')
       autocmd User lsp_setup call lsp#register_server({
-      \  'name': 'vim-language-server',
-      \  'cmd':  {-> [&shell, &shellcmdflag, 'vim-language-server --stdio']},
+      \  'name':      'vim-language-server',
+      \  'cmd':       {-> [&shell, &shellcmdflag, 'vim-language-server --stdio']},
       \  'whitelist': ['vim'],
-      \  'root_uri': {-> s:root_uri('.git', '.hg')},
+      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
       \  'initialization_options': {
-      \    'vimruntime': $RUNTIME,
+      \    'vimruntime':  $RUNTIME,
       \    'runtimepath': &runtimepath,
       \  },
       \})
