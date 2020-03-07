@@ -43,5 +43,4 @@ function! s:pth(activate) abort
 endfunction
 
 let b:undo_ftplugin .= ' | exe "au! vimrc-ft-python * <buffer>"'
-let b:undo_ftplugin .= ' | aug! vimrc-ft-python'
 let b:undo_ftplugin .= ' | cal <SNR>' . s:sid . '_pth(0)'
