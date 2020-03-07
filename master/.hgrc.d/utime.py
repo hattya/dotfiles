@@ -14,7 +14,7 @@ def hook(ui, repo, hooktype, **kwargs):
     ctx = repo[b'.']
     m = ctx.manifest()
     s = ctx.status()
-    for f in s[0]:
+    for f in s.modified:
         del m[f]
     r = ctx.rev()
     dirs = {}
