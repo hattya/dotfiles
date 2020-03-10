@@ -11,7 +11,7 @@ if g:vimrc.is_win
     set renderoptions=type:directx,renmode:5
   endif
 else
-  set guifont=M+\ 1m\ 11
+  set guifont=M+\ 1m\ 9
 endif
 
 " window options {{{2
