@@ -351,6 +351,7 @@ Plug 'mhinz/vim-signify'
 Plug 'PProvost/vim-ps1'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'rhysd/clever-f.vim'
 Plug 'Shougo/vimproc.vim' , { 'do': function('PlugBuild') }
 Plug 'thinca/vim-ambicmd'
 Plug 'thinca/vim-quickrun'
@@ -461,6 +462,13 @@ endif
 
 " plugin: chagelog {{{1
 let g:changelog_username = g:user.format()
+
+" plugin: clever-f {{{1
+if g:vimrc.has_plugin('clever-f.vim')
+  let g:clever_f_across_no_line = 1
+  let g:clever_f_smart_case = 1
+  let g:clever_f_use_migemo = 1
+endif
 
 " plugin: ctrlp {{{1
 if g:vimrc.has_plugin('ctrlp.vim')
