@@ -1,6 +1,25 @@
 {
-  "Benchmark": {
-    "prefix": ["bench"],
+  "autocmd group": {
+    "prefix": "aug",
+    "body": [
+      "augroup $1",
+      "\tautocmd!${2: * <buffer>}",
+      "\tautocmd $3 ${4:*} $0",
+      "augroup END"
+    ],
+    "description": "Snippet for an autocmd group"
+  },
+  "function declaration": {
+    "prefix": ["fu", "func"],
+    "body": [
+      "function! ${1}($2) abort",
+      "\t$0",
+      "endfunction"
+    ],
+    "description": "Snippet for a function declaration"
+  },
+  "benchmark": {
+    "prefix": "bench",
     "body": [
       "let s:v = $1",
       "let s:i = 0",
@@ -11,13 +30,11 @@
       "endwhile",
       "echo reltimestr(reltime(s:s))"
     ],
-    "description": "A benchmark."
+    "description": "Snippet for a benchmark"
   },
   "vital.vim import": {
-    "prefix": ["imp"],
-    "body": [
-      "let $3 = vital#${1:vital}#import('$2')"
-    ],
-    "description": "A vital.vim import."
-  }
+    "prefix": "imp",
+    "body": "let $3 = vital#${1:vital}#import('$2')",
+    "description": "Snippet for a vital.vim import"
+  },
 }
