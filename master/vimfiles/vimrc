@@ -633,6 +633,10 @@ if g:vimrc.has_plugin('vim-lsp')
       \  'cmd':       {-> ['gopls']},
       \  'whitelist': ['go'],
       \  'root_uri':  {-> s:root_uri('.git', '.hg')},
+      \  'initialization_options': {
+      \    'usePlaceholders': v:true,
+      \    'completeUnimported': v:true,
+      \  },
       \})
     endif
     if executable('vscode-html-languageserver')
