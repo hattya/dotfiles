@@ -549,7 +549,7 @@ if g:vimrc.has_plugin('lightline.vim')
 
   function! s:update_lightline() abort
     let g:lightline.colorscheme = globpath(&runtimepath, 'autoload/lightline/colorscheme/' . g:colors_name . '.vim', 1) !=# '' ? g:colors_name : 'default'
-    if v:vim_did_enter
+    if !has('vim_starting')
       call lightline#init()
       call lightline#colorscheme()
       call lightline#update()
