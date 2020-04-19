@@ -639,6 +639,27 @@ if g:vimrc.has_plugin('vim-lsp')
       \  },
       \})
     endif
+    if executable('java')
+      let s:eclipse_jdt_ls = g:vimrc.join(g:vimrc.cache('lsp', 1), 'eclipse.jdt.ls')
+      if isdirectory(s:eclipse_jdt_ls)
+        autocmd User lsp_setup call lsp#register_server({
+        \  'name':      'eclipse.jdt.ls',
+        \  'cmd':       {-> ['java',
+        \                    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+        \                    '-Declipse.product=org.eclipse.jdt.ls.core.product',
+        \                    '-Dlog.level=ALL',
+        \                    '-Dosgi.bundles.defaultStartLevel=4',
+        \                    '-noverify',
+        \                    '-Xmx1G',
+        \                    '-jar', glob(g:vimrc.join(s:eclipse_jdt_ls, 'plugins', 'org.eclipse.equinox.launcher_*.jar'), 1, 1)[0],
+        \                    '-configuration', g:vimrc.join(s:eclipse_jdt_ls, has('win32') ? 'config_win' : 'config_linux'),
+        \                    '-data', g:vimrc.join(s:eclipse_jdt_ls, 'data')]
+        \               },
+        \  'whitelist': ['java'],
+        \  'root_uri':  {-> s:root_uri('.git', '.hg')},
+        \})
+        endif
+      endif
     if executable('vscode-html-languageserver')
       autocmd User lsp_setup call lsp#register_server({
       \  'name':      'vscode-html-languageserver',
