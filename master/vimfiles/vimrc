@@ -410,7 +410,7 @@ Plug 'Rigellute/rigel'
 Plug 'tomasr/molokai'
 Plug 'wadackel/vim-dogrun'
 
-for s:p in split(glob(g:vimrc.join(g:plug_home, '*'), 1), '\n')
+for s:p in glob(g:vimrc.join(g:plug_home, '*'), 1, 1)
   if !has_key(g:plugs, fnamemodify(s:p, ':t'))
     execute "Plug '" . s:p . "'"
   endif
