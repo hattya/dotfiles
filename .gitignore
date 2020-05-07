@@ -1,4 +1,5 @@
 *.py?
-*.swp
+*.sw?
+**/.config/mlterm/*.log
 **/.config/mlterm/*.six
 **/.config/mlterm/challenge
