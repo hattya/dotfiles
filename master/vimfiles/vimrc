@@ -544,13 +544,19 @@ let g:lightline = {
 if g:vimrc.has_plugin('lightline.vim')
   augroup vimrc-plugin-lightline
     autocmd!
-    autocmd ColorScheme * call s:update_lightline()
+    autocmd ColorScheme *          call s:update_lightline()
+    autocmd OptionSet   background call s:update_lightline(v:option_new !=# v:option_old)
   augroup END
 
-  function! s:update_lightline() abort
-    let g:lightline.colorscheme = globpath(&runtimepath, 'autoload/lightline/colorscheme/' . g:colors_name . '.vim', 1) !=# '' ? g:colors_name : 'default'
+  function! s:update_lightline(...) abort
+    let list = globpath(&runtimepath, g:vimrc.join('autoload', 'lightline', 'colorscheme', g:colors_name . '.vim'), 1, 1)
+    let g:lightline.colorscheme = !empty(list) ? g:colors_name : 'default'
     if !has('vim_starting')
-      call lightline#init()
+      if a:0 == 0
+        call lightline#init()
+      elseif a:1 && !empty(list)
+        execute 'source ' . list[0]
+      endif
       call lightline#colorscheme()
       call lightline#update()
     endif
