@@ -159,6 +159,7 @@ set wildmenu
 if has('multi_byte') && !has('termresponse') || &t_u7 ==# ''
   set ambiwidth=double
 endif
+set background=dark
 if exists('+breakindent')
   set breakindent
   set breakindentopt=sbr
