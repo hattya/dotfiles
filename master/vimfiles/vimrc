@@ -763,6 +763,7 @@ if g:vimrc.has_plugin('vim-lsp')
     endif
 
     setlocal omnifunc=lsp#complete
+    setlocal tagfunc=lsp#tagfunc
 
     nmap <buffer> K              <Plug>(lsp-hover)
     nmap <buffer> <LocalLeader>d <Plug>(lsp-definition)
