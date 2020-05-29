@@ -5,7 +5,6 @@
       {
         "name": "linux",
         "aliases": {
-          "gocode": ".config/gocode",
           "peco": ".config/peco",
           "vimfiles": ".vim"
         },
@@ -25,7 +24,6 @@
         "name": "windows",
         "aliases": {
           ".curlrc": "$APPDATA/_curlrc",
-          "gocode": "$APPDATA/gocode",
           "peco": ".peco"
         }
       }
