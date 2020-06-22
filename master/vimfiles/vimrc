@@ -350,7 +350,6 @@ Plug 'mattn/vim-gist', { 'on': 'Gist' }
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-signify'
 Plug 'PProvost/vim-ps1'
-Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'rhysd/clever-f.vim'
 Plug 'Shougo/vimproc.vim' , { 'do': function('PlugBuild') }
