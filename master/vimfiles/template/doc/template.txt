@@ -12,9 +12,9 @@ CONTENTS					*<+PACKAGE+>-contents*
 Introduction					|<+PACKAGE+>-introduction|
 Usage						|<+PACKAGE+>-usage|
 Interface					|<+PACKAGE+>-interface|
-  Key Mappings					|<+PACKAGE+>-key-mappings|
   Variables					|<+PACKAGE+>-variables|
   Commands					|<+PACKAGE+>-commands|
+  Key Mappings					|<+PACKAGE+>-key-mappings|
   Functions					|<+PACKAGE+>-functions|
 
 ==============================================================================
@@ -29,13 +29,13 @@ USAGE						*<+PACKAGE+>-usage*
 INTERFACE					*<+PACKAGE+>-interface*
 
 ------------------------------------------------------------------------------
-KEY MAPPINGS					*<+PACKAGE+>-key-mappings*
-
-------------------------------------------------------------------------------
 VARIABLES					*<+PACKAGE+>-variables*
 
 ------------------------------------------------------------------------------
 COMMANDS					*<+PACKAGE+>-commands*
+
+------------------------------------------------------------------------------
+KEY MAPPINGS					*<+PACKAGE+>-key-mappings*
 
 ------------------------------------------------------------------------------
 FUNCTIONS					*<+PACKAGE+>-functions*
