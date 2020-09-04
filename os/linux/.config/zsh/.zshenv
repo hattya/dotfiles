@@ -7,8 +7,6 @@ userpath+=(~/.local{,/Cellar/*}/bin(N/))
 save_path=(${path})
 path=(${userpath} ${path})
 
-manpath+=(/usr{/local,}/share/man/ja(N/))
-
 # locale
 export LANG='ja_JP.UTF-8'
 export LC_MESSAGES='C'
