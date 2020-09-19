@@ -366,6 +366,7 @@ Plug 'vim-scripts/autodate.vim'
 " ctrlp
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'mattn/ctrlp-matchfuzzy'
 " status line
 Plug 'itchyny/lightline.vim'
 Plug 'mattn/hahhah-vim'
@@ -484,7 +485,9 @@ if g:vimrc.has_plugin('ctrlp.vim')
   \}
   let g:ctrlp_open_multiple_files = 'tjr'
   let g:ctrlp_key_loop = 1
-  if has('python3') || has('python')
+  if exists('*matchfuzzy')
+    let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+  elseif has('python3') || has('python')
     let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
   endif
 
