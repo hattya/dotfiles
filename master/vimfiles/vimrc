@@ -332,7 +332,6 @@ endfunction
 call plug#begin(g:vimrc.join(g:vimrc.vimfiles, 'bundle'))
 Plug 'cohama/lexima.vim'
 Plug 'cocopon/vaffle.vim', { 'on': 'Vaffle' }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'hattya/license.vim'
 Plug 'hattya/vcs-info.vim'
 Plug 'hattya/vcvars.vim'
@@ -364,6 +363,9 @@ Plug 'vim-jp/autofmt'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
 Plug 'vim-scripts/autodate.vim'
+" ctrlp
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
 " status line
 Plug 'itchyny/lightline.vim'
 Plug 'mattn/hahhah-vim'
@@ -482,6 +484,9 @@ if g:vimrc.has_plugin('ctrlp.vim')
   \}
   let g:ctrlp_open_multiple_files = 'tjr'
   let g:ctrlp_key_loop = 1
+  if has('python3') || has('python')
+    let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
+  endif
 
   nnoremap          [CtrlP]  <Nop>
   nmap              <C-P>    [CtrlP]
