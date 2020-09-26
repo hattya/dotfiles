@@ -331,7 +331,7 @@ endfunction
 
 call plug#begin(g:vimrc.join(g:vimrc.vimfiles, 'bundle'))
 Plug 'cohama/lexima.vim'
-Plug 'cocopon/vaffle.vim', { 'on': 'Vaffle' }
+Plug 'cocopon/vaffle.vim'
 Plug 'hattya/license.vim'
 Plug 'hattya/vcs-info.vim'
 Plug 'hattya/vcvars.vim'
