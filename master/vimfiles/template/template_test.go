@@ -2,7 +2,7 @@
 :  silent /^package\s/s/$/_test/e
 :endif
 //
-// <%= expand('%:p:h:gs?\\?/?')[len(fnamemodify(getcwd(), ':h'))+1 :] %> :: <%= expand('%:t') %>
+// <%= strpart(expand('%:p:h:gs?\\?/?'), len(fnamemodify(getcwd(), ':h')) + 1) %> :: <%= expand('%:t') %>
 //
 //   Copyright (c) <%= strftime('%Y') %> <%= g:user.format() %>
 //
