@@ -411,6 +411,7 @@ Plug 'vim-jp/syntax-vim-ex', { 'for': 'vim' }
 Plug 'thinca/vim-ft-vim_fold', { 'for': 'vim' }
 " color scheme
 Plug 'cocopon/iceberg.vim'
+Plug 'ghifarit53/tokyonight-vim'
 Plug 'Rigellute/rigel'
 Plug 'tomasr/molokai'
 Plug 'wadackel/vim-dogrun'
@@ -570,7 +571,7 @@ if g:vimrc.has_plugin('lightline.vim')
   augroup END
 
   function! s:update_lightline(...) abort
-    let list = globpath(&runtimepath, g:vimrc.join('autoload', 'lightline', 'colorscheme', g:colors_name . '.vim'), 1, 1)
+    let list = globpath(&runtimepath, g:vimrc.join('autoload', 'lightline', 'colorscheme', get(g:, 'colors_name', '') . '.vim'), 1, 1)
     let g:lightline.colorscheme = !empty(list) ? g:colors_name : 'default'
     if !has('vim_starting')
       if a:0 == 0
