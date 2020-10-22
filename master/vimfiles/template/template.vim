@@ -1,3 +1,3 @@
-" <%= expand('%:p:gs?\\?/?:s?.*/\%(\.vim\|vimfiles\)/??') %>
+" <%= expand('%:p:gs?\\?/?:s?.*/\%(\w*\.vim\|vimfiles\)/??') %>
 
 <+CURSOR+>
