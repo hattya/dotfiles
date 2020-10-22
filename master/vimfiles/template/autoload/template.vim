@@ -1,4 +1,4 @@
-" File:        <%= expand('%:p:gs?\\?/?:s?.*/\%(\.vim\|vimfiles\)/??') %>
+" File:        <%= expand('%:p:gs?\\?/?:s?.*/\%(\w*\.vim\|vimfiles\)/??') %>
 " Author:      <%= g:user.format() %>
 " Last Change: 
 " License:     
