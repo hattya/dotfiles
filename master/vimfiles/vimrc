@@ -745,6 +745,22 @@ if g:vimrc.has_plugin('vim-lsp')
       \  },
       \})
     endif
+    if executable('yaml-language-server')
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name':      'yaml-language-server',
+      \  'cmd':       {-> [&shell, &shellcmdflag, 'yaml-language-server --stdio']},
+      \  'allowlist': ['yaml'],
+      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
+      \  'workspace_config': {
+      \    'yaml': {
+      \      'format': {
+      \        'enable': v:true,
+      \      },
+      \      'schemas': s:schemas(),
+      \    },
+      \  },
+      \})
+    endif
 
     autocmd User lsp_setup          autocmd FileType * doautocmd lsp BufRead
     autocmd User lsp_buffer_enabled call s:lsp_buffer_enabled()
