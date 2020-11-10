@@ -217,8 +217,12 @@ tmux() {
       command tmux new-session -d
       command tmux rename-window work \; \
                    new-window -d -n root 'su -' \; \
-                   swap-window -s 1 \; \
-                   new-window -d -t 5 top
+                   swap-window -s 1
+      if (( ${+commands[htop]} )); then
+        command tmux new-window -d -t 5 htop -d 10
+      else
+        command tmux new-window -d -t 5 top
+      fi
     fi
     command tmux attach-session -d "${@}"
   else
