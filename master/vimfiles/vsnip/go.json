@@ -129,7 +129,7 @@
     "prefix": "bench",
     "body": [
       "func Benchmark$1(b *testing.B) {",
-      "\tfor ${2:i} := 0; $2 < t.B; $2++ {",
+      "\tfor ${2:i} := 0; $2 < b.N; $2++ {",
       "\t\t$0",
       "\t}",
       "}"
