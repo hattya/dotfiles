@@ -517,6 +517,12 @@ endif
 
 " plugin: flap {{{1
 if g:vimrc.has_plugin('flap.vim')
+  let g:flap = {
+  \  'rules': [
+  \    flap#datetime#rule('%Y-%m-%d'),
+  \  ],
+  \}
+
   nmap  <C-A> <Plug>(flap-inc)
   vmap  <C-A> <Plug>(flap-inc)
   vmap g<C-A> <Plug>(flap-inc-g)
