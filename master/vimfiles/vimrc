@@ -216,17 +216,17 @@ if has('vim_starting')
       set t_BE=
     endif
     if &term =~# '^\%(xterm\|screen\)'
+      let &pastetoggle = "\e[201~"
       let &t_ti .= "\e[?2004h"
       let &t_te .= "\e[?2004l"
-      let &pastetoggle = "\e[201~"
 
-      noremap  <expr> <Esc>[200~ XTermPasteBegin('0i')
-      inoremap <expr> <Esc>[200~ XTermPasteBegin('')
-      vnoremap <expr> <Esc>[200~ XTermPasteBegin('c')
+      noremap  <expr> <Esc>[200~ <SID>bracketed_paste_mode('i')
+      inoremap <expr> <Esc>[200~ <SID>bracketed_paste_mode('')
+      vnoremap <expr> <Esc>[200~ <SID>bracketed_paste_mode('c')
       cnoremap        <Esc>[200~ <Nop>
       cnoremap        <Esc>[201~ <Nop>
 
-      function! XTermPasteBegin(rv) abort
+      function! s:bracketed_paste_mode(rv) abort
         set paste
         return a:rv
       endfunction
@@ -234,10 +234,18 @@ if has('vim_starting')
   endif
   " improve vsplit {{{3
   if &term =~# '^xterm'
-    let &t_CS = "y"
-    let &t_CV = "\e[%i%p1%d;%p2%ds"
-    let &t_ti .= "\e[?6h\e[?69h"
-    let &t_te .= "\e7\e[?69l\e[?6l\e8"
+    let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
+
+    noremap <expr> <Esc>[3;3R <SID>vsplit_mode()
+
+    function! s:vsplit_mode() abort
+      " enable origin mode and left/right margins
+      let &t_CS  = "y"
+      let &t_CV  = "\e[%i%p1%d;%p2%ds"
+      let &t_ti .= "\e[?6;69h"
+      let &t_te  = "\e[?6;69l\e[999H" . &t_te
+      call writefile(["\e[?6;69h"], '/dev/tty', 'a')
+    endfunction
   endif
   " }}}3
 endif
