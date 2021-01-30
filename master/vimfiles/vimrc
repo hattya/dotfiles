@@ -867,6 +867,11 @@ if g:vimrc.has_plugin('riv.vim')
   let g:riv_disable_folding = 1
 endif
 
+" plugin: signify {{{1
+if g:vimrc.has_plugin('vim-signify')
+  let g:signify_sign_delete_first_line = '^'
+endif
+
 " plugin: swap {{{1
 if g:vimrc.has_plugin('vim-swap')
   omap i, <Plug>(swap-textobject-i)
