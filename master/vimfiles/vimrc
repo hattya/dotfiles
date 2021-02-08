@@ -338,6 +338,7 @@ function! PlugBuild(info) abort
 endfunction
 
 call plug#begin(g:vimrc.join(g:vimrc.vimfiles, 'bundle'))
+Plug 'andymass/vim-matchup'
 Plug 'cohama/lexima.vim'
 Plug 'cocopon/vaffle.vim'
 Plug 'hattya/flap.vim'
@@ -827,9 +828,6 @@ if g:vimrc.has_plugin('vim-lsp')
     let b:undo_ftplugin .= 'setl ofu< | mapc <buffer>'
   endfunction
 endif
-
-" plugin: matchit {{{1
-packadd matchit
 
 " plugin: netrw {{{1
 let g:netrw_home = g:vimrc.cache('netrw', 1)
