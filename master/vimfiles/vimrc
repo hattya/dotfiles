@@ -528,6 +528,7 @@ endif
 if g:vimrc.has_plugin('flap.vim')
   let g:flap = {
   \  'rules': [
+  \    flap#datetime#rule('%Y-%m-%dT%H:%M:%S%z'),
   \    flap#datetime#rule('%Y-%m-%d'),
   \  ],
   \}

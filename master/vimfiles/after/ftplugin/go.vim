@@ -9,3 +9,11 @@ endif
 setlocal tabstop=4
 
 let b:undo_ftplugin .= 'setl ts<'
+
+if g:vimrc.has_plugin('flap.vim')
+  let b:flap = {
+  \  'rules': [
+  \    ['true', 'false'],
+  \  ]
+  \}
+endif
