@@ -44,3 +44,11 @@ endfunction
 
 let b:undo_ftplugin .= ' | exe "au! vimrc-ft-python * <buffer>"'
 let b:undo_ftplugin .= ' | cal <SNR>' . s:sid . '_pth(0)'
+
+if g:vimrc.has_plugin('flap.vim')
+  let b:flap = {
+  \  'rules': [
+  \    ['True', 'False'],
+  \  ],
+  \}
+endif
