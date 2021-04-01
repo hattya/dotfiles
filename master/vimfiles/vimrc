@@ -397,7 +397,6 @@ Plug 'tsukkee/unite-help'
 Plug 'tsukkee/unite-tag'
 Plug 'Shougo/unite-outline'
 " filetype: go
-Plug 'mattn/vim-goimports', { 'for': 'go' }
 Plug 'rhysd/vim-goyacc', { 'for': 'goyacc' }
 " filetype: javascript
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }

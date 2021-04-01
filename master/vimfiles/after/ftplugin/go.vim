@@ -17,3 +17,10 @@ if g:vimrc.has_plugin('flap.vim')
   \  ]
   \}
 endif
+
+if g:vimrc.has_plugin('vim-lsp')
+  augroup vimrc-ft-go
+    autocmd! * <buffer>
+    autocmd BufWritePre <buffer> call execute('LspDocumentFormatSync') | call execute('LspCodeActionSync source.organizeImports')
+  augroup END
+endif
