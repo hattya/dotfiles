@@ -391,11 +391,6 @@ Plug 'thinca/vim-textobj-between'
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
 Plug 'mattn/favstar-vim', { 'on': 'FavStar' }
-" unite
-Plug 'Shougo/unite.vim'
-Plug 'tsukkee/unite-help'
-Plug 'tsukkee/unite-tag'
-Plug 'Shougo/unite-outline'
 " filetype: go
 Plug 'rhysd/vim-goyacc', { 'for': 'goyacc' }
 " filetype: javascript
@@ -903,72 +898,6 @@ endif
 if g:vimrc.has_plugin('TweetVim')
   let g:tweetvim_config_dir = g:vimrc.cache('tweetvim', 1)
   let g:tweetvim_expand_t_co = 1
-endif
-
-" plugin: unite {{{1
-if g:vimrc.has_plugin('unite.vim')
-  let g:unite_data_directory = g:vimrc.cache('unite', 1)
-  call unite#custom#profile('default', 'context', {
-  \  'prompt':       "'-')/ ",
-  \  'start_insert': '1',
-  \  'direction':    'botright',
-  \})
-
-  call unite#custom#profile('files', 'substitute_patterns', {
-  \  'pattern':  '[~.:]\@1<!/',
-  \  'subst':    '*/*',
-  \  'priority': 20,
-  \})
-  call unite#custom#profile('files', 'substitute_patterns', {
-  \  'pattern':  '/\*\@!',
-  \  'subst':    '/*',
-  \  'priority': 10,
-  \})
-  call unite#custom#profile('files', 'substitute_patterns', {
-  \  'pattern':  '^@@',
-  \  'subst':    '\=fnamemodify(expand("#"), ":p:h") . "/*"',
-  \  'priority': 2,
-  \})
-  call unite#custom#profile('files', 'substitute_patterns', {
-  \  'pattern':  '^@',
-  \  'subst':    '\=getcwd() . "/*"',
-  \  'priority': 1,
-  \})
-  call unite#custom#profile('files', 'substitute_patterns', {
-  \  'pattern':  '^;v',
-  \  'subst':    g:vimrc.to_slash(g:vimrc.join(g:vimrc.vimfiles, '*')),
-  \  'priority': 0,
-  \})
-  call unite#custom#profile('files', 'substitute_patterns', {
-  \  'pattern':  '\*\{2,}',
-  \  'subst':    '*',
-  \  'priority': -1,
-  \})
-  call unite#custom#profile('files', 'substitute_patterns', {
-  \  'pattern':  '\\\s\@!',
-  \  'subst':    '/',
-  \  'priority': -30,
-  \})
-
-  call unite#filters#matcher_default#use(['matcher_fuzzy'])
-  call unite#custom#source('buffer,file,file_rec', 'sorters', 'sorter_rank')
-
-  nnoremap          [unite]   <Nop>
-  nmap              <Leader>u [unite]
-  nnoremap          [unite]   :<C-U>Unite<Space>
-  nnoremap <silent> [unite]a  :<C-U>Unite -profile-name=files file file/new buffer file_mru<CR>
-  nnoremap <silent> [unite]f  :<C-U>Unite -profile-name=files file file/new<CR>
-  nnoremap <silent> [unite]r  :<C-U>Unite -profile-name=files file_rec/async:!<CR>
-  nnoremap <silent> [unite]m  :<C-U>Unite -profile-name=files file_mru<CR>
-  nnoremap <silent> [unite]b  :<C-U>Unite -immediately buffer<CR>
-  nnoremap <silent> [unite]t  :<C-U>Unite -immediately tab:no-current<CR>
-  nnoremap <silent> [unite]w  :<C-U>Unite -immediately window:no-current<CR>
-  nnoremap <silent> [unite]T  :<C-U>Unite tag<CR>
-  nnoremap <silent> [unite]h  :<C-U>Unite help<CR>
-  nnoremap <silent> [unite]o  :<C-U>Unite outline<CR>
-  nnoremap <silent> [unite]s  :<C-U>Unite source<CR>
-  nnoremap <silent> [unite]g  :<C-U>Unite grep<CR>
-  nnoremap <silent> [unite]/  :<C-U>Unite line<CR>
 endif
 
 " plugin: vsnip {{{1
