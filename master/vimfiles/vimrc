@@ -353,6 +353,7 @@ endif
 Plug 'junegunn/vim-easy-align', { 'on': ['EasyAlign', 'LiveEasyAlign', '<Plug>(EasyAlign)'] }
 Plug 'junegunn/vim-plug'
 Plug 'kana/vim-repeat'
+Plug 'machakann/vim-highlightedyank'
 Plug 'machakann/vim-sandwich'
 Plug 'machakann/vim-swap'
 Plug 'mattn/emmet-vim'
