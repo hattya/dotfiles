@@ -832,6 +832,8 @@ let g:netrw_home = g:vimrc.cache('netrw', 1)
 if g:vimrc.has_plugin('vim-quickrun')
   let g:quickrun_config = {
   \  '_': {
+  \    'outputter/buffer/running_mark': '🌠',
+  \    'outputter/buffer_legacy/running_mark': '🌠',
   \    'runner/vimproc/updatetime': 40,
   \  },
   \  'python.test': {
@@ -843,6 +845,9 @@ if g:vimrc.has_plugin('vim-quickrun')
     let g:quickrun_config._.runner = 'job'
   elseif g:vimrc.has_plugin('vimproc.vim')
     let g:quickrun_config._.runner = 'vimproc'
+  endif
+  if !exists('*win_execute')
+    let g:quickrun_config._.outputter = 'buffer_legacy'
   endif
   if g:vimrc.is_win
     let g:quickrun_config._['hook/shebang/enable'] = 0
