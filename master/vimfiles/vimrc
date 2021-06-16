@@ -114,9 +114,7 @@ set wildignorecase
 if executable('jvgrep')
   set grepprg=jvgrep
 elseif executable('rg')
-  set grepprg=rg\ --vimgrep
-elseif executable('ag')
-  set grepprg=ag\ --vimgrep
+  set grepprg=rg\ --vimgrep\ --smart-case
 endif
 set helplang=ja,en
 set hlsearch
