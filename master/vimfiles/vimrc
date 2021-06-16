@@ -369,6 +369,7 @@ Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-ref'
 Plug 'thinca/vim-template'
 Plug 'thinca/vim-themis'
+Plug 'tweekmonster/helpful.vim', { 'on': 'HelpfulVersion' }
 Plug 'tyru/capture.vim', { 'on': 'Capture' }
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/autofmt'
