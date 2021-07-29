@@ -210,6 +210,10 @@ fi
 alias pu=pushd
 alias po=popd
 
+if (( ${+commands[rg]} )); then
+  alias rg='rg --smart-case'
+fi
+
 tmux() {
   if [[ ${#} -ge 1 && ${1} == -z ]]; then
     shift
