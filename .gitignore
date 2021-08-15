@@ -1,4 +1,4 @@
-*.py?
+*.pyc
 *.sw?
 **/.config/mlterm/*.log
 **/.config/mlterm/*.six
