@@ -22,6 +22,9 @@ if (( ${+commands[repoman]} )); then
   export PORTAGE_GPG_KEY='EC917A6D'
 fi
 
+# Docker
+export DOCKER_BUILDKIT=1
+
 # GnuPG
 export GPG_TTY=$(tty)
 
