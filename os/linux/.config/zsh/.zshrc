@@ -235,7 +235,7 @@ tmux() {
 }
 
 # change window title of terminal
-if (( ${+DISPLAY} || ${+SSH_CLIENT} )); then
+if (( ${+DISPLAY} || ${+SSH_CONNECTION} )); then
   case ${TERM} in
   rxvt*|*term*|putty*)
     zshrc-term-title() {
