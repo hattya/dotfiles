@@ -22,6 +22,14 @@ if (( ${+commands[repoman]} )); then
   export PORTAGE_GPG_KEY='EC917A6D'
 fi
 
+# via SSH
+if (( ${+SSH_CONNECTION} )); then
+  # D-Bus
+  if (( ! ${+DBUS_SESSION_BUS_ADDRESS} )) && [[ -e ${XDG_RUNTIME_DIR}/bus ]]; then
+    export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+  fi
+fi
+
 # Docker
 export DOCKER_BUILDKIT=1
 
