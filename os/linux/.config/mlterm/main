@@ -26,5 +26,3 @@ scrollbar_view_name = sample
 mod_meta_mode = esc
 logsize = unlimited
 use_clipboard = true
-
-daemon_mode = blend
