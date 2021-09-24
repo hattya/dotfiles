@@ -378,6 +378,7 @@ Plug 'vim-scripts/autodate.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-matchfuzzy'
+Plug 'tacahiroy/ctrlp-funky'
 " status line
 Plug 'itchyny/lightline.vim'
 Plug 'mattn/hahhah-vim'
@@ -502,6 +503,7 @@ if g:vimrc.has_plugin('ctrlp.vim')
   nnoremap <silent> [CtrlP]  :<C-U>CtrlP<CR>
   nnoremap <silent> [CtrlP]b :<C-U>CtrlPBuffer<CR>
   nnoremap <silent> [CtrlP]m :<C-U>CtrlPMRU<CR>
+  nnoremap <silent> [CtrlP]f :<C-U>CtrlPFunky<CR>
 endif
 
 " plugin: eazy-align {{{1
