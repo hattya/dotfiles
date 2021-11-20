@@ -8,7 +8,6 @@ endif
 
 setlocal expandtab
 setlocal shiftwidth=4
-setlocal tabstop=4
 
 let g:c_gnu = 1
 let g:c_comment_strings = 1
