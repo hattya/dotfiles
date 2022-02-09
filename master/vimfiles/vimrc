@@ -152,6 +152,9 @@ if has('persistent_undo')
   let &undodir = g:vimrc.cache('undo', 1)
 endif
 set wildmenu
+if has('patch-8.2.4325')
+  set wildoptions+=pum
+endif
 
 " screen options {{{2
 if has('multi_byte') && !has('termresponse') || &t_u7 ==# ''
