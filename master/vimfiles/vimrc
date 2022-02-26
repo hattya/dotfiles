@@ -152,6 +152,9 @@ if has('persistent_undo')
   let &undodir = g:vimrc.cache('undo', 1)
 endif
 set wildmenu
+if has('patch-8.2.4463')
+  set wildoptions+=fuzzy
+endif
 if has('patch-8.2.4325')
   set wildoptions+=pum
 endif
