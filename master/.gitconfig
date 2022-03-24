@@ -14,6 +14,7 @@
 	l = log --pretty=fuller --stat
 	ll = log -p --pretty=fuller --stat
 	ls = ls-files
+	please = push --force-with-lease
 	ss = status -bs
 	st = status
 	re = rebase --committer-date-is-author-date
