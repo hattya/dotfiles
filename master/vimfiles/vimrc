@@ -663,6 +663,15 @@ if g:vimrc.has_plugin('vim-lsp')
   let g:lsp_diagnostics_echo_cursor = 1
   let g:lsp_highlight_references_enabled = 1
 
+  function! s:vscode_ls(ft) abort
+    for sfx in ['-languageserver', '-language-server']
+      let name = 'vscode-' . a:ft . sfx
+      if executable(name)
+        return name
+      endif
+    endfor
+  endfunction
+
   augroup vimrc-plugin-lsp
     autocmd!
     if executable('clangd')
@@ -704,12 +713,23 @@ if g:vimrc.has_plugin('vim-lsp')
         \  'allowlist': ['java'],
         \  'root_uri':  {-> s:root_uri('.git', '.hg')},
         \})
-        endif
       endif
-    if executable('vscode-html-languageserver')
+    endif
+    let s:ls = s:vscode_ls('css')
+    if s:ls
       autocmd User lsp_setup call lsp#register_server({
-      \  'name':      'vscode-html-languageserver',
-      \  'cmd':       {-> [&shell, &shellcmdflag, 'vscode-html-languageserver --stdio']},
+      \  'name':      s:ls
+      \  'cmd':       {-> [&shell, &shellcmdflag, s:ls . ' --stdio']},
+      \  'allowlist': ['css', 'less', 'sass', 'scss'],
+      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
+      \  },
+      \})
+    endif
+    let s:ls = s:vscode_ls('html')
+    if s:ls
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name':      s:ls
+      \  'cmd':       {-> [&shell, &shellcmdflag, s:ls . ' --stdio']},
       \  'allowlist': ['html'],
       \  'root_uri':  {-> s:root_uri('.git', '.hg')},
       \  'initialization_options': {
@@ -721,10 +741,11 @@ if g:vimrc.has_plugin('vim-lsp')
       \  },
       \})
     endif
-    if executable('vscode-json-languageserver')
+    let s:ls = s:vscode_ls('json')
+    if s:ls
       autocmd User lsp_setup call lsp#register_server({
-      \  'name':      'vscode-json-languageserver',
-      \  'cmd':       {-> [&shell, &shellcmdflag, 'vscode-json-languageserver --stdio']},
+      \  'name':      s:ls,
+      \  'cmd':       {-> [&shell, &shellcmdflag, s:ls . ' --stdio']},
       \  'allowlist': ['json'],
       \  'root_uri':  {-> s:root_uri('.git', '.hg')},
       \  'initialization_options': {
@@ -743,6 +764,7 @@ if g:vimrc.has_plugin('vim-lsp')
       \  },
       \})
     endif
+    unlet s:ls
     if executable('typescript-language-server')
       autocmd User lsp_setup call lsp#register_server({
       \  'name':      'typescript-language-server',
