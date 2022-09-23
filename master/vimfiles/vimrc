@@ -411,7 +411,6 @@ Plug 'c9s/perlomni.vim', { 'for': 'perl' }
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'hattya/python-indent.vim', { 'for': 'python' }
 " filetype: rst
-Plug 'gu-fan/riv.vim', { 'for': 'rst' }
 " filetype: tmux
 Plug 'ericpruitt/tmux.vim', { 'for': 'tmux', 'rtp': 'vim' }
 " filetype: toml
@@ -895,12 +894,6 @@ endif
 " plugin: ref {{{1
 if g:vimrc.has_plugin('vim-ref')
   let g:ref_cache_dir = g:vimrc.cache('ref', 1)
-endif
-
-" plugin: riv {{{1
-if g:vimrc.has_plugin('riv.vim')
-  let g:riv_file_link_style = 2
-  let g:riv_disable_folding = 1
 endif
 
 " plugin: signify {{{1
