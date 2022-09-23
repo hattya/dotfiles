@@ -9,5 +9,6 @@ endif
 setlocal expandtab
 setlocal shiftwidth=2
 setlocal tabstop=2
+setlocal spell
 
-let b:undo_ftplugin .= 'setl et< sw< ts<'
+let b:undo_ftplugin .= 'setl et< sw< ts< spell<'
