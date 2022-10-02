@@ -920,7 +920,7 @@ if g:vimrc.has_plugin('vim-template')
 
   function! s:template_loaded() abort
     let pos = getpos('.')
-    silent %s/<%=\(.\{-}\)%>/\=eval(submatch(1))/ge
+    silent %s/<%=\s*\(.\{-}\)\s*%>/\=eval(submatch(1))/ge
     call histdel('/', -1)
     call cursor(1, 1)
     if search('<+CURSOR+>')
