@@ -24,5 +24,6 @@ scrollbar_mode = right
 scrollbar_view_name = sample
 
 mod_meta_mode = esc
+mod_meta_key = alt
 logsize = unlimited
 use_clipboard = true
