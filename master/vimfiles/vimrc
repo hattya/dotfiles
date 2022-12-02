@@ -715,21 +715,20 @@ if g:vimrc.has_plugin('vim-lsp')
         \})
       endif
     endif
-    let s:ls = s:vscode_ls('css')
-    if s:ls
+    let s:css_ls = s:vscode_ls('css')
+    if !empty(s:css_ls)
       autocmd User lsp_setup call lsp#register_server({
-      \  'name':      s:ls
-      \  'cmd':       {-> [&shell, &shellcmdflag, s:ls . ' --stdio']},
+      \  'name':      s:css_ls,
+      \  'cmd':       {-> [&shell, &shellcmdflag, s:css_ls . ' --stdio']},
       \  'allowlist': ['css', 'less', 'sass', 'scss'],
       \  'root_uri':  {-> s:root_uri('.git', '.hg')},
-      \  },
       \})
     endif
-    let s:ls = s:vscode_ls('html')
-    if s:ls
+    let s:html_ls = s:vscode_ls('html')
+    if !empty(s:html_ls)
       autocmd User lsp_setup call lsp#register_server({
-      \  'name':      s:ls
-      \  'cmd':       {-> [&shell, &shellcmdflag, s:ls . ' --stdio']},
+      \  'name':      s:html_ls,
+      \  'cmd':       {-> [&shell, &shellcmdflag, s:html_ls . ' --stdio']},
       \  'allowlist': ['html'],
       \  'root_uri':  {-> s:root_uri('.git', '.hg')},
       \  'initialization_options': {
@@ -741,11 +740,11 @@ if g:vimrc.has_plugin('vim-lsp')
       \  },
       \})
     endif
-    let s:ls = s:vscode_ls('json')
-    if s:ls
+    let s:json_ls = s:vscode_ls('json')
+    if !empty(s:json_ls)
       autocmd User lsp_setup call lsp#register_server({
-      \  'name':      s:ls,
-      \  'cmd':       {-> [&shell, &shellcmdflag, s:ls . ' --stdio']},
+      \  'name':      s:json_ls,
+      \  'cmd':       {-> [&shell, &shellcmdflag, s:json_ls . ' --stdio']},
       \  'allowlist': ['json'],
       \  'root_uri':  {-> s:root_uri('.git', '.hg')},
       \  'initialization_options': {
@@ -764,7 +763,6 @@ if g:vimrc.has_plugin('vim-lsp')
       \  },
       \})
     endif
-    unlet s:ls
     if executable('typescript-language-server')
       autocmd User lsp_setup call lsp#register_server({
       \  'name':      'typescript-language-server',
