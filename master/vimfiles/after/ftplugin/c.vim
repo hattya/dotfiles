@@ -14,6 +14,4 @@ let g:c_comment_strings = 1
 let g:c_space_errors = 1
 
 let b:undo_ftplugin .= 'setl et< sw< ts<'
-for s:k in filter(keys(g:), "v:val =~ '^c_'")
-  let b:undo_ftplugin .= ' | unl g:' . s:k
-endfor
+let b:undo_ftplugin .= ' | unl g:c_gnu g:c_comment_strings g:c_space_errors'
