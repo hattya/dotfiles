@@ -16,7 +16,7 @@ local venv = require('venv')
 share.nya.command('venv', venv.command)
 
 nyagos.env.workon_home = nyagos.env.APPDATA .. [[\virtualenv]]
-nyagos.exec([[venv workon py310]])
+nyagos.exec([[venv workon py311]])
 
 -- prompt
 share.color = require('color')
