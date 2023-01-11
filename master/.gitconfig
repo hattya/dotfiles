@@ -61,6 +61,7 @@
 	rebase = false
 [push]
 	default = simple
+	useForceIfIncludes = true
 [rebase]
 	autosquash = true
 [user]
