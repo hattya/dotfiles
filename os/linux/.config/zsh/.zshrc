@@ -60,7 +60,7 @@ zstyle ':completion:*' cache-path "${ZCACHEDIR}"/zcompcache
 zstyle ':completion:*' completer _oldlist _complete _match _history _approximate _prefix
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}' '+r:|[-_.]=*'
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*:descriptions' format "$(zshrc-fg 246 white '-') $(zshrc-fg 220 yellow '%d') $(zshrc-fg 246 white '-')"
