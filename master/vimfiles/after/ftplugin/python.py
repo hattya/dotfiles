@@ -34,7 +34,10 @@ def _vimrc_pth(activate):
         pth_path = []
         if pth:
             root = os.path.dirname(pth)
-            values = {'pyver': '{}.{}'.format(*sys.version_info)}
+            values = {
+                'pyver': '{}.{}'.format(*sys.version_info),
+                'toxenv': 'py{}{}'.format(*sys.version_info)
+            }
             with io.open(pth, encoding='utf-8-sig') as fp:
                 for l in fp:
                     l = os.path.expandvars(l.strip().format(**values))
