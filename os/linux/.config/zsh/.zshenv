@@ -67,6 +67,7 @@ export PYTHONSTARTUP=~/.config/python/startup.py
 
 # themis.vim
 userpath+=(~/.vim/bundle/vim-themis/bin(N/))
+export THEMIS_ARGS='--clean -e -s'
 
 path=(${userpath} ${save_path})
 unset save_path userpath
