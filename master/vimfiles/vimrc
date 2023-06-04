@@ -397,7 +397,6 @@ Plug 'thinca/vim-textobj-between'
 " twitter
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
-Plug 'mattn/favstar-vim', { 'on': 'FavStar' }
 " filetype: go
 Plug 'rhysd/vim-goyacc', { 'for': 'goyacc' }
 " filetype: javascript
