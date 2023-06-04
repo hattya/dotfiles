@@ -395,7 +395,6 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-syntax'
 Plug 'thinca/vim-textobj-between'
 " twitter
-Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
 " filetype: go
 Plug 'rhysd/vim-goyacc', { 'for': 'goyacc' }
