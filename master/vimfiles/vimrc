@@ -499,6 +499,14 @@ if g:vimrc.has_plugin('ctrlp.vim')
   elseif has('python3') || has('python')
     let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
   endif
+  let g:ctrlp_mruf_exclude = join(
+  \  [
+  \     g:vimrc.join('.*', 'tmp', '.*'),
+  \     g:vimrc.join('.*', '\.git', '.*'),
+  \     g:vimrc.join('.*', 'hg-editor-.*'),
+  \  ],
+  \  '\|'
+  \)
 
   nnoremap          [CtrlP]  <Nop>
   nmap              <C-P>    [CtrlP]
