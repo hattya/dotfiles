@@ -826,7 +826,7 @@ if g:vimrc.has_plugin('vim-lsp')
   function! s:schemas() abort
     let catalog = g:vimrc.join(g:vimrc.cache('lsp', 1), 'catalog.json')
     if localtime() - getftime(catalog) >= 60 * 60 * 24 * 3
-      let res = webapi#http#get('http://schemastore.org/api/json/catalog.json')
+      let res = webapi#http#get('https://schemastore.org/api/json/catalog.json')
       if res.status == 200
         call writefile(split(res.content, "\n"), catalog)
       endif
