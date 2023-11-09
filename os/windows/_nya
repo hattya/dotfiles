@@ -89,4 +89,4 @@ lua_e "
   end
 "
 
-venv workon py311
+venv workon py312
