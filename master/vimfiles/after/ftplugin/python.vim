@@ -49,6 +49,8 @@ if g:vimrc.has_plugin('flap.vim')
   let b:flap = {
   \  'rules': [
   \    ['True', 'False'],
+  \    ['Spam', 'Eggs', 'Ham', 'Toast', 'Beans', 'Bacon', 'Sausage', 'Tomato', 'Lobster', 'Shallots', 'Aubergine', 'Truffle', 'Pate', 'Shrubbery', 'Herring', 'Blancmange'],
+  \    ['spam', 'eggs', 'ham', 'toast', 'beans', 'bacon', 'sausage', 'tomato', 'lobster', 'shallots', 'aubergine', 'truffle', 'pate', 'shrubbery', 'herring', 'blancmange'],
   \  ],
   \}
 endif
