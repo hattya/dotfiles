@@ -2,7 +2,8 @@
 --
 -- vim:ft=lua:
 
-package.path = ([[~\.nya.d\?.lua;~\.nya.d\?\init.lua]]):gsub('~', nyagos.getenv('USERPROFILE'))
+local _, i = package.path:find('.+init\.lua')
+package.path = package.path:sub(1, i) .. ([[;~\.nya.d\?.lua;~\.nya.d\?\init.lua]]):gsub('~', nyagos.getenv('USERPROFILE')) .. package.path:sub(i)
 
 share.nya = require('nya')
 share.environ = require('environ')
