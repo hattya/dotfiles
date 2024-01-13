@@ -68,7 +68,7 @@ nyagos.prompt = function(this)
 end
 
 -- peco
-use 'peco'
+require 'peco'
 
 nyagos.bindkey('C_R', function(this)
   this:replacefrom(1, '')
