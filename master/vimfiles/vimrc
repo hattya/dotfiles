@@ -499,14 +499,16 @@ if g:vimrc.has_plugin('ctrlp.vim')
   elseif has('python3') || has('python')
     let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
   endif
+  let s:sep = escape(g:vimrc.sep, '\')
   let g:ctrlp_mruf_exclude = join(
   \  [
-  \     g:vimrc.join('.*', 'tmp', '.*'),
-  \     g:vimrc.join('.*', '\.git', '.*'),
-  \     g:vimrc.join('.*', 'hg-editor-.*'),
+  \     join(['.*', 'tmp',   '.*'],  s:sep),
+  \     join(['.*', '\.git', '.*'],  s:sep),
+  \     join(['.*', 'hg-editor-.*'], s:sep),
   \  ],
   \  '\|'
   \)
+  unlet s:sep
 
   nnoremap          [CtrlP]  <Nop>
   nmap              <C-P>    [CtrlP]
