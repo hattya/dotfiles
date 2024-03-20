@@ -45,18 +45,9 @@ def _vimrc_pth(activate):
                     if (os.path.isdir(p)
                         and p not in sys.path):
                         pth_path.append(p)
-        # for Jedi
-        m = sys.modules.get('jedi.api.project')
-        if m is not None:
-            m.discover_buildout_paths = lambda *a, **kw: pth_path
         # setlocal path
         path = [_vimrc_pth_re.sub(repl, p) for p in sys.path + pth_path if os.path.isdir(p)]
         vim.command('setlocal path=.,{},,'.format(','.join(path)))
-        if 'setl path<' not in vim.eval('b:undo_ftplugin'):
-            vim.command('let b:undo_ftplugin .= " | setl path<"')
-    else:
-        proj = sys.modules.get('jedi.api.project')
-        path = sys.modules.get('jedi.evaluate.sys_path')
-        if (proj is not None
-            and path is not None):
-            proj.discover_buildout_paths = path.discover_buildout_paths
+        vim.current.buffer.vars['undo_ftplugin'] += b' | setl path<'
+        # let b:jedi_added_sys_path
+        vim.current.buffer.vars['jedi_added_sys_path'] = pth_path
