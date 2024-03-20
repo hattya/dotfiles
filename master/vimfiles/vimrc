@@ -935,12 +935,6 @@ if g:vimrc.has_plugin('vim-template')
   endfunction
 endif
 
-" plugin: TweetVim {{{1
-if g:vimrc.has_plugin('TweetVim')
-  let g:tweetvim_config_dir = g:vimrc.cache('tweetvim', 1)
-  let g:tweetvim_expand_t_co = 1
-endif
-
 " plugin: vsnip {{{1
 if g:vimrc.has_plugin('vim-vsnip')
   let g:vsnip_snippet_dir = g:vimrc.join(g:vimrc.vimfiles, 'vsnip')
