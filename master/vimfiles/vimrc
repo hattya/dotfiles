@@ -903,6 +903,18 @@ if g:vimrc.has_plugin('vim-ref')
   let g:ref_cache_dir = g:vimrc.cache('ref', 1)
 endif
 
+" plugin: rst {{{1
+let g:rst_syntax_code_list = {
+\  'dosini':     ['ini'],
+\  'go':         ['go'],
+\  'html':       ['html'],
+\  'javascript': ['javascript'],
+\  'python':     ['python'],
+\  'sh':         ['bash', 'sh'],
+\  'toml':       ['toml'],
+\  'vim':        ['vim'],
+\}
+
 " plugin: signify {{{1
 if g:vimrc.has_plugin('vim-signify')
   let g:signify_sign_delete_first_line = '^'
