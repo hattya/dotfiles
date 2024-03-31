@@ -563,6 +563,11 @@ if g:vimrc.has_plugin('jedi-vim')
   let g:jedi#show_call_signatures = 0
 endif
 
+" plugin: lexima {{{1
+if g:vimrc.has_plugin('lexima.vim')
+  call lexima#add_rule({'char': "'", 'at': '\c\<\%([bfru]\|[bf]r\|r[fb]\)\%#', 'input_after': "'", 'filetype': ['python', 'python.test']})
+endif
+
 " plugin: license {{{1
 if g:vimrc.has_plugin('license.vim')
   let g:license_shiftwidth = 3
