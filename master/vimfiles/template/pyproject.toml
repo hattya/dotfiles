@@ -1,6 +1,71 @@
+:silent %s/<+PACKAGE+>/\=expand('%:p:h:t')/ge
 [build-system]
 requires = [
-    "setuptools >= 42",
-    "scmver",
+    "setuptools >= 61.0",
+    "scmver[toml] >= 1.7",
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "<+PACKAGE+>"
+description = "<+CURSOR+>"
+readme = "README.rst"
+authors = [
+    {name = "<%= g:user.name %>", email = "<%= g:user.email %>"},
+]
+license = {text = ""}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">= 3.8"
+dynamic = [
+    "version",
+]
+
+[project.scripts]
+<+PACKAGE+> = "<+PACKAGE+>.cli:run"
+
+[project.optional-dependencies]
+
+[project.urls]
+Homepage = "https://github.com/hattya/<+PACKAGE+>"
+
+[tool.setuptools]
+include-package-data = false
+packages = [
+    "<+PACKAGE+>",
+]
+
+[tool.setuptools.package-data]
+<+PACKAGE+> = [
+    "py.typed",
+]
+
+[tool.scmver]
+spec = "micro"
+write-to = "<+PACKAGE+>/__version__.py"
+fallback = {attr = "__version__:version", path = "<+PACKAGE+>"}
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "*/__main__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "except ImportError:",
+]
+
+[tool.mypy]
+strict = true
