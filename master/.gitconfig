@@ -36,7 +36,7 @@
 [color]
 	ui = auto
 [core]
-	pager = less -F
+	pager = delta
 	quotepath = false
 [diff]
 	algorithm = histogram
@@ -49,14 +49,12 @@
 	lineNumber = true
 [help]
 	autocorrect = -1
+[interactive]
+	diffFilter = delta --color-only
 [merge]
 	tool = p4merge
 [mergetool]
 	keepBackup = false
-[pager]
-	diff = diff-highlight | $(git var GIT_PAGER)
-	log = diff-highlight | $(git var GIT_PAGER)
-	show = diff-highlight | $(git var GIT_PAGER)
 [pull]
 	rebase = false
 [push]
@@ -67,5 +65,8 @@
 [user]
 	name = Akinori Hattori
 	email = hattya@gmail.com
+[delta]
+	diff-highlight = true
+	navigate = true
 [github]
 	user = hattya
