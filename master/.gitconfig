@@ -64,6 +64,8 @@
 	useForceIfIncludes = true
 [rebase]
 	autosquash = true
+[tag]
+	sort = -committerdate
 [user]
 	name = Akinori Hattori
 	email = hattya@gmail.com
