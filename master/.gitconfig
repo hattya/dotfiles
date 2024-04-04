@@ -40,6 +40,7 @@
 	quotepath = false
 [diff]
 	algorithm = histogram
+	colorMoved = default
 	compactionHeuristic = true
 	renames = copy
 	tool = p4merge
