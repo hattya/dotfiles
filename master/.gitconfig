@@ -53,6 +53,7 @@
 [interactive]
 	diffFilter = delta --color-only
 [merge]
+	conflictstyle = diff3
 	tool = p4merge
 [mergetool]
 	keepBackup = false
