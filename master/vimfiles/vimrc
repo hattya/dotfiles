@@ -146,6 +146,7 @@ set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4
 set showmatch
 set spelllang+=cjk
+set noswapfile
 set nostartofline
 if has('persistent_undo')
   set undofile
