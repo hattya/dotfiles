@@ -6,6 +6,7 @@ else
   let b:undo_ftplugin = ''
 endif
 
+setlocal fileformat=unix
 setlocal tabstop=4
 
 let b:undo_ftplugin .= 'setl ts<'
