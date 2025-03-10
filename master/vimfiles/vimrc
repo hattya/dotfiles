@@ -276,9 +276,11 @@ function! s:update_copyright_year() abort
   if &modified
     let pos = getpos('.')
     try
+      call cursor([line('$'), col([line('$'), '$'])])
       let Y = strftime('%Y')
-      silent execute 'g/\v\ccopyright\s*%(\(c\)\s*)?%(' . Y . ')@!\d{4}%(-' . Y . ')@!/s/\v(\d{4})%(-\d{4})?/\1-' . Y . '/'
-      call histdel('/', -1)
+      if search('\v\ccopyright\s*%(\(c\)\s*)?%(' . Y . ')@!\d{4}%(-' . Y . ')@!', 'bcW')
+        call setline('.', substitute(getline('.'), '\v(\d{4})%(-\d{4})?', '\1-' . Y, ''))
+      endif
     finally
       call setpos('.', pos)
     endtry
