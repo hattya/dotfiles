@@ -39,6 +39,7 @@ export GPG_TTY=$(tty)
 # Go
 if (( ${+commands[go]} )); then
   export GOPATH=~/.local
+  export GOAMD64='v2'
   userpath+=($(go env GOROOT)/bin(N/))
 fi
 
