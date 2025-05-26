@@ -135,6 +135,9 @@ endif
 if exists('+completeslash')
   set completeslash=slash
 endif
+if exists('+completefuzzycollect')
+  set completefuzzycollect=files
+endif
 set noexpandtab
 if exists('+fixendofline')
   set nofixendofline
