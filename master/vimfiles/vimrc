@@ -129,6 +129,9 @@ set autoread
 set backspace=indent,eol,start
 set nobackup
 set completeopt=menuone,preview
+if has('patch-9.1.463')
+  set completeopt+=fuzzy
+endif
 if exists('+completeslash')
   set completeslash=slash
 endif
