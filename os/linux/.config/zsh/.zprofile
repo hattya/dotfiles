@@ -8,8 +8,8 @@ if [[ -f /etc/gentoo-release ]]; then
 fi
 
 # start keychain
-if (( ${+commands[keychain]} )); then
-  if (( ! ${+SSH_TTY} )) || [[ ${SHLVL} -eq 1 && ${TTY} == ${SSH_TTY} ]]; then
+if (( ${+commands[keychain]} )) && [[ -t 0 ]]; then
+  if (( ! ${+SSH_TTY} )) || [[ ${SHLVL} -eq 1 && ${SSH_TTY} == ${TTY} ]]; then
     # login via TTY or SSH
     eval $(keychain --eval --ignore-missing --inherit any-once id_ed25519)
   fi
