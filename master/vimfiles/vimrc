@@ -394,6 +394,12 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'tacahiroy/ctrlp-funky'
+" color scheme
+Plug 'cocopon/iceberg.vim'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'Rigellute/rigel'
+Plug 'tomasr/molokai'
+Plug 'wadackel/vim-dogrun'
 " status line
 Plug 'itchyny/lightline.vim'
 Plug 'mattn/hahhah-vim'
@@ -424,12 +430,6 @@ Plug 'cespare/vim-toml', { 'for': 'toml' }
 " filetype: vim
 Plug 'vim-jp/syntax-vim-ex', { 'for': 'vim' }
 Plug 'thinca/vim-ft-vim_fold', { 'for': 'vim' }
-" color scheme
-Plug 'cocopon/iceberg.vim'
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'Rigellute/rigel'
-Plug 'tomasr/molokai'
-Plug 'wadackel/vim-dogrun'
 
 for s:p in glob(g:vimrc.join(g:plug_home, '*'), 1, 1)
   if !has_key(g:plugs, fnamemodify(s:p, ':t'))
