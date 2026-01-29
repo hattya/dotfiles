@@ -445,12 +445,46 @@ delcommand PlugUpgrade
 
 " color scheme {{{1
 if has('gui_running') || &t_Co == 256
-  if g:vimrc.has_plugin('iceberg.vim')
-    colorscheme iceberg
-  elseif g:vimrc.has_plugin('molokai')
-    let g:molokai_original = 0
-    colorscheme molokai
-  endif
+  function! s:colorscheme_of_the_day()
+    let cache = g:vimrc.join(g:vimrc.cache('colors_name'))
+    if strftime('%Y-%m-%d', getftime(cache)) == strftime('%Y-%m-%d')
+      let color = get(readfile(cache), 0, '')
+      if !empty(color)
+        return color
+      endif
+    endif
+
+    let list = []
+    for name in [
+    \  'vim-dogrun',
+    \  'iceberg.vim',
+    \  'molokai',
+    \  'rigel',
+    \  'tokyonight-vim',
+    \]
+      if g:vimrc.has_plugin(name)
+        let list += [substitute(name, '\v^%(vim-)=(.{-})%([.-]vim)=$', '\1', '')]
+      endif
+    endfor
+    if g:vimrc.has_plugin('catppuccin')
+      let list += [
+      \  'catppuccin_frappe',
+      \  'catppuccin_macchiato',
+      \  'catppuccin_mocha',
+      \]
+    endif
+    if g:vimrc.has_plugin('rose-pine')
+      let list += [
+      \  'rosepine',
+      \  'rosepine_moon',
+      \]
+    endif
+    let color = list[rand() % len(list)]
+    call writefile([color], cache)
+    return color
+  endfunction
+
+  execute 'colorscheme ' . s:colorscheme_of_the_day()
 endif
 
 " plugin: ambicmd {{{1
