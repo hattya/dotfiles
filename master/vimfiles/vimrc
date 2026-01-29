@@ -399,6 +399,7 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'cocopon/iceberg.vim'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'Rigellute/rigel'
+Plug 'rose-pine/vim', { 'as': 'rose-pine' }
 Plug 'tomasr/molokai'
 Plug 'wadackel/vim-dogrun'
 " status line
