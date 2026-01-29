@@ -395,6 +395,7 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'tacahiroy/ctrlp-funky'
 " color scheme
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'cocopon/iceberg.vim'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'Rigellute/rigel'
