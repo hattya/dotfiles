@@ -730,6 +730,14 @@ if g:vimrc.has_plugin('vim-lsp')
 
   augroup vimrc-plugin-lsp
     autocmd!
+    if executable('basedpyright-langserver')
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name':      'basedpyright',
+      \  'cmd':       {-> ['basedpyright-langserver', '--stdio']},
+      \  'allowlist': ['python', 'python.test'],
+      \  'root_uri':  {-> s:root_uri('pyproject.toml', 'setup.cfg', 'setup.py', '.git', '.hg')},
+      \})
+    endif
     if executable('clangd')
       autocmd User lsp_setup call lsp#register_server({
       \  'name':      'clangd',
