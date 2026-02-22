@@ -16,13 +16,8 @@ hgext.pager =
 hgext.progress =
 hgext.purge =
 
-diff_highlight =
-
 [bookmarks]
 track.current = True
-
-[diff-highlight]
-encodings = iso-2022-jp-3, euc-jisx0213, euc-jp, utf-8, cp932
 
 [mq]
 secret = True
@@ -33,7 +28,7 @@ attend =
     heads, help, incoming, log, manifest, outgoing, paths, phase, status,
     summary, tags, tip,
     qapplied, qdiff, qseries, qunapplied
-pager = less -F
+pager = delta
 
 [hooks]
 update.utime = python:~/.hgrc.d/utime.py:hook
