@@ -309,7 +309,13 @@ if (( ${+DISPLAY} || ${+SSH_CONNECTION} )); then
   add-zsh-hook preexec zshrc-term-title-preexec
 fi
 
-if (( ${+commands[keychain]} )); then
+if (( ${+TMUX} )); then
+  # ssh-agent
+  zshrc-tmux-preexec() {
+    eval $(tmux show-environment -s)
+  }
+  add-zsh-hook preexec zshrc-tmux-preexec
+elif (( ${+commands[keychain]} )); then
   # keychain
   zshrc-keychain-preexec() {
     local f
@@ -318,12 +324,6 @@ if (( ${+commands[keychain]} )); then
     done
   }
   add-zsh-hook preexec zshrc-keychain-preexec
-elif (( ${+TMUX} )); then
-  # ssh-agent
-  zshrc-tmux-preexec() {
-    eval $(tmux show-environment -s)
-  }
-  add-zsh-hook preexec zshrc-tmux-preexec
 fi
 
 if [[ -f ~/.local/Cellar/knu-z/z.sh ]]; then
