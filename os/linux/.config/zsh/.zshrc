@@ -242,7 +242,7 @@ if (( ${+DISPLAY} || ${+SSH_CONNECTION} )); then
       print -n "\e]2;${1}\a"
     }
     ;;
-  screen*)
+  screen*|tmux*)
     zshrc-term-title() {
       # screen location
       print -n "\e_${1}\e\\"
