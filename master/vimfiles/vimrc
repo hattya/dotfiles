@@ -730,14 +730,6 @@ if g:vimrc.has_plugin('vim-lsp')
 
   augroup vimrc-plugin-lsp
     autocmd!
-    if executable('basedpyright-langserver')
-      autocmd User lsp_setup call lsp#register_server({
-      \  'name':      'basedpyright',
-      \  'cmd':       {-> ['basedpyright-langserver', '--stdio']},
-      \  'allowlist': ['python', 'python.test'],
-      \  'root_uri':  {-> s:root_uri('pyproject.toml', 'setup.cfg', 'setup.py', '.git', '.hg')},
-      \})
-    endif
     if executable('clangd')
       autocmd User lsp_setup call lsp#register_server({
       \  'name':      'clangd',
@@ -778,6 +770,37 @@ if g:vimrc.has_plugin('vim-lsp')
         \  'root_uri':  {-> s:root_uri('.git', '.hg')},
         \})
       endif
+    endif
+    if executable('ty')
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name':      'ty',
+      \  'cmd':       {-> ['ty', 'server']},
+      \  'allowlist': ['python', 'python.test'],
+      \  'root_uri':  {-> s:root_uri('pyproject.toml', 'setup.cfg', 'setup.py', '.git', '.hg')},
+      \  'initialization_options': {
+      \    'diagnosticMode': 'off',
+      \  },
+      \})
+    endif
+    if executable('typescript-language-server')
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name':      'typescript-language-server',
+      \  'cmd':       {-> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \  'allowlist': ['javascript', 'typescript'],
+      \  'root_uri':  {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
+      \})
+    endif
+    if executable('vim-language-server')
+      autocmd User lsp_setup call lsp#register_server({
+      \  'name':      'vim-language-server',
+      \  'cmd':       {-> [&shell, &shellcmdflag, 'vim-language-server --stdio']},
+      \  'allowlist': ['vim'],
+      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
+      \  'initialization_options': {
+      \    'vimruntime':  $RUNTIME,
+      \    'runtimepath': &runtimepath,
+      \  },
+      \})
     endif
     let s:css_ls = s:vscode_ls('css')
     if !empty(s:css_ls)
@@ -824,26 +847,6 @@ if g:vimrc.has_plugin('vim-lsp')
       \      },
       \      'schemas': s:schemas(),
       \    },
-      \  },
-      \})
-    endif
-    if executable('typescript-language-server')
-      autocmd User lsp_setup call lsp#register_server({
-      \  'name':      'typescript-language-server',
-      \  'cmd':       {-> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \  'allowlist': ['javascript', 'typescript'],
-      \  'root_uri':  {-> s:root_uri('tsconfig.json', 'package.json', '.git', '.hg')},
-      \})
-    endif
-    if executable('vim-language-server')
-      autocmd User lsp_setup call lsp#register_server({
-      \  'name':      'vim-language-server',
-      \  'cmd':       {-> [&shell, &shellcmdflag, 'vim-language-server --stdio']},
-      \  'allowlist': ['vim'],
-      \  'root_uri':  {-> s:root_uri('.git', '.hg')},
-      \  'initialization_options': {
-      \    'vimruntime':  $RUNTIME,
-      \    'runtimepath': &runtimepath,
       \  },
       \})
     endif
